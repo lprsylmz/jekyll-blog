@@ -153,7 +153,38 @@ title: Journal
         });
 
         // Dinamik tarayıcı yolu yerine Jekyll sayfa bağlantısı kullanımı
-        const journalPath = "{{ page.url | relative_url }}";
+        (function () {
+            const journalPath = "{{ '/journal/' | relative_url }}";
+            const proseElements = document.querySelectorAll('.prose');
+            const tagRegex = /(^|\s)#([a-zA-Z0-9çğıöşüÇĞİÖŞÜ_-]+)/g;
+
+            proseElements.forEach(el => {
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+                const textNodes = [];
+                let currentNode;
+
+                while (currentNode = walker.nextNode()) {
+                    const parentTag = currentNode.parentNode.tagName;
+                    if (parentTag !== 'A' && parentTag !== 'SCRIPT' && parentTag !== 'STYLE' && parentTag !== 'CODE') {
+                        textNodes.push(currentNode);
+                    }
+                }
+
+                textNodes.forEach(node => {
+                    if (tagRegex.test(node.nodeValue)) {
+                        const tempContainer = document.createElement('span');
+                        tempContainer.innerHTML = node.nodeValue.replace(tagRegex, function (match, space, tag) {
+                            return space + `<a href="${journalPath}?tag=${encodeURIComponent(tag)}" class="font-bold hover:underline">#${tag}</a>`;
+                        });
+
+                        while (tempContainer.firstChild) {
+                            node.parentNode.insertBefore(tempContainer.firstChild, node);
+                        }
+                        node.parentNode.removeChild(node);
+                    }
+                });
+            });
+        })();
         const proseElements = document.querySelectorAll('.prose');
 
         proseElements.forEach(el => {
