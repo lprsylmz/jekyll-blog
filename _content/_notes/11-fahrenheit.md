@@ -1,7 +1,8 @@
 ---
-title: Fahrenheit 451
-date: 2026-09-17 15:30:00 +0300
-tags: [sistem, mimari]
+title: "Fahrenheit 451"
+description: "Ray Bradbury'nin distopik romanı Fahrenheit 451'den bir alıntı."
+date: 2026-05-22 16:00:00 +0300
+tags: [kitap, fahrenheit451, raybradbury]
 ---
 
 
