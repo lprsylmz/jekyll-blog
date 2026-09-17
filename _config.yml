@@ -1,0 +1,52 @@
+title: "Alper Söylemez"
+description: "Notlarım; hatırlamak ve hatırlatmak için."
+author: "admin"
+url: "https://alpersoylemez.com"
+baseurl: ""
+lang: tr
+timezone: Europe/Istanbul
+
+twitter_username: lprsylmz
+google_analytics: "G-DBWK2DZD1C"
+yandex_metrica: "108975845"
+yandex_verification: "41cec89ecaaf7150"
+cloudflare_token: ""
+
+permalink: pretty
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-redirect-from
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - scripts
+  - _site
+  - node_modules
+
+keep_files:
+  - .nojekyll
+
+collections_dir: _content
+collections:
+  notes:
+    output: true
+    permalink: /notes/:title/
+    values:
+      layout: "default"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      is_published: true

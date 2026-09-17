@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /admin/
+
+User-agent: Yandex
+Allow: /
+Disallow: /assets/
+Disallow: /admin/
+Clean-param: ref /
+
+Sitemap: https://alpersoylemez.com/sitemap.xml

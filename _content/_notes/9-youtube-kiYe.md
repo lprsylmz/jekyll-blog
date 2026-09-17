@@ -1,0 +1,30 @@
+---
+layout: default
+note_id: 9
+title: "youtube"
+slug: "youtube-kiYe"
+date: 2026-05-03 07:42:47
+is_published: true
+---
+
+
+YouTube Ana Sayfada 5 Sütun Düzeni (Eklentisiz)
+
+YouTube ana sayfasındaki video ızgarasını daha verimli kullanmak ve tek bakışta daha fazla içerik görmek için eklenti kurmanıza gerek yok. Tarayıcınıza ekleyeceğiniz küçük bir yer imi (bookmarklet) ile tek tıkla 5 sütunlu düzene geçebilirsiniz. İsterseniz aynı yöntemle 2, 3, 4 veya 6 sütunlu düzene geçmek de mümkündür.
+
+Nasıl Yapılır?
+
+Tarayıcınızın yer imleri çubuğuna sağ tıklayıp yer imi ekle deyin.
+
+İsim kısmına "YouTube 5" yazın.
+
+URL kısmına aşağıdaki kodu yapıştırıp kaydedin:
+
+```
+javascript:(function(){const el=document.querySelector('ytd-rich-grid-renderer'); if(el){el.style.setProperty('--ytd-rich-grid-items-per-row', '5');}else{alert('YouTube ana sayfasında olduğunuzdan emin olun.');}})();
+```
+
+Kullanımı:
+YouTube ana sayfasındayken bu yer işaretine bir kez tıklayın. Sayfa anında 5'li sütun yapısına bürünecektir.
+
+Not: YouTube sayfasını yenilediğinizde tasarım eski haline döner; düzeni tekrar sağlamak için yer işaretine yeniden tıklamanız yeterlidir.

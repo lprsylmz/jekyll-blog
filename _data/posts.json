@@ -1,0 +1,146 @@
+[
+    {
+        "title": "Tyro Checkpoint",
+        "slug": "tyro-checkpoint",
+        "description": "Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan basit bir Laravel paketidir. Bu paket sadece SQLite veritabanları için tasarlanmıştır.",
+        "published_at": "2026-04-30T00:00:00+00:00",
+        "tags": [
+            "tyro checkpoint",
+            "laravel",
+            "SQLite"
+        ],
+        "content": "Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan basit bir Laravel paketidir. Bu paket sadece SQLite veritabanları için tasarlanmıştır.\n\nGereksinimler\n\n    PHP 8.1 veya üzeri\n\n    Laravel 10.x, 11.x veya 12.x\n\n    Varsayılan bağlantı olarak yapılandırılmış SQLite veritabanı\n\nTyro Checkpoint Kurulumu\n\n\n```\ncomposer require hasinhayder\/tyro-checkpoint --dev\n```\n```\nphp artisan tyro-checkpoint:install\n```\nstorage\/tyro-checkpoints dizinini oluştuysa kurulum gerçekleşmiştir. Varsayılan olarak tüm kontrol noktaları storage\/tyro-checkpoints\/ dizininde saklanır. Her kontrol noktası, SQLite veritabanı dosyanızın tam bir kopyasıdır. Geri yükleme sırasında veri kaybını önlemek için veritabanı dışında bir JSON dosyasında saklanır. Bu dizin hem anlık görüntü dosyalarını (.sqlite) hem de meta veri kaydını (checkpoints.json) içerir. AES-256-CBC kullanarak isteğe bağlı dosya düzeyinde şifreleme sunar.\n\nKontrol Noktası Oluşturma\n\nOtomatik oluşturulan bir isimle kontrol noktası oluşturun:\n```\nphp artisan tyro-checkpoint:create\n```\nÖzel bir isim ve isteğe bağlı bir notla kontrol noktası oluşturun:\n\n```\nphp artisan tyro-checkpoint:create initial_state --note=\"Temiz kurulum\"\n```\n\n\nŞifreli bir anlık görüntü oluşturmak için --encrypt bayrağını kullanın:\n```\nphp artisan tyro-checkpoint:create secure_state --encrypt\n```\n\n\nKaydedilen tüm kontrol noktalarını, boyutlarını, oluşturulma tarihlerini ve durumlarını görüntüleyin:\n```\nphp artisan tyro-checkpoint:list\n```\n\n\nBir kontrol noktasını ID veya isim (Name) ile geri yükleyin:\n```\nphp artisan tyro-checkpoint:restore 1\n``` \nveya\n```\nphp artisan tyro-checkpoint:restore initial_state\n```\nBir tanımlayıcı sağlamazsanız, komut bir seçim listesi görüntüleyecektir.\n\n\nMevcut bir kontrol noktasına not ekleyin veya değiştirin:\n```\nphp artisan tyro-checkpoint:add-note 1\n```\n\n\nBir kontrol noktasını delete veya flush komutlarıyla yanlışlıkla silinmesini önlemek için kilitleyin:\n```\nphp artisan tyro-checkpoint:lock 1\n```\n\nSilmeyi tekrar etkinleştirmek için kilidi açın:\n```\n\nphp artisan tyro-checkpoint:unlock 1\n```\n\nKilidi açılmış belirli bir kontrol noktasını silin:\n```\nphp artisan tyro-checkpoint:delete 1\n```\n\nDisk alanından tasarruf etmek için kilidi açılmış tüm kontrol noktalarını silin:\n```\nphp artisan tyro-checkpoint:flush\n```\nhttps:\/\/hasinhayder.github.io\/tyro-checkpoint\/"
+    },
+    {
+        "title": "Yüzleşme",
+        "slug": "yuzlesme",
+        "description": "Hakikat ile yüzleşme.",
+        "published_at": "2026-01-29T00:00:00+00:00",
+        "tags": [
+            "düşünce"
+        ],
+        "content": "![Aynaya bakan bir adamın silüeti. Aynadaki yansıması geometrik parçalara bölünmüş ve ışık huzmeleriyle dağılmış şekilde tasvir edilmiş.](https:\/\/alpersoylemez.com\/\/storage\/posts\/images\/yuzlesme-i5inq.webp)\n> Yüzleşilen her şey değiştirilemez ama yüzleşilmeden hiçbir şey değiştirilemez.\n\n\nJames Baldwin’e ait bu söze rastladım. Kim olduğu hakkında bir fikrim yok. Araştırma gereği de duymadım. Muhtemelen onun da Bâyezid-i Bistâmî’nin kim olduğu hakkında fikri yoktur.\n\nBana onun **“Hakikat aramakla bulunmasa da bulanlar ancak arayanlardır.”** sözünü anımsattı. Kendisi ile yüzleşme cesareti gösteremeyenlerden çaba sarf etmelerini beklemek de gereksiz bir bekleyiş olur. Ön kabuller her zaman daha kolaydır. İstediğin gibi eğip bükebilirsin. Çıkarların doğrultusunda son kullanma tarihi geçse de kullanabilirsin. Vicdan kırıntısı taşıyanlar ise bir gün hakikat ile karşılaşma cesaretini gösterene kadar huzursuzluk yükünü taşımaya mahkûmdurlar."
+    },
+    {
+        "title": "Journal - Defter Seçimi",
+        "slug": "defter",
+        "description": "EDC Defter Seçimi",
+        "published_at": "2026-01-10T00:00:00+00:00",
+        "tags": [
+            "edc"
+        ],
+        "content": "### Defter Seçimi\n\n\nMükemmel defteri bulmak için elinizdeki bir defteri kullanarak deneyimlerinizi değerlendirmeniz gerekir. Öncelikli olarak seçeceğiniz defteri içine yazmaya kıyamayacağınız bir defter olmamalı. Maksimum işlevsellik için defterinizi sürekli yanınızda taşıyabilmeniz gerekli. Yazmayı belirli zamanlarla sınırlamak, sizi kısıtlar.\n\n<div class=\"w-full p-1 min-h-screen \" style=\"aspect-ratio:9\/16;\">\n  <iframe class=\"w-full h-full\"\n         src=\"https:\/\/www.youtube.com\/embed\/npphUPSMcdY\" title=\"EDC Defter Sistemi - Kendin Yap Deri Defter Kılıfı - Journal #edc #seyahat #ajanda #journal #diy\"\n          frameborder=\"0\"\n          allowfullscreen>\n  <\/iframe>\n<\/div>"
+    },
+    {
+        "title": "Alışkanlık Takvimi 2026",
+        "slug": "habits2026",
+        "description": "Alışkanlık Takvimi 2026 - habit2026",
+        "published_at": "2026-01-03T00:00:00+00:00",
+        "tags": [
+            "uygulama"
+        ],
+        "content": "![](https:\/\/alpersoylemez.com\/\/storage\/posts\/images\/habits2026-VKX2U.webp)\n**[habits2026](https:\/\/alpersoylemez.com\/habits2026)**, 2026 yılı boyunca alışkanlıklarınızı düzenli bir şekilde takip etmeniz için tasarlanmış, modern ve kullanıcı dostu bir dijital alışkanlık takip uygulamasıdır.\n\n> **Takvime ulaşmak için [bu bağlantıyı](https:\/\/alpersoylemez.com\/habits2026) kullanabilirsiniz.**\n\nİşte bu uygulamanın temel özellikleri ve ne işe yaradığına dair detaylar:\n\n### 1. Kişiselleştirilebilir Alışkanlık Takibi\nUygulama, sadece \"her gün yapılan\" aktiviteler için değil, farklı rutinler için de esneklik sunar:\n\n*   **Haftalık Mod:** Haftanın belirli günlerinde (örneğin sadece Pazartesi, Çarşamba, Cuma) yapmak istediğiniz alışkanlıkları tanımlayabilirsiniz.\n*   **Periyodik Mod:** \"3 günde bir\" veya \"her 10 günde bir\" gibi belirli aralıklarla tekrarlanan aktiviteler için ayar yapabilirsiniz.\n\n### 2. Yüksek Kaliteli Çıktı ve Yazdırma (A4 Uyumluluğu)\nDijital takibin yanı sıra, alışkanlıklarını fiziksel olarak kağıt üzerinde takip etmeyi sevenler için özel olarak optimize edilmiştir:\n\n*   **Görsel Olarak İndirme:** Takviminizi PNG formatında yüksek çözünürlüklü bir görsel olarak indirebilirsiniz.\n*   **A4 Yazdırma:** Hem Dikey (Portrait) hem de Yatay (Landscape) yerleşim seçenekleriyle sunulan uygulama, A4 kağıdına tam uyumlu ve profesyonel kalitede çıktılar almanıza olanak tanır.\n\n![](https:\/\/alpersoylemez.com\/\/storage\/posts\/images\/habits2026-06Kqa.webp)\n### 3. Veri Güvenliği ve Kolay Aktarım\n*   **Yerel Kayıt:** Girdiğiniz veriler tarayıcınızın hafızasında (**LocalStorage**) saklanır. Sayfayı kapatsanız bile verileriniz korunur; ancak tarayıcı geçmişini veya önbelleğini temizlediğinizde bu verilerin de silineceğini unutmamalısınız.\n*   **JSON Dışa\/İçe Aktar (Yedekleme):** Verilerinizi kalıcı olarak korumak için belirli aralıklarla **JSON** formatında bilgisayarınıza indirmenizi (Yedekle) öneririz. Bu sayede verilerinizi güvenle saklayabilir, başka bir tarayıcıya veya cihaza kolayca geri yükleyebilirsiniz.\n\n### 4. Modern ve Esnek Arayüz\n*   **Çoklu Dil Desteği:** Tek tıkla Türkçe ve İngilizce dilleri arasında geçiş yapabilirsiniz.\n*   **Görünüm Ayarları:** Hangi ayların görüntüleneceğini seçebilir, gün harflerini (P, S, Ç...) açıp kapatabilir ve takvim başlığını kendinize göre değiştirebilirsiniz.\n\n\nÖzetle **habits2026**, hedeflerinize sadık kalmanızı sağlayan, hem dijitalde hem de kağıt üzerinde kullanabileceğiniz estetik ve işvelsel bir planlama aracıdır."
+    },
+    {
+        "title": "EDC - Everyday Carry",
+        "slug": "edc",
+        "description": "EDC, kişinin günlük yaşamında yanında taşıdığı temel eşyaların bütünüdür.",
+        "published_at": "2025-11-08T00:00:00+00:00",
+        "tags": [
+            "edc"
+        ],
+        "content": "![EverDayCarry illustrasyon](https:\/\/alpersoylemez.com\/blog\/storage\/posts\/images\/edc-EMSut.webp)\n## EDC (Everyday Carry) Nedir?\n\nEDC, kişinin günlük yaşamında yanında taşıdığı temel eşyaların bütünüdür. Bu eşyalar genellikle **bıçak**, **el feneri**, **çok amaçlı alet**, **kalem**, **cüzdan**, **anahtarlık** ve **telefon** gibi pratik araçlardan oluşur. Amaç, beklenmedik durumlara hazırlıklı olmak ve günlük görevleri verimli biçimde yerine getirmektir. EDC kavramı, **işlevsellik**, **dayanıklılık** ve **minimalizm** temelleri üzerine kuruludur.\n\n---\nBu sayfa tamamen kişisel merak ve hobi temellidir. Herhangi bir ticari amacı yoktur. Sitede yer alan hiçbir içerik reklam, sponsorluk veya iş birliği barındırmaz. Tüm ürünler kendi imkânlarımla temin edilmiştir. Amacım; ürünleri tarafsız biçimde inceleyip gerçek kullanım deneyimlerine dayalı güvenilir bilgiler sunmak ve farklı kullanım senaryoları aracılığıyla EDC (Everyday Carry) kültürüne sade, pratik ve dürüst bir bakış kazandırmaktır.\n\n## Günlük EDC İçeriği\n\n- Anahtarlar\n- Usb bellek ( Çift kullanımlı, Type-C,Type-A)\n- Usb Led Aydınlatma (Type-A)\n- Mini çok amaçlı çakı\n- Şarjlı çakmaklı fener\n- Not kağıdı\n- Mini tükenmez kalem\n- Çok amaçlı çakı\n\n---\n"
+    },
+    {
+        "title": "Eşrefoğlu Rumi",
+        "slug": "esrefoglu-rumi",
+        "description": "Hacı Bayramı Veli'nin damadı mutasavvıf Eşrefoğlu Rumi Müzekkin-nüfus(Nefisleri Temizleyen) isimli eserini Hicri 852( Miladi 1448) yılında kaleme almıştır. ",
+        "published_at": "2025-09-04T00:00:00+00:00",
+        "tags": [
+            "tarih"
+        ],
+        "content": "\n\nHacı Bayramı Veli'nin damadı mutasavvıf Eşrefoğlu Rumi Müzekkin-nüfus(Nefisleri Temizleyen) isimli eserini Hicri 852( Miladi 1448) yılında kaleme almıştır. Eserin takdim kısmında şu eleştiriler geçer:\n> \"İmdi, zaman azdı ve kardeşlerin halleri döndü; haksızlık, azgınlık, serkeşlik ve münafıklık çoğaldı. Meşayih kalmadı. Beyler zalim oldular. Kadılar rüşvet yer oldular, ilme uymaz oldular, ilmi kendi havalarına çeker oldular, müderrisler fâsık oldular, tefsir ve hadis medreselerde okunmaz oldu, fakihler ve din ilmini bilen kişiler az kaldı, vâ'izler dünya için mescitlerde va'zedip akçe dererler, ilimle beyler kapısında rağbet bulmayan dânişmendler şeyhlik tarikini tutup yüze gülerek halkın dünyasını alır oldular ve ağızdan meşayihin o hale münasip sözlerini ezberleyerek meclislerde söylemeğe ve kendilerini halka ehl-i hal bildirmeğe ve insanlara kendilerini sevdirmeğe çalışır oldular, tâlip denilenler de ârifler donunu giyerek zikir meclislerinde susmağa ve riyakârlığa başladılar ve halkın yemeğini gözetir oldular. Çok kişilerin halleri buralara kadar erişti.\"\n\n\n\nBuradaki eleştirilere bakılırsa zikredilen zamanda münafıkların çoğaldığı, manevi önderlerin kalmadığı ve onların sözüne itibar edilmediği, beylerin zalim, kadıların rüşvetçi ve müderrislerin fâsık olduğu, medreselerde tefsir ve hadis okutulmadığı, vâizlerin dünya için vaaz edip akçe biriktirdikleri, İlim ehli bazı kişilerin sahte şeyh kılığına girip güler yüzle insanları kandırarak onların malını mülkünü sömürmeye başladığı gibi olumsuzluklar görülmektedir.\n\nDivan şairi Keçecizâde İzzet Molla'nın şu beyitini hatırlayalım;\n> \"Meşhûrdur ki fısk ile olmaz cihân harâb \/ Eyler anı müdâhene-i âlimân harâb\"\n\n\n\n\nDünyayı günahkârlık ve bozuk ahlaktan ziyade hakikati söylemesi gereken âlimlerin susması ve çıkar için zulme boyun eğmesi yıkar."
+    },
+    {
+        "title": "Daldaki Kedi",
+        "slug": "daldaki-kedi",
+        "description": "Daldaki Kedi YouTube videosu.",
+        "published_at": "2025-09-03T00:00:00+00:00",
+        "tags": [
+            "video"
+        ],
+        "content": "<div class=\"w-full p-1 min-h-screen \" style=\"aspect-ratio:9\/16;\">\n  <iframe class=\"short\"\n          src=\"https:\/\/www.youtube.com\/embed\/EjPoUXcdykQ\"\n          frameborder=\"0\"\n          allowfullscreen>\n  <\/iframe>\n<\/div>"
+    },
+    {
+        "title": "Bülbülü Öldürmek",
+        "slug": "bulbulu-oldurmek",
+        "description": "Harper Lee'nin Bülbülü Öldürmek isimli kitabından...",
+        "published_at": "2025-08-26T00:00:00+00:00",
+        "tags": [
+            "kitap"
+        ],
+        "content": "Harper Lee'nin  bir “zenci”nin haksız yere suçlanması ile gelişen olayları anlattığı Bülbülü Öldürmek isimli kitabından;\n\n> \"Yanılıyor olmalısın, Atticus\"\n\n> \"Neden\"\n\n> \"Çünkü çoğunluk kendilerinin haklı, senin haksız olduğunu düşünüyor\"\n\n> \"Kesinlikle öyle düşünmeye ve düşünceleri için saygı görmeye hakları var,\" dedi Atticus. \"Ama başkalarının yüzüne bakabilmem için önce kendi yüzüme bakabilmem gerek. Çoğunluğun düşüncesine riayet etmeyen tek şey insanın vicdanıdır.\"\n\nVe yine aynı kitaptan başka bir bölüm;\n\n> \"Hepimiz biliyoruz ki, bazı insanların bizi inandırmaya çalıştıkları gibi insanlar eşit yaratılmamıştır… Bazıları ötekilere göre daha zekidir, bazı insanlar doğuştan kazanılmış daha fazla olanağa sahiptir, bazı insanlar ötekilere göre daha fazla para kazanır, bazı kadınlar başka kadınlara göre daha iyi kek yapar… Bazı insanlar pek çok başka insanın normal kapsama alanı içine girmeyen yeteneklere sahiptir. İnsanlar ancak tek bir durumda eşit yaratılmış kişiler haline gelirler – bir yoksulu Rockefeller Ailesi’nin bir ferdiyle, bir budalayı Einstein ile, cahil bir kişiyi bir kolej müdürüyle eşit gören bir tek kurum vardır. Bu kurum da baylar, hukuk kurumudur.\"\n\nÖncelikli olarak her insan önce kendi vicdanında sonra da kurumsal olarak tüm kamu vicdanında hukuk mekanizmasını çalıştırmalı. Dünyaya özgürlük ihraç edecek meşruiyeti kazanabilmek için hukukun üstünlüğünü kabul etmek şart. Yoksa Ziya Paşa'nın “Onlar ki verir lâf ile dünyaya nizâmât \/ Bin türlü teseyyüp bulunur hânelerinde” vecizesinin muhatabı olursunuz..."
+    },
+    {
+        "title": "Hakikat",
+        "slug": "hakikat",
+        "description": "Bayezid-i Bestami, İhsan Oktay Anar, Hakikat",
+        "published_at": "2025-08-25T00:00:00+00:00",
+        "tags": [
+            "düşünce"
+        ],
+        "content": "> \"Ruhlarını teslim edip Hakk'ı gören merhumlar gibi, bu fânî dünyada yataklarında huzur içinde yatanlar sadece bilmeleri gereken şeyleri bilen talihli insanlardı. Birinin huzurunu kaçırmak için onu bilmediği bir şeyin var olduğuna inandırmak yeterliydi.\"\n \nder İhsan Oktay Anar Efrâsiyâb'ın Hikâyeleri isimli kitabında.\n\nPeki bildiğimiz hakikatın kendisi mi? Bu soruyu kendisine sorduğunda aldığı yanıttan vicdanı tatmin olmayanlar huzurlu bir uykuya kavuşmak için hemen aramaya koyulmalıdır ancak Bayezid-i Bestami Hazretlerinden bize aktarılan şu uyarıyı unutmadan;\n\n > “Hakikat aramakla bulunmaz ancak bulanlar hep arayanlardır.”"
+    },
+    {
+        "title": "Suyu Arayan Adam",
+        "slug": "suyu-arayan-adam",
+        "description": "Şevket Süreyya Özdemir'in Suyu Arayan Adam isimli kitabından Türkiye'nin günümüz durumuna projektör ile ışık tutan bir bölüm",
+        "published_at": "2025-08-25T00:00:00+00:00",
+        "tags": [
+            "kitap",
+            "biyografi"
+        ],
+        "content": "Şevket Süreyya Özdemir'in Suyu Arayan Adam isimli kitabından Türkiye'nin günümüz durumuna projektör ile ışık tutan bir bölüm:\n\n> \"Halbuki o tarihlerde Türkiye hiç şüphe yok ki bir inkılâp yaşıyordu. Bu inkılâp bitmemişti. Fakat görünüyordu ki bazı insanlar bu inkılâbın önünde değil, ardında koşuyorlardı. Çankaya’da yerleşen insan, bu inkılâpların listesini, bu insanlara ne çare ki evvelden bildirmemişti. Öyle görünüyordu ki, Çankaya’da yeni bir inkılâp hamlesinin saati çalınca, bu hamle Mecliste hemen bir kanun haline geliyordu. O zaman her şey kolaylaşıyordu. O zaman, başına kanundan önce şapka giydi diye genç bir gazeteciyi merdivenlerden yuvarlayan adam, aradan kısa bir süre geçince, ünlü bir müderris şapka giymedi diye darağacına verebiliyordu...\n\n> 'Almanya’da inkılâp olamaz. Çünkü kanunen memnundur!' diyen Heine’nin sözünü, biraz değiştirerek bizim için de söylemek kabildir:\n\n> — Türkiye’de her inkılâp olur, fakat ancak kanun yoluyla...\"\n\n\nGünümüz siyaseti de aynı şekilde işliyor. Halktan kopuk, kimsede karşılığı olmayan fikirler tedavüle girdikten sonra en \"çetin\" savunucularının elinde mavzer oluyor. Meydanlarda alkışlanıyor. Kabul etmeyenler yuhalanıyor. Belli bir müddet sonra da tam tersi bir fikir ön saflarda yerini alıyor. İnsalar hiçbir şey olmamış gibi yollarına devam ediyorlar. Olan merdivenden yuvarlarnan gazeteciler ile darağacındaki müderrislere oluyor.\n\nTarih tekerrürden ibaretmiş..."
+    },
+    {
+        "title": "MacOS Dock’a Ayırıcı (Separator) Ekleme",
+        "slug": "macos-dock-seperator",
+        "description": "MacOS Dock’a Ayırıcı (Separator) Ekleme",
+        "published_at": "2025-08-12T00:00:00+00:00",
+        "tags": [
+            "teknoloji",
+            "macos"
+        ],
+        "content": "![u altı temalı masaüstünde; Finder, Chrome, Slack, VS Code ve Terminal dahil çeşitli uygulama simgelerinin bulunduğu dock.](https:\/\/alpersoylemez.com\/\/storage\/posts\/images\/macos-dock-seperator-4fxfZ.webp)\nMacOS kullanıcıları için Dock, uygulamalara hızlı erişim sağladığı gibi masaüstü düzeni açısından da oldukça önemlidir. Ancak zamanla Dock’taki simgeler kalabalıklaşabilir. Bu durumda uygulama gruplarını görsel olarak ayırmak, kullanım kolaylığı sağlar.\n\n\nEğer Dock’taki uygulama simgeleri arasına ayırıcı (separator) eklemek istiyorsanız, aşağıdaki adımı takip edebilirsiniz.\n\n\n\nTerminal uygulamasını açın ve aşağıdaki komutu yapıştırıp çalıştırın:\n\n\n\n```\ndefaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"small-spacer-tile\";}' && killall Dock\n```\n\n\n\nBu komut Dock’a görünmez bir ayırıcı öğesi ekler ve Dock’u yeniden başlatarak değişikliğin hemen görünmesini sağlar.\n\n\n* Ayırıcıyı tıpkı bir uygulama simgesi gibi taşıyabilirsiniz.\n* Sağ tıklayarak kolayca kaldırabilirsiniz."
+    },
+    {
+        "title": "Bünyamin-i Ayaşi",
+        "slug": "bunyamini-ayasi",
+        "description": "17.yüzyılda yaşamış önemli mutasavvıflardan Sarı Abdullah Efendi'nin Gönül Meyveleri: Semerât-ül-Fuad adlı eserinde Bünyamin-i Ayaşi hakkında geçen kıssa",
+        "published_at": "2025-08-10T00:00:00+00:00",
+        "tags": [
+            "tarih"
+        ],
+        "content": "17.yüzyılda yaşamış önemli mutasavvıflardan Sarı Abdullah Efendi'nin Gönül Meyveleri: Semerât-ül-Fuad adlı eserinde 16. yüzyıl Bayramî-Melâmî şeyhlerinden Bünyamin-i Ayaşi  hakkında şu kıssa geçmektedir:\n\n> Velâyet kubbesi, keramet Kâ’âbesi, Rahmani meczub âşık Emir Sekldnî vefat ettikten sonra ruhanî âlemin kutbu, Rabbani hikmetin ma’deni, ve subhanî Kâ’âbe hariminde oturan, Vefa denizi ve âtâ ma'deni olan Bünyamin Eyaşî irşad dairesinin merkezi •olarak hidayet tarikini isteyenlere İlâhî aşkın şarabını sundu. Her zaman ve her yerde vukua geldiği gibi bu zat ta bir takım iftiralara uğrayıp isnatlara kurban giderek Kütahya karasına haps edildi. Sultan Süleyman Kanunî o sırada Rodos adasını muhasara etmiş fakat 7 ay geçtiği hâlde bir türlü alamıyordu. Sultan Süleymanın çuhadar başısı; Bünyamin Eyaşî’nin ahbabıydı. Sultan Süleyman Kanuniye şu maruzatta bulundu : Hacı Bayram Veli tarikatından çok muhterem bir zat. olan Bünyamin Eyaşî bunca zamandır haksız yere Kütahya karasında haps edilmiştir. Emin olunuz ki, bu zavallının nahak yere haps edilmesi yüzündendir ki, Rodos kal’ası 7 ay geçtiği hâlde zapt edilemiyor. Sultan Süleyman Kanunî tahliyesine emir verip Bünyamin Eyaşî’nin serbest bırakılarak hapisten kurtulduğu gün Rodos adası da feth edildi. Sonraları adı geçen Padişah Bünyamin Eyaşî’nin uğurlu ve kutsal bir şahsiyet olduğuna kanaat getirerek onu çok sevdi, ona çok saygı gösterdi fakat çok geçmeden Bünyamin Eyaşî çok yaşlı olduğundan vefat ederek Eyaş Kasabasında defn edildi.\n\n> O dahi bu fenayı terk etti \/ Gördü yarını edip azm-i baka.\n\n\n\n\nTürbesi Ankara'nın Ayaş İlçesi'nde kendi ismi verilen camidedir.\n\n<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3332.1494561873465!2d32.33325082861427!3d40.0175024462188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d2d860a5555343%3A0x3175a09863152d2a!2sB%C3%BCnyamin%20Aya%C5%9Fi%20Hazretleri%20Cami%20Ve%20T%C3%BCrbesi!5e0!3m2!1str!2str!4v1775767461219!5m2!1str!2str\" width=\"400\" height=\"300\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>"
+    },
+    {
+        "title": "Andor'un Andırdıkları",
+        "slug": "andorun-andirdiklari",
+        "description": "Ghorman Katliamı, Mon Mothma'nın uzun süredir sürdürdüğü diplomatik sessizliğin sonunu getiren kırılma noktası",
+        "published_at": "2025-08-08T00:00:00+00:00",
+        "tags": [
+            "dizi"
+        ],
+        "content": "Ghorman Katliamı, Mon Mothma'nın uzun süredir sürdürdüğü diplomatik sessizliğin sonunu getiren kırılma noktası\nolur. Bu vahşet, onun İmparatorluk'un maskesini düşürerek gerçekleri halka duyurduğu tarihi konuşmanın fitilini ateşler.\nDustin Hoffman ve Robert De Niro'nun başrolünde yer aldığı Wag the Dog (1997) filmi ile Andor arasında bu noktada güçlü\ntematik bağlar kurulur. Her iki yapım da siyasi manipülasyonun gücünü ve gerçeklikle algı arasındaki tehlikeli mesafeyi\ngözler önüne serer. Wag the Dog'da gerçek olmayan bir savaşla halkın algısı yönlendirilirken, Andor'da Mon Mothma,\nalgıların gölgesine karşı gerçeği cesurca dile getirerek sistemin karşısında durmayı seçer.\n\n> \"Sayın Senatörler, dostlarım, meslektaşlarım, müttefiklerim, rakiplerim. Bu sabah karşınızda ağır bir yürekle duruyorum. Hayatımı bu mecliste geçirdim. Buraya bir çocukken geldim. Şimdi etrafıma baktığımda, buraya gelişimden önceye dair neredeyse hiç anımın kalmadığını ve ancak birkaç sıkı bağımın olduğunu fark ediyorum. Bunca yıl boyunca, seçmenlerime onurlu bir şekilde hizmet ettiğime ve davranış kurallarımıza sadık kaldığıma inanıyorum. Bu meclis fikirlerin kaynadığı bir kazan; hepimizin ideallerimiz uğruna sabrı ve öfkesi zaman zaman sınandı, buna şüphe yok. Ne kadar fikir ayrılığı yaşasak da, beni tanıyanların önümüzdeki günlerde dürüstlüğüm için kefil olacaklarını umut ediyorum.\n\n> Bu sabah zor bir mesajla karşınızdayım. Bence bir krizin içindeyiz. Söylenenlerle bilinen gerçek arasındaki mesafe bir uçuruma dönüştü. Tehlike altındaki tüm şeyler arasında, nesnel gerçeğin kaybı belki de en ölümcül olanıdır.Gerçeğin ölümü, kötülüğün nihai zaferidir. Gerçek bizi terk ettiğinde, onu elimizden kaçırdığımızda ya da koparıldığında, en yüksek sesle bağıran canavarın iştahına açık hale geliriz.\n\n> Bu Meclis'in gerçek üzerindeki hâkimiyeti nihayetinde Ghorman Meydanı'nda yitirilmiştir. Dün yaşananlar... dün Ghorman'da gerçekleşenler sebepsiz bir soykırımdı! Evet! Soykırım! Ve bu gerçek bu meclisten sürgün edilmiştir! Peki en çok bağıran canavar kim? Bizim yaratılmasına yardım ettiğimiz canavar mı? Hepimizin başına er ya da geç gelecek olan canavar mı? O canavar İmparator Palpatine'dir!\""
+    },
+    {
+        "title": "Amin Maalouf'tan",
+        "slug": "amin-maalouf",
+        "description": "Amin Maalouf'tan bir alıntı",
+        "published_at": "2025-08-07T00:00:00+00:00",
+        "tags": [
+            "kitap"
+        ],
+        "content": "> \"Eğer önündeki kapılar bir daha yüzüne kapanacak olursa, hayatının sona ermediğini düşün. Sona eren şey yalnızca hayatlarının birincisidir ve diğeri başlamak üzere sabırsızlanmaktadır. O zaman bir gemiye bin, seni bekleyen bir kent mutlaka vardır.\"\n\n"
+    }
+]
