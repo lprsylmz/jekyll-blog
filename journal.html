@@ -5,7 +5,7 @@ title: Journal
 
 <div class="space-y-6">
 
-    <!-- Dinamik Filtre Alanı (JS Tarafından Dolacak) -->
+    <!-- Dinamik Filtre Alanı -->
     <div id="active-filter-bar"
         class="hidden flex items-center justify-between p-4 bg-brand-accent/10 dark:bg-brand-muted/10 rounded-xl border border-brand-accent/20 dark:border-brand-muted/20">
         <div class="flex items-center space-x-2">
@@ -29,7 +29,7 @@ title: Journal
     {% capture post_anchor %}#{{ entry_id }}{% endcapture %}
 
     <article id="{{ entry_id }}" data-tags="{{ post.tags | join: ',' }}"
-        class="p-4 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl hover:bg-brand-dark/[0.02] dark:hover:bg-brand-light/[0.02] transition-colors">
+        class="p-4 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl hover:bg-brand-dark/[0.02] dark:hover:bg-brand-light/[0.02] transition-colors hidden">
         <div class="flex items-start space-x-3">
             <div class="flex-1 min-w-0">
 
@@ -128,10 +128,17 @@ title: Journal
     <p class="text-center py-10 text-brand-dark/50 dark:text-brand-light/50">Henüz not yok.</p>
     {% endfor %}
 
+    <div id="scroll-sentinel" class="h-10"></div>
+
 </div>
 
 <script>
     (function () {
+        const journalPath = "{{ '/journal/' | relative_url }}";
+        const BATCH_SIZE = 4;
+        let visibleArticles = [];
+        let currentlyShown = 0;
+
         const nowSec = Math.floor(Date.now() / 1000);
         const nodes = document.querySelectorAll('.relative-time[data-timestamp]');
 
@@ -152,68 +159,47 @@ title: Journal
             node.textContent = formatRelativeTime(diff);
         });
 
-        // Dinamik tarayıcı yolu yerine Jekyll sayfa bağlantısı kullanımı
-        (function () {
-            const journalPath = "{{ '/journal/' | relative_url }}";
-            const proseElements = document.querySelectorAll('.prose');
-            const tagRegex = /(^|\s)#([a-zA-Z0-9çğıöşüÇĞİÖŞÜ_-]+)/g;
-
-            proseElements.forEach(el => {
-                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-                const textNodes = [];
-                let currentNode;
-
-                while (currentNode = walker.nextNode()) {
-                    const parentTag = currentNode.parentNode.tagName;
-                    if (parentTag !== 'A' && parentTag !== 'SCRIPT' && parentTag !== 'STYLE' && parentTag !== 'CODE') {
-                        textNodes.push(currentNode);
-                    }
-                }
-
-                textNodes.forEach(node => {
-                    if (tagRegex.test(node.nodeValue)) {
-                        const tempContainer = document.createElement('span');
-                        tempContainer.innerHTML = node.nodeValue.replace(tagRegex, function (match, space, tag) {
-                            return space + `<a href="${journalPath}?tag=${encodeURIComponent(tag)}" class="font-bold hover:underline">#${tag}</a>`;
-                        });
-
-                        while (tempContainer.firstChild) {
-                            node.parentNode.insertBefore(tempContainer.firstChild, node);
-                        }
-                        node.parentNode.removeChild(node);
-                    }
-                });
-            });
-        })();
         const proseElements = document.querySelectorAll('.prose');
+        const tagRegex = /(^|\s)#([a-zA-Z0-9çğıöşüÇĞİÖŞÜ_-]+)/g;
 
         proseElements.forEach(el => {
-            el.innerHTML = el.innerHTML.replace(/(^|\s)#([a-zA-Z0-9çğıöşüÇĞİÖŞÜ_-]+)/g, function (match, space, tag) {
-                return space + `<a href="${journalPath}?tag=${encodeURIComponent(tag)}" class="font-bold hover:underline">#${tag}</a>`;
+            const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+            let currentNode;
+
+            while (currentNode = walker.nextNode()) {
+                const parentTag = currentNode.parentNode.tagName;
+                if (parentTag !== 'A' && parentTag !== 'SCRIPT' && parentTag !== 'STYLE' && parentTag !== 'CODE') {
+                    textNodes.push(currentNode);
+                }
+            }
+
+            textNodes.forEach(node => {
+                if (tagRegex.test(node.nodeValue)) {
+                    const tempContainer = document.createElement('span');
+                    tempContainer.innerHTML = node.nodeValue.replace(tagRegex, function (match, space, tag) {
+                        return space + `<a href="${journalPath}?tag=${encodeURIComponent(tag)}" class="font-bold hover:underline">#${tag}</a>`;
+                    });
+
+                    while (tempContainer.firstChild) {
+                        node.parentNode.insertBefore(tempContainer.firstChild, node);
+                    }
+                    node.parentNode.removeChild(node);
+                }
             });
         });
 
         const urlParams = new URLSearchParams(window.location.search);
         const activeTag = urlParams.get('tag');
+        const allArticles = Array.from(document.querySelectorAll('article[data-tags]'));
 
         if (activeTag) {
             const cleanTag = activeTag.toLowerCase();
-            const articles = document.querySelectorAll('article[data-tags]');
-            let visibleCount = 0;
-
-            articles.forEach(article => {
+            visibleArticles = allArticles.filter(article => {
                 const rawTags = article.getAttribute('data-tags') || '';
                 const tagsList = rawTags.toLowerCase().split(',').map(t => t.trim());
                 const contentText = article.innerText.toLowerCase();
-
-                const matches = tagsList.includes(cleanTag) || contentText.includes('#' + cleanTag);
-
-                if (matches) {
-                    article.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    article.style.display = 'none';
-                }
+                return tagsList.includes(cleanTag) || contentText.includes('#' + cleanTag);
             });
 
             const filterBar = document.getElementById('active-filter-bar');
@@ -223,13 +209,36 @@ title: Journal
                 filterBar.classList.remove('hidden');
             }
 
-            if (visibleCount === 0) {
+            if (visibleArticles.length === 0) {
                 const container = document.querySelector('.space-y-6');
                 const emptyMsg = document.createElement('p');
                 emptyMsg.className = "text-center py-10 text-brand-dark/50 dark:text-brand-light/50";
                 emptyMsg.textContent = "Bu etikete uygun not bulunamadı.";
                 container.appendChild(emptyMsg);
             }
+        } else {
+            visibleArticles = allArticles;
+        }
+
+        function loadNextBatch() {
+            const nextBatch = visibleArticles.slice(currentlyShown, currentlyShown + BATCH_SIZE);
+            nextBatch.forEach(article => article.classList.remove('hidden'));
+            currentlyShown += nextBatch.length;
+        }
+
+        loadNextBatch();
+
+        const sentinel = document.getElementById('scroll-sentinel');
+        if (sentinel) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    if (currentlyShown < visibleArticles.length) {
+                        loadNextBatch();
+                    }
+                }
+            }, { rootMargin: '200px' });
+
+            observer.observe(sentinel);
         }
     })();
 </script>
