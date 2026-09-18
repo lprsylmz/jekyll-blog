@@ -138,6 +138,7 @@ title: Journal
         const BATCH_SIZE = 4;
         let visibleArticles = [];
         let currentlyShown = 0;
+        let isNavigatingToHash = false;
 
         const nowSec = Math.floor(Date.now() / 1000);
         const nodes = document.querySelectorAll('.relative-time[data-timestamp]');
@@ -220,13 +221,57 @@ title: Journal
             visibleArticles = allArticles;
         }
 
+        const urlObserver = new IntersectionObserver((entries) => {
+            if (isNavigatingToHash) return;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const newHash = `#${entry.target.id}`;
+                    if (window.location.hash !== newHash) {
+                        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${newHash}`);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '-10% 0px -75% 0px',
+            threshold: 0
+        });
+
         function loadNextBatch() {
             const nextBatch = visibleArticles.slice(currentlyShown, currentlyShown + BATCH_SIZE);
-            nextBatch.forEach(article => article.classList.remove('hidden'));
+            nextBatch.forEach(article => {
+                article.classList.remove('hidden');
+                urlObserver.observe(article);
+            });
             currentlyShown += nextBatch.length;
         }
 
         loadNextBatch();
+
+        function handleHashTarget() {
+            const targetHash = window.location.hash.replace('#', '');
+            if (!targetHash) return;
+
+            const targetIndex = visibleArticles.findIndex(article => article.id === targetHash);
+            if (targetIndex !== -1) {
+                while (currentlyShown <= targetIndex) {
+                    loadNextBatch();
+                }
+
+                const targetElement = document.getElementById(targetHash);
+                if (targetElement) {
+                    isNavigatingToHash = true;
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setTimeout(() => {
+                            isNavigatingToHash = false;
+                        }, 800);
+                    }, 50);
+                }
+            }
+        }
+
+        handleHashTarget();
+        window.addEventListener('hashchange', handleHashTarget);
 
         const sentinel = document.getElementById('scroll-sentinel');
         if (sentinel) {
