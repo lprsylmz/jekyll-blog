@@ -4,17 +4,16 @@ title: Blog
 ---
 
 <div class="space-y-8 min-h-[50vh]">
-    <h1 class="text-3xl font-bold text-brand-dark dark:text-brand-light tracking-tight">Blog Yazıları</h1>
+
 
     {% assign sorted_articles = site.articles | sort: 'date' | reverse %}
 
     {% if sorted_articles.size > 0 %}
     <div class="space-y-4">
         {% for article in sorted_articles %}
-        <article
-            class="p-4 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl bg-transparent hover:border-brand-accent/40 dark:hover:border-brand-muted/40 transition-all duration-300">
+        <article class="p-4 rounded-xl  bg-transparent   duration-300">
             <div class="flex items-center justify-between gap-4">
-                <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90 truncate">
+                <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90 truncate ">
                     <a href="{{ article.url | relative_url }}"
                         class="hover:text-brand-primary transition-colors duration-200">
                         {{ article.title }}
