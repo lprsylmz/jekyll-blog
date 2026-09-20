@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 5
 title: "dua"
-slug: "dua-fcgm"
+slug: "dua"
 date: 2026-04-18 15:31:15
 is_published: true
 ---

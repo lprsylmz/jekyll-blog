@@ -3,15 +3,15 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% assign site_pages = site.pages | concat: site.posts | concat: site.notes %}
+  {% assign site_pages = site.pages | concat: site.articles | concat: site.notes %}
   {% for page in site_pages %}
     {% unless page.sitemap == false or page.name == "feed.xml" or page.name == "sitemap.xml" %}
       <url>
         <loc>{{ page.url | absolute_url }}</loc>
-        {% if page.date %}
-          <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
-        {% elsif page.last_modified_at %}
+        {% if page.last_modified_at %}
           <lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>
+        {% elsif page.date %}
+          <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
         {% endif %}
         <changefreq>{% if page.changefreq %}{{ page.changefreq }}{% else %}monthly{% endif %}</changefreq>
         <priority>{% if page.priority %}{{ page.priority }}{% else %}0.5{% endif %}</priority>

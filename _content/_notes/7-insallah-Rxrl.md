@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 7
 title: "inşallah"
-slug: "insallah-Rxrl"
+slug: "insallah"
 date: 2026-04-23 09:12:09
 is_published: true
 ---

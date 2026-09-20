@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 10
 title: "goodreads"
-slug: "goodreads-iuEH"
+slug: "goodreads"
 date: 2026-05-14 13:15:23
 is_published: true
 ---

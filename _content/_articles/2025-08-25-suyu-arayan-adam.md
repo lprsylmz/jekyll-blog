@@ -1,5 +1,5 @@
 ---
-layout: default
+
 title: "Suyu Arayan Adam"
 slug: "suyu-arayan-adam"
 date: 2025-08-25 00:00:00

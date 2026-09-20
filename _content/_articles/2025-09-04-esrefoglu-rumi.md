@@ -1,8 +1,12 @@
 ---
+
 title: "Eşrefoğlu Rumi"
-slug: esrefoglu-rumi
-date: 2025-09-04T00:00:00+00:00
+slug: "esrefoglu-rumi"
+date: 2025-09-04 00:00:00
+description: "Hacı Bayramı Veli'nin damadı mutasavvıf Eşrefoğlu Rumi Müzekkin-nüfus(Nefisleri Temizleyen) isimli eserini Hicri 852( Miladi 1448) yılında kaleme almıştır. "
 tags: ["tarih"]
+author: "Alper Söylemez"
+is_published: true
 ---
 
 

@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 6
 title: "Ayet"
-slug: "ayet-wcag"
+slug: "6"
 date: 2026-04-18 15:39:03
 is_published: true
 ---

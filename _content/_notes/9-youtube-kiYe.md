@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 9
 title: "youtube"
-slug: "youtube-kiYe"
+slug: "youtube"
 date: 2026-05-03 07:42:47
 is_published: true
 ---

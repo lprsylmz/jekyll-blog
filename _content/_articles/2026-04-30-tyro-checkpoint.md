@@ -1,5 +1,5 @@
 ---
-layout: default
+
 title: "Tyro Checkpoint"
 slug: "tyro-checkpoint"
 date: 2026-04-30 00:00:00

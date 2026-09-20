@@ -1,5 +1,5 @@
 ---
-layout: default
+
 title: "Bünyamin-i Ayaşi"
 slug: "bunyamini-ayasi"
 date: 2025-08-10 00:00:00

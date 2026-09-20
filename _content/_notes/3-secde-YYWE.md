@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 3
 title: "secde"
-slug: "secde-YYWE"
+slug: "secde"
 date: 2026-04-12 01:44:00
 is_published: true
 ---

@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 2
 title: "Artemis"
-slug: "artemis-fRTL"
+slug: "artemis"
 date: 2026-04-11 00:55:00
 is_published: true
 ---

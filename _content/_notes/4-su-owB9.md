@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 4
 title: "Su"
-slug: "su-owB9"
+slug: "su"
 date: 2026-04-15 18:51:15
 is_published: true
 ---

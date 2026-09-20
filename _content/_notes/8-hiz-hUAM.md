@@ -1,8 +1,8 @@
 ---
-layout: default
+
 note_id: 8
 title: "hız"
-slug: "hiz-hUAM"
+slug: "hiz"
 date: 2026-04-30 17:45:32
 is_published: true
 ---

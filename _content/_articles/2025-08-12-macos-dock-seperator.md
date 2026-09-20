@@ -1,11 +1,15 @@
 ---
+
 title: "MacOS Dock’a Ayırıcı (Separator) Ekleme"
-slug: macos-dock-seperator
-date: 2025-08-12T00:00:00+00:00
-tags: ["teknoloji","macos"]
+slug: "macos-dock-seperator"
+date: 2025-08-12 00:00:00
+description: "MacOS Dock’a Ayırıcı (Separator) Ekleme"
+tags: ["teknoloji", "macos"]
+author: "Alper Söylemez"
+is_published: true
 ---
 
-![u altı temalı masaüstünde; Finder, Chrome, Slack, VS Code ve Terminal dahil çeşitli uygulama simgelerinin bulunduğu dock.](https://alpersoylemez.com//storage/posts/images/macos-dock-seperator-4fxfZ.webp)
+
 MacOS kullanıcıları için Dock, uygulamalara hızlı erişim sağladığı gibi masaüstü düzeni açısından da oldukça önemlidir. Ancak zamanla Dock’taki simgeler kalabalıklaşabilir. Bu durumda uygulama gruplarını görsel olarak ayırmak, kullanım kolaylığı sağlar.
 
 

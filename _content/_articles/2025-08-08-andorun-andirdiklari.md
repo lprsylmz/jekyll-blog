@@ -1,5 +1,5 @@
 ---
-layout: default
+
 title: "Andor'un Andırdıkları"
 slug: "andorun-andirdiklari"
 date: 2025-08-08 00:00:00

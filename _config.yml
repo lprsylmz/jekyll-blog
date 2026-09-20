@@ -37,12 +37,18 @@ keep_files:
   - .nojekyll
 
 collections_dir: _content
+
 collections:
   notes:
     output: true
     permalink: /notes/:title/
     values:
-      layout: "default"
+      layout: "note"
+  articles:
+    output: true
+    permalink: /blog/:title/
+    values:
+      layout: "post"
 
 defaults:
   - scope:
@@ -50,3 +56,13 @@ defaults:
     values:
       layout: "default"
       is_published: true
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "note"
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "post"

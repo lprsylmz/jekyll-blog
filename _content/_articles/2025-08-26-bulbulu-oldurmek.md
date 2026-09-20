@@ -1,8 +1,12 @@
 ---
+
 title: "Bülbülü Öldürmek"
-slug: bulbulu-oldurmek
-date: 2025-08-26T00:00:00+00:00
+slug: "bulbulu-oldurmek"
+date: 2025-08-26 00:00:00
+description: "Harper Lee'nin Bülbülü Öldürmek isimli kitabından..."
 tags: ["kitap"]
+author: "Alper Söylemez"
+is_published: true
 ---
 
 Harper Lee'nin  bir “zenci”nin haksız yere suçlanması ile gelişen olayları anlattığı Bülbülü Öldürmek isimli kitabından;

@@ -1,0 +1,27 @@
+---
+layout: default
+title: Blog
+---
+
+<div class="blog-list">
+    <h1>Blog Yazıları</h1>
+
+    {% assign sorted_articles = site.articles | sort: 'date' | reverse %}
+
+    {% if sorted_articles.size > 0 %}
+    <ul>
+        {% for article in sorted_articles %}
+        <li>
+            <h2>
+                <a href="{{ article.url | relative_url }}">{{ article.title }}</a>
+            </h2>
+            {% if article.date %}
+            <span class="post-date">{{ article.date | date: "%d.%m.%Y" }}</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Henüz eklenmiş bir blog yazısı bulunmuyor.</p>
+    {% endif %}
+</div>

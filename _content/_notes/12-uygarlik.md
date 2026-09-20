@@ -1,6 +1,7 @@
 ---
-layout: default
+
 title: "Uygarlık"
+slug: "uygarlik"
 description: "Alfred North Whitehead'ın uygarlık hakkında bir sözü"
 date: 2026-07-18 00:00:00 +0300
 tags: [alıntı]
