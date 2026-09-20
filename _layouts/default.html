@@ -600,46 +600,52 @@
             </div>
 
             <!-- Search Dropdown -->
+            <!-- Search Dropdown -->
             <div x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-4 pt-2"
                 x-data="{
-          searchQuery: '',
-          notes: [],
-          searchResults: [],
-          isLoading: false,
-          async initSearch() {
-            if (this.notes.length > 0) return;
-            this.isLoading = true;
-            try {
-              const response = await fetch('/search_notes.json');
-              this.notes = await response.json();
-            } catch (error) {
-              console.error('Arama dizini yüklenemedi:', error);
-            }
-            this.isLoading = false;
-          },
-          search() {
-            const q = this.searchQuery.trim().toLowerCase();
-            if (q.length < 2) { this.searchResults = []; return; }
-            this.searchResults = this.notes.filter(note =>
-              (note.title && note.title.toLowerCase().includes(q)) ||
-              (note.content && note.content.toLowerCase().includes(q))
-            ).slice(0, 5);
-          }
-        }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
+              searchQuery: '',
+              items: [],
+              searchResults: [],
+              isLoading: false,
+              async initSearch() {
+                if (this.items.length > 0) return;
+                this.isLoading = true;
+                try {
+                  const [notesRes, articlesRes] = await Promise.all([
+                    fetch('/search_notes.json'),
+                    fetch('/search_articles.json')
+                  ]);
+                  const notes = await notesRes.json();
+                  const articles = await articlesRes.json();
+                  this.items = [...notes, ...articles];
+                } catch (error) {
+                  console.error('Arama dizini yüklenemedi:', error);
+                }
+                this.isLoading = false;
+              },
+              search() {
+                const q = this.searchQuery.trim().toLowerCase();
+                if (q.length < 2) { this.searchResults = []; return; }
+                this.searchResults = this.items.filter(item =>
+                  (item.title && item.title.toLowerCase().includes(q)) ||
+                  (item.content && item.content.toLowerCase().includes(q))
+                ).slice(0, 5);
+              }
+            }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
                 @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
                 <input id="search-input" type="text" x-model="searchQuery" x-on:input.debounce.300ms="search()"
-                    placeholder="Notlarda ara..."
+                    placeholder="Ara..."
                     class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
 
                 <template x-if="searchResults.length > 0">
                     <ul
                         class="mt-2 bg-brand-light dark:bg-brand-dark rounded-xl shadow-md overflow-hidden border border-brand-dark/10 dark:border-brand-light/10">
-                        <template x-for="note in searchResults" :key="note.url">
+                        <template x-for="item in searchResults" :key="item.url">
                             <li class="border-b last:border-b-0 border-brand-muted/20 dark:border-brand-muted/50">
-                                <a :href="note.url"
+                                <a :href="item.url"
                                     class="block px-4 py-2 hover:bg-brand-accent/10 dark:hover:bg-brand-muted/20 transition-colors">
-                                    <div class="font-bold text-sm" x-text="note.title"></div>
-                                    <div class="text-xs text-brand-muted dark:text-brand-light/60" x-text="note.date">
+                                    <div class="font-bold text-sm" x-text="item.title"></div>
+                                    <div class="text-xs text-brand-muted dark:text-brand-light/60" x-text="item.date">
                                     </div>
                                 </a>
                             </li>
