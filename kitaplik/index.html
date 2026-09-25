@@ -445,7 +445,7 @@ layout: null
             if (this.books.length > 0) return;
             this.isLoading = true;
             try {
-                const response = await fetch('https://alpersoylemez.com/search_books.json');
+                const response = await fetch('/search_books.json');
                 this.books = await response.json();
             } catch (error) {
                 console.error('Arama dizini yüklenemedi:', error);
