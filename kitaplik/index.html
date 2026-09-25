@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="tr" class="antialiased dark">
 
@@ -46,6 +49,7 @@
     
 
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="/assets/js/alpine.min.js" defer></script>
     
 
 
@@ -381,7 +385,7 @@
     <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
        <header class="sticky top-0 z-40 bg-brand-light dark:bg-brand-dark border border-brand-dark/10 dark:border-brand-light/10 rounded-xl relative flex flex-col gap-6 mb-20 border-b border-brand-muted/30 dark:border-brand-accent/30 shadow-xl hover:bg-brand-light/95 dark:hover:bg-brand-dark/95 p-4">
             <div class="flex justify-between items-center">
-                <a href="kitaplik" class="hover:opacity-80 transition-opacity" aria-label="Ana Sayfa">
+                <a href="/" class="hover:opacity-80 transition-opacity" aria-label="Ana Sayfa">
                     <svg x-show="!darkMode" x-cloak class="rounded-xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent dark:hover:bg-brand-muted transition-all duration-300 shadow-sm focus:outline-none" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <g transform="matrix(0.06436962,0,0,-0.06752194,-75.430711,374.30048)" fill="#000000" stroke="none">
                             <g transform="translate(-1.8043429e-6,-3509.9698)">
@@ -490,30 +494,28 @@
             <div wire:snapshot="{&quot;data&quot;:[],&quot;memo&quot;:{&quot;id&quot;:&quot;Gdr83Fy15R7Rvico5QI4&quot;,&quot;name&quot;:&quot;pages::books&quot;,&quot;path&quot;:&quot;kitaplik&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;921e367e6f0dfb40bb78f17d5ff27d984ee06ebb507e0d4ee00faeffa026a54c&quot;}" wire:effects="{&quot;partials&quot;:[]}" wire:id="Gdr83Fy15R7Rvico5QI4" wire:name="pages::books">
     <div class="container mx-auto px-4 sm:px-8 py-12 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl">
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
-            <!--[if BLOCK]><![endif]-->                <a href="kitap/sdfsd" class="block">
+            {% for book in site.books %}
+            <a href="{{ book.url | relative_url }}" class="block">
                 <div class="flex flex-col items-center group cursor-pointer border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl p-1 h-full ">
-
-
                         <div class="relative rounded-lg p-1 shadow-lg transition-colors duration-300">
-                            <img src="https://alpersoylemez.com/images/placeholder-book.png"
-                                alt="sdfsd"
+                            <img src="{{ book.image | default: 'https://alpersoylemez.com/images/placeholder-book.png' }}"
+                                alt="{{ book.title }}"
                                 class="w-full h-auto rounded shadow-lg object-cover transition-transform duration-300 group-hover:scale-105"
                                 style="aspect-ratio: 2/3;">
                             <div class="absolute inset-0 bg-brand-primary bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded"></div>
                         </div>
                         <div class="mt-4 text-center w-full">
-                            <h3 class="text-base font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-primary transition-colors">sdfsd</h3>
-                            <p class="text-sm text-brand-dark/70 dark:text-brand-light/70">sdfsd</p>
+                            <h3 class="text-base font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-primary transition-colors">{{ book.title }}</h3>
+                            <p class="text-sm text-brand-dark/70 dark:text-brand-light/70">{{ book.author }}</p>
                         </div>
                         <div class="mt-2 w-full text-center justify-center items-center">
                             <span class="text-xs  font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-                                Okunmadı
+                                {{ book.status | default: 'Okunmadı' }}
                             </span>
                         </div>
-
                 </div>
-                 </a>
-            <!--[if ENDBLOCK]><![endif]-->        </div>
+            </a>
+            {% endfor %}        </div>
     </div>
 </div>
         </main>

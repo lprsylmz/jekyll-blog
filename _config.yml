@@ -49,6 +49,11 @@ collections:
     permalink: /blog/:title/
     values:
       layout: "post"
+  books:
+    output: true
+    permalink: /kitap/:title/
+    values:
+      layout: "book"
 
 defaults:
   - scope:
@@ -66,3 +71,8 @@ defaults:
       type: "articles"
     values:
       layout: "post"
+  - scope:
+      path: ""
+      type: "books"
+    values:
+      layout: "book"
