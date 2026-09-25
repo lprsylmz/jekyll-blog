@@ -4,7 +4,7 @@ permalink: /search_notes.json
 ---
 {% assign entries = site.notes | reverse %}[
 {% for post in entries %}{% assign entry_number = entries.size | minus: forloop.index0 %}{
-"title": {{ "Entry #" | append: entry_number | jsonify }},
+"title": {{ "Not #" | append: entry_number | jsonify }},
 "url": {{ site.url | append: "/journal/#" | append: entry_number | jsonify }},
 "date": {{ post.date | date: "%d.%m.%Y" | jsonify }},
 "content": {{ post.content | strip_html | strip_newlines | truncate: 500 | jsonify }}
