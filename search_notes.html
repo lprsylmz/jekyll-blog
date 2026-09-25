@@ -7,6 +7,6 @@ permalink: /search_notes.json
 "title": {{ "Not #" | append: entry_number | jsonify }},
 "url": {{ site.url | append: "/journal/#" | append: entry_number | jsonify }},
 "date": {{ post.date | date: "%d.%m.%Y" | jsonify }},
-"content": {{ post.content | strip_html | strip_newlines | truncate: 500 | jsonify }}
+"content": {{ post.content | strip_html | strip_newlines | jsonify }}
 }{% unless forloop.last %},{% endunless %}{% endfor %}
 ]

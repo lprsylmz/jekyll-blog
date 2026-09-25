@@ -7,6 +7,6 @@ permalink: /search_books.json
 "title": {{ book.title | jsonify }},
 "author": {{ book.author | jsonify }},
 "url": {{ book.url | absolute_url | jsonify }},
-"content": {{ book.content | strip_html | strip_newlines | truncate: 500 | jsonify }}
+"content": {{ book.content | strip_html | strip_newlines | jsonify }}
 }{% unless forloop.last %},{% endunless %}{% endfor %}
 ]
