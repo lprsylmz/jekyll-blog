@@ -445,8 +445,15 @@ layout: null
             if (this.books.length > 0) return;
             this.isLoading = true;
             try {
-                const response = await fetch('/search_books.json');
-                this.books = await response.json();
+                const [booksRes, notesRes, articlesRes] = await Promise.all([
+                    fetch('/search_books.json'),
+                    fetch('/search_notes.json'),
+                    fetch('/search_articles.json')
+                ]);
+                const books = await booksRes.json();
+                const notes = await notesRes.json();
+                const articles = await articlesRes.json();
+                this.books = [...books, ...notes, ...articles];
             } catch (error) {
                 console.error('Arama dizini yüklenemedi:', error);
             }
@@ -460,8 +467,9 @@ layout: null
             }
             this.searchResults = this.books.filter(book =>
                 (book.title && book.title.toLowerCase().includes(q)) ||
+                (book.author && book.author.toLowerCase().includes(q)) ||
                 (book.content && book.content.toLowerCase().includes(q))
-            ).slice(0, 5);
+            ).slice(0, 8);
         }
      }"
      x-init="initSearch()">
@@ -476,7 +484,8 @@ layout: null
                 <li class="border-b last:border-b-0 border-brand-muted/20 dark:border-brand-muted/50">
                     <a :href="book.url" class="block px-4 py-2 hover:bg-brand-accent/20 dark:hover:bg-brand-muted/30">
                         <div class="font-bold" x-text="book.title"></div>
-                        <div class="text-xs text-brand-muted dark:text-brand-light/60" x-text="book.author"></div>
+                        <div class="text-xs text-brand-muted dark:text-brand-light/60"
+                            x-text="book.author ? book.author : book.date"></div>
                     </a>
                 </li>
             </template>

@@ -586,13 +586,15 @@
                 if (this.items.length > 0) return;
                 this.isLoading = true;
                 try {
-                  const [notesRes, articlesRes] = await Promise.all([
+                  const [notesRes, articlesRes, booksRes] = await Promise.all([
                     fetch('/search_notes.json'),
-                    fetch('/search_articles.json')
+                    fetch('/search_articles.json'),
+                    fetch('/search_books.json')
                   ]);
                   const notes = await notesRes.json();
                   const articles = await articlesRes.json();
-                  this.items = [...notes, ...articles];
+                  const books = await booksRes.json();
+                  this.items = [...notes, ...articles, ...books];
                 } catch (error) {
                   console.error('Arama dizini yüklenemedi:', error);
                 }
@@ -603,8 +605,9 @@
                 if (q.length < 2) { this.searchResults = []; return; }
                 this.searchResults = this.items.filter(item =>
                   (item.title && item.title.toLowerCase().includes(q)) ||
+                  (item.author && item.author.toLowerCase().includes(q)) ||
                   (item.content && item.content.toLowerCase().includes(q))
-                ).slice(0, 5);
+                ).slice(0, 8);
               }
             }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
                 @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
@@ -620,7 +623,8 @@
                                 <a :href="item.url"
                                     class="block px-4 py-2 hover:bg-brand-accent/10 dark:hover:bg-brand-muted/20 transition-colors">
                                     <div class="font-bold text-sm" x-text="item.title"></div>
-                                    <div class="text-xs text-brand-muted dark:text-brand-light/60" x-text="item.date">
+                                    <div class="text-xs text-brand-muted dark:text-brand-light/60"
+                                        x-text="item.author ? item.author : item.date">
                                     </div>
                                 </a>
                             </li>
