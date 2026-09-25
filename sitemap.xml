@@ -3,7 +3,7 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% assign site_pages = site.pages | concat: site.articles | concat: site.notes %}
+  {% assign site_pages = site.pages | concat: site.articles | concat: site.notes | concat: site.books %}
   {% for page in site_pages %}
     {% unless page.sitemap == false or page.name == "feed.xml" or page.name == "sitemap.xml" %}
       <url>
