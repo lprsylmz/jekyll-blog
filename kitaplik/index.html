@@ -479,15 +479,17 @@ title: Kitaplık - Alper Söylemez
             if (this.books.length > 0) return;
             this.isLoading = true;
             try {
-                const [booksRes, notesRes, articlesRes] = await Promise.all([
+                const [booksRes, notesRes, articlesRes, videosRes] = await Promise.all([
                     fetch('/search_books.json'),
                     fetch('/search_notes.json'),
-                    fetch('/search_articles.json')
+                    fetch('/search_articles.json'),
+                    fetch('/search_videos.json')
                 ]);
                 const books = await booksRes.json();
                 const notes = await notesRes.json();
                 const articles = await articlesRes.json();
-                this.books = [...books, ...notes, ...articles];
+                const videos = await videosRes.json();
+                this.books = [...books, ...notes, ...articles, ...videos];
             } catch (error) {
                 console.error('Arama dizini yüklenemedi:', error);
             }

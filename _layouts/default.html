@@ -586,15 +586,17 @@
                 if (this.items.length > 0) return;
                 this.isLoading = true;
                 try {
-                  const [notesRes, articlesRes, booksRes] = await Promise.all([
+                  const [notesRes, articlesRes, booksRes, videosRes] = await Promise.all([
                     fetch('/search_notes.json'),
                     fetch('/search_articles.json'),
-                    fetch('/search_books.json')
+                    fetch('/search_books.json'),
+                    fetch('/search_videos.json')
                   ]);
                   const notes = await notesRes.json();
                   const articles = await articlesRes.json();
                   const books = await booksRes.json();
-                  this.items = [...notes, ...articles, ...books];
+                  const videos = await videosRes.json();
+                  this.items = [...notes, ...articles, ...books, ...videos];
                 } catch (error) {
                   console.error('Arama dizini yüklenemedi:', error);
                 }

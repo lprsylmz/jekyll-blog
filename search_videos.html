@@ -1,0 +1,12 @@
+---
+layout: none
+permalink: /search_videos.json
+---
+{% assign entries = site.videos | sort: 'title' %}[
+{% for video in entries %}{
+"title": {{ video.title | jsonify }},
+"author": {{ video.creator | jsonify }},
+"url": {{ video.url | absolute_url | jsonify }},
+"content": {{ video.content | strip_html | strip_newlines | jsonify }}
+}{% unless forloop.last %},{% endunless %}{% endfor %}
+]

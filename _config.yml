@@ -54,6 +54,11 @@ collections:
     permalink: /kitap/:title/
     values:
       layout: "book"
+  videos:
+    output: true
+    permalink: /izlence/:title/
+    values:
+      layout: "video"
 
 defaults:
   - scope:
@@ -76,3 +81,8 @@ defaults:
       type: "books"
     values:
       layout: "book"
+  - scope:
+      path: ""
+      type: "videos"
+    values:
+      layout: "video"

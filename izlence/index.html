@@ -1,0 +1,66 @@
+---
+layout: default
+title: İzlence - Alper Söylemez
+description: Film ve dizi izlencem; hatırlamak ve hatırlatmak için.
+---
+
+<div class="container mx-auto px-4 sm:px-8 py-12 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl"
+     x-data="{ filter: 'all' }">
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+        <button type="button" @click="filter = 'all'"
+            :class="filter === 'all' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
+            Tümü
+        </button>
+        <button type="button" @click="filter = 'film'"
+            :class="filter === 'film' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
+            Film
+        </button>
+        <button type="button" @click="filter = 'dizi'"
+            :class="filter === 'dizi' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
+            Dizi
+        </button>
+    </div>
+
+    {% if site.videos.size > 0 %}
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {% assign videos = site.videos | sort: 'title' %}
+        {% for video in videos %}
+        <a href="{{ video.url | relative_url }}" class="block" x-show="filter === 'all' || filter === '{{ video.kind | default: 'film' }}'">
+            <div
+                class="flex flex-col items-center group cursor-pointer border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl p-1 h-full">
+                <div class="relative rounded-lg p-1 shadow-lg transition-colors duration-300 w-full">
+                    <img src="{{ video.image | default: '/assets/images/placeholder-poster.svg' }}"
+                        alt="{{ video.title }}"
+                        class="w-full h-auto rounded shadow-lg object-cover transition-transform duration-300 group-hover:scale-105"
+                        style="aspect-ratio: 2/3;">
+                    <div
+                        class="absolute inset-0 bg-brand-primary bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded">
+                    </div>
+                </div>
+                <div class="mt-4 text-center w-full px-1">
+                    <h3
+                        class="text-base font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-primary transition-colors">
+                        {{ video.title }}</h3>
+                    <p class="text-sm text-brand-dark/70 dark:text-brand-light/70">{{ video.creator }}</p>
+                </div>
+                <div class="mt-2 w-full text-center justify-center items-center flex flex-wrap gap-1 px-1 pb-2">
+                    <span
+                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                        {% if video.kind == 'dizi' %}Dizi{% else %}Film{% endif %}
+                    </span>
+                    <span
+                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                        {{ video.status | default: 'İzlenmedi' }}
+                    </span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-brand-dark/60 dark:text-brand-light/60">Henüz izlence kaydı yok.</p>
+    {% endif %}
+</div>
