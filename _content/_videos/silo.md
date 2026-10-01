@@ -1,6 +1,5 @@
 ---
-
-## title: "Silo"
+title: "Silo"
 creator: "Graham Yost"
 kind: dizi
 year: 2023
