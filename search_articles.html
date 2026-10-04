@@ -2,7 +2,7 @@
 layout: none
 permalink: /search_articles.json
 ---
-{% assign entries = site.articles | sort: 'date' | reverse %}[
+{% assign entries = site.articles | concat: site.en_articles | sort: 'date' | reverse %}[
 {% for post in entries %}{
 "title": {{ post.title | jsonify }},
 "url": {{ post.url | absolute_url | jsonify }},
