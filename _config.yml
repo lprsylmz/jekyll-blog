@@ -49,6 +49,11 @@ collections:
     permalink: /blog/:title/
     values:
       layout: "post"
+  en_articles:
+    output: true
+    permalink: /en/blog/:title/
+    values:
+      layout: "post_en"
   books:
     output: true
     permalink: /kitap/:title/
@@ -71,6 +76,11 @@ defaults:
       type: "notes"
     values:
       layout: "note"
+  - scope:
+      path: ""
+      type: "en_articles"
+    values:
+      layout: "post_en"
   - scope:
       path: ""
       type: "articles"

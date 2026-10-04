@@ -557,6 +557,14 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
+                    {% if page.lang_url %}
+                    <a href="{{ page.lang_url }}" id="lang-toggle-btn"
+                        aria-label="{% if page.lang == 'en' %}Türkçe sürüme geç{% else %}Switch to English{% endif %}"
+                        title="{% if page.lang == 'en' %}Türkçe{% else %}English{% endif %}"
+                        class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center font-bold text-sm tracking-wide">
+                        {% if page.lang == 'en' %}TR{% else %}EN{% endif %}
+                    </a>
+                    {% endif %}
                     <button x-on:click="toggle()" aria-label="Karanlık Mod"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center">
                         <svg x-show="!darkMode" title="Karanlık Mod" class="w-6 h-6" fill="currentColor"
@@ -572,6 +580,7 @@
                         </svg>
                     </button>
                 </div>
+
             </div>
 
             <!-- Search Dropdown -->

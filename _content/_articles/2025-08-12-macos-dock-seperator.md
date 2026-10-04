@@ -7,6 +7,8 @@ description: "MacOS Dock’a Ayırıcı (Separator) Ekleme"
 tags: ["teknoloji", "macos"]
 author: "Alper Söylemez"
 is_published: true
+lang: tr
+lang_url: "/en/blog/macos-dock-seperator/"
 ---
 
 

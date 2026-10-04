@@ -7,7 +7,10 @@ description: "Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol 
 tags: ["tyro checkpoint", "laravel", "SQLite"]
 author: "Alper Söylemez"
 is_published: true
+lang: tr
+lang_url: "/en/blog/tyro-checkpoint/"
 ---
+
 
 Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan basit bir Laravel paketidir. Bu paket sadece SQLite veritabanları için tasarlanmıştır.
 

@@ -1,0 +1,37 @@
+---
+layout: default
+title: Blog (English) - Alper Söylemez
+lang: en
+---
+
+<div class="space-y-8 min-h-[50vh]">
+
+    {% assign sorted_en_articles = site.en_articles | sort: 'date' | reverse %}
+
+    {% if sorted_en_articles.size > 0 %}
+    <div class="space-y-4">
+        {% for article in sorted_en_articles %}
+        <article class="p-4 rounded-xl bg-transparent duration-300">
+            <div class="flex items-center justify-between gap-4">
+                <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90 truncate">
+                    <a href="{{ article.url | relative_url }}"
+                        class="hover:text-brand-primary transition-colors duration-200">
+                        {{ article.title }}
+                    </a>
+                </h2>
+
+                {% if article.date %}
+                <time
+                    class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time shrink-0"
+                    datetime="{{ article.date | date_to_xmlschema }}" data-timestamp="{{ article.date | date: '%s' }}">
+                    {{ article.date | date: "%m/%d/%Y" }}
+                </time>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-brand-dark/60 dark:text-brand-light/60 text-lg">No blog posts available yet.</p>
+    {% endif %}
+</div>
