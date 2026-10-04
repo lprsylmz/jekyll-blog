@@ -557,12 +557,21 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
+                    {% assign current_lang = page.lang | default: site.lang | default: 'tr' %}
                     {% if page.lang_url %}
                     <a href="{{ page.lang_url }}" id="lang-toggle-btn"
-                        aria-label="{% if page.lang == 'en' %}Türkçe sürüme geç{% else %}Switch to English{% endif %}"
-                        title="{% if page.lang == 'en' %}Türkçe{% else %}English{% endif %}"
+                        aria-label="{% if current_lang == 'en' %}Türkçe sürüme geç{% else %}Switch to English{% endif %}"
+                        title="{% if current_lang == 'en' %}Türkçe{% else %}English{% endif %}"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center font-bold text-sm tracking-wide">
-                        {% if page.lang == 'en' %}TR{% else %}EN{% endif %}
+                        {% if current_lang == 'en' %}TR{% else %}EN{% endif %}
+                    </a>
+                    {% else %}
+                    <a href="https://translate.google.com/translate?sl={{ current_lang }}&tl={% if current_lang == 'en' %}tr{% else %}en{% endif %}&u={{ page.url | absolute_url | url_encode }}" id="lang-toggle-btn"
+                        target="_blank" rel="noopener noreferrer"
+                        aria-label="{% if current_lang == 'en' %}Google Çeviri ile Türkçe{% else %}Google Çeviri ile İngilizce{% endif %}"
+                        title="{% if current_lang == 'en' %}Google Çeviri (Türkçe){% else %}Google Çeviri (English){% endif %}"
+                        class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center font-bold text-sm tracking-wide">
+                        {% if current_lang == 'en' %}TR{% else %}EN{% endif %}
                     </a>
                     {% endif %}
                     <button x-on:click="toggle()" aria-label="Karanlık Mod"
