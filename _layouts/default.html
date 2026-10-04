@@ -566,7 +566,14 @@
                         {% if current_lang == 'en' %}TR{% else %}EN{% endif %}
                     </a>
                     {% else %}
-                    <a href="https://translate.google.com/translate?sl={{ current_lang }}&tl={% if current_lang == 'en' %}tr{% else %}en{% endif %}&u={{ page.url | absolute_url | url_encode }}" id="lang-toggle-btn"
+                    {% assign raw_translate_text = page.title %}
+                    {% if page.content %}
+                        {% assign clean_body = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                        {% assign raw_translate_text = raw_translate_text | append: " - " | append: clean_body %}
+                    {% elsif page.description %}
+                        {% assign raw_translate_text = raw_translate_text | append: " - " | append: page.description %}
+                    {% endif %}
+                    <a href="https://translate.google.com/?sl={{ current_lang }}&tl={% if current_lang == 'en' %}tr{% else %}en{% endif %}&op=translate&text={{ raw_translate_text | url_encode }}" id="lang-toggle-btn"
                         target="_blank" rel="noopener noreferrer"
                         aria-label="{% if current_lang == 'en' %}Google Çeviri ile Türkçe{% else %}Google Çeviri ile İngilizce{% endif %}"
                         title="{% if current_lang == 'en' %}Google Çeviri (Türkçe){% else %}Google Çeviri (English){% endif %}"
