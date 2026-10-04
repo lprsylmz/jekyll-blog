@@ -41,6 +41,18 @@
     <meta property="twitter:image"
         content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/favicon.svg' | absolute_url }}{% endif %}" />
     <script src="/assets/js/alpine.min.js" defer></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('app', {
+                lang: localStorage.getItem('lang') || 'TR',
+                toggleLang() {
+                    this.lang = this.lang === 'TR' ? 'EN' : 'TR';
+                    localStorage.setItem('lang', this.lang);
+                    document.documentElement.setAttribute('lang', this.lang === 'TR' ? 'tr' : 'en');
+                }
+            });
+        });
+    </script>
     <!-- Tailwind CSS CDN -->
     <!-- Tailwind CSS CDN -->
     <script src="/assets/js/tailwindcss.js"></script>
@@ -556,6 +568,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
+                    </button>
+                    <button id="lang-toggle-btn" x-on:click="$store.app.toggleLang()" :aria-label="'Dil: ' + $store.app.lang"
+                        class="px-3 py-2 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center font-semibold text-sm tracking-wide min-w-[3rem]"
+                        title="Dil değiştir / Switch language">
+                        <span x-text="$store.app.lang"></span>
                     </button>
                     <button x-on:click="toggle()" aria-label="Karanlık Mod"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center">

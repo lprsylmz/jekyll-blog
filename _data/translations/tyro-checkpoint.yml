@@ -1,0 +1,91 @@
+en:
+  title: "Tyro Checkpoint"
+  description: "Tyro Checkpoint is a simple Laravel package that provides Git-like checkpoint functionality for your SQLite database. This package is designed exclusively for SQLite databases."
+  content: |
+    Tyro Checkpoint is a simple Laravel package that provides Git-like checkpoint functionality for your SQLite database. This package is designed exclusively for SQLite databases.
+
+    ## Requirements
+
+    - PHP 8.1 or higher
+    - Laravel 10.x, 11.x, or 12.x
+    - SQLite database configured as the default connection
+
+    ## Installation
+
+    ```
+    composer require hasinhayder/tyro-checkpoint --dev
+    ```
+    ```
+    php artisan tyro-checkpoint:install
+    ```
+
+    If the `storage/tyro-checkpoints` directory is created, the installation was successful. By default, all checkpoints are stored in the `storage/tyro-checkpoints/` directory. Each checkpoint is a complete copy of your SQLite database file. To prevent data loss during restoration, metadata is stored in a JSON file separate from the database. This directory contains both snapshot files (`.sqlite`) and the metadata record (`checkpoints.json`). It supports optional file-level encryption using AES-256-CBC.
+
+    ## Creating a Checkpoint
+
+    Create a checkpoint with an auto-generated name:
+    ```
+    php artisan tyro-checkpoint:create
+    ```
+
+    Create a checkpoint with a custom name and optional note:
+    ```
+    php artisan tyro-checkpoint:create initial_state --note="Clean install"
+    ```
+
+    Create an encrypted snapshot using the `--encrypt` flag:
+    ```
+    php artisan tyro-checkpoint:create secure_state --encrypt
+    ```
+
+    ## Listing Checkpoints
+
+    Display all saved checkpoints along with their sizes, creation dates, and statuses:
+    ```
+    php artisan tyro-checkpoint:list
+    ```
+
+    ## Restoring a Checkpoint
+
+    Restore a checkpoint by ID or name:
+    ```
+    php artisan tyro-checkpoint:restore 1
+    ```
+    or
+    ```
+    php artisan tyro-checkpoint:restore initial_state
+    ```
+    If you don't provide an identifier, the command will display a selection list.
+
+    ## Managing Notes
+
+    Add or update a note on an existing checkpoint:
+    ```
+    php artisan tyro-checkpoint:add-note 1
+    ```
+
+    ## Locking & Unlocking
+
+    Lock a checkpoint to prevent accidental deletion via `delete` or `flush` commands:
+    ```
+    php artisan tyro-checkpoint:lock 1
+    ```
+
+    Unlock to re-enable deletion:
+    ```
+    php artisan tyro-checkpoint:unlock 1
+    ```
+
+    ## Deleting Checkpoints
+
+    Delete a specific unlocked checkpoint:
+    ```
+    php artisan tyro-checkpoint:delete 1
+    ```
+
+    Delete all unlocked checkpoints to save disk space:
+    ```
+    php artisan tyro-checkpoint:flush
+    ```
+
+    https://hasinhayder.github.io/tyro-checkpoint/
