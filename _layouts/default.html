@@ -567,7 +567,12 @@
                     </a>
                     {% else %}
                     {% assign raw_translate_text = page.title %}
-                    {% if page.content %}
+                    {% if page.is_journal or page.url == '/journal/' %}
+                        {% assign latest_note = site.notes | reverse | first %}
+                        {% assign raw_translate_text = latest_note.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                    {% elsif page.collection == 'notes' %}
+                        {% assign raw_translate_text = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                    {% elsif page.content and page.collection %}
                         {% assign clean_body = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
                         {% assign raw_translate_text = raw_translate_text | append: " - " | append: clean_body %}
                     {% elsif page.description %}

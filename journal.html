@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Journal - Alper Söylemez
+is_journal: true
 ---
 
 <div class="space-y-6">
@@ -221,6 +222,95 @@ title: Journal - Alper Söylemez
             visibleArticles = allArticles;
         }
 
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+
+        const getArticleText = (article) => {
+            if (!article) return '';
+            const prose = article.querySelector('.prose');
+            if (!prose) return '';
+            let text = (prose.innerText || prose.textContent || '').trim();
+            if (!text) {
+                const img = prose.querySelector('img[alt]');
+                if (img) text = img.alt.trim();
+            }
+            if (text.length > 1800) {
+                text = text.slice(0, 1800);
+            }
+            return text;
+        };
+
+        const buildTranslateUrl = (text) => {
+            if (!langToggleBtn) return '';
+            try {
+                const currentHref = langToggleBtn.getAttribute('href') || '';
+                if (currentHref.includes('translate.google.com')) {
+                    const parsedUrl = new URL(currentHref, window.location.origin);
+                    parsedUrl.searchParams.set('text', text);
+                    return parsedUrl.toString();
+                }
+            } catch (e) {}
+            return `https://translate.google.com/?sl=tr&tl=en&op=translate&text=${encodeURIComponent(text)}`;
+        };
+
+        const getActiveArticle = () => {
+            const visible = visibleArticles.filter(a => !a.classList.contains('hidden'));
+            if (!visible.length) return null;
+
+            const triggerY = 120;
+            let bestArticle = visible[0];
+            let minDistance = Infinity;
+
+            for (const article of visible) {
+                const rect = article.getBoundingClientRect();
+                if (rect.bottom > triggerY && rect.top <= window.innerHeight) {
+                    let dist;
+                    if (rect.top <= triggerY && rect.bottom >= triggerY) {
+                        dist = 0;
+                    } else {
+                        dist = Math.abs(rect.top - triggerY);
+                    }
+
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        bestArticle = article;
+                        if (dist === 0) break;
+                    }
+                }
+            }
+
+            if (bestArticle) return bestArticle;
+
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                const byHash = visible.find(a => a.id === hash);
+                if (byHash) return byHash;
+            }
+
+            return visible[0];
+        };
+
+        const updateLangButton = (article) => {
+            if (!langToggleBtn) return;
+            const targetArticle = article || getActiveArticle();
+            if (!targetArticle) return;
+            const text = getArticleText(targetArticle);
+            if (text) {
+                langToggleBtn.setAttribute('href', buildTranslateUrl(text));
+            }
+        };
+
+        if (langToggleBtn) {
+            langToggleBtn.addEventListener('click', () => {
+                const active = getActiveArticle();
+                if (active) {
+                    const text = getArticleText(active);
+                    if (text) {
+                        langToggleBtn.setAttribute('href', buildTranslateUrl(text));
+                    }
+                }
+            });
+        }
+
         const urlObserver = new IntersectionObserver((entries) => {
             if (isNavigatingToHash) return;
             entries.forEach(entry => {
@@ -229,6 +319,7 @@ title: Journal - Alper Söylemez
                     if (window.location.hash !== newHash) {
                         history.replaceState(null, '', `${window.location.pathname}${window.location.search}${newHash}`);
                     }
+                    updateLangButton(entry.target);
                 }
             });
         }, {
@@ -246,6 +337,7 @@ title: Journal - Alper Söylemez
         }
 
         loadNextBatch();
+        updateLangButton();
 
         function handleHashTarget() {
             const targetHash = window.location.hash.replace('#', '');
@@ -259,6 +351,7 @@ title: Journal - Alper Söylemez
 
                 const targetElement = document.getElementById(targetHash);
                 if (targetElement) {
+                    updateLangButton(targetElement);
                     isNavigatingToHash = true;
                     setTimeout(() => {
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -271,7 +364,19 @@ title: Journal - Alper Söylemez
         }
 
         handleHashTarget();
-        window.addEventListener('hashchange', handleHashTarget);
+        window.addEventListener('hashchange', () => {
+            handleHashTarget();
+            updateLangButton();
+        });
+
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (isNavigatingToHash) return;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                updateLangButton();
+            }, 100);
+        }, { passive: true });
 
         const sentinel = document.getElementById('scroll-sentinel');
         if (sentinel) {
