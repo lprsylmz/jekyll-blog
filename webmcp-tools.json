@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "alpersoylemez.com",
+  "title": "Alper Söylemez",
+  "description": "Alper Söylemez kişisel sitesindeki yazı, journal notu, kitap ve izlence içeriklerini ajanlara açan WebMCP araç tanımları.",
+  "websiteUrl": "https://alpersoylemez.com",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "search_content",
+      "description": "Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["query"],
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200,
+            "description": "Aranacak kelime veya ifade. En az iki karakter olmalıdır."
+          },
+          "collection": {
+            "type": "string",
+            "enum": ["all", "articles", "notes", "books", "videos"],
+            "default": "all",
+            "description": "Aramanın sınırlandırılacağı koleksiyon. all tüm koleksiyonları tarar."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25,
+            "default": 8,
+            "description": "Döndürülecek sonuç sayısı."
+          }
+        }
+      }
+    },
+    {
+      "name": "list_site_sections",
+      "description": "Sitenin ajanların gezebileceği ana bölümlerini, keşif dosyalarını ve içerik indekslerini listeler.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_site_overview",
+      "description": "LLM'ler için hazırlanmış llms.txt içeriğini okur; site yapısı ve öncelikli bağlantıları döndürür.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      }
+    }
+  ]
+}

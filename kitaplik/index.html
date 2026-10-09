@@ -17,6 +17,8 @@ title: Kitaplık - Alper Söylemez
     <meta name="author" content="Alper Söylemez" />
     <meta name="robots" content="INDEX, FOLLOW" />
     <link rel="canonical" href="https://alpersoylemez.com/kitaplik" />
+    <link rel="describedby" href="https://alpersoylemez.com/llms.txt" />
+    <link rel="alternate" type="text/markdown" title="llms.txt" href="https://alpersoylemez.com/llms.txt" />
     <link rel="alternate" type="application/rss+xml" title="Alper Söylemez RSS Feed"
         href="https://alpersoylemez.com/feed" />
 
@@ -390,6 +392,7 @@ title: Kitaplık - Alper Söylemez
             }
         }
     }"
+    @webmcp-open-search.window="searchOpen = true"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
@@ -508,9 +511,24 @@ title: Kitaplık - Alper Söylemez
             ).slice(0, 8);
         }
      }" x-init="initSearch()">
-                <input id="search-input" type="text" x-model="searchQuery" x-on:input.debounce.300ms="search()"
-                    placeholder="Kitaplarda ara..."
-                    class="w-full px-5 py-3 pl-12 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500">
+                <form id="site-search-form" role="search" method="get" action="/kitaplik/"
+                    toolname="search_site"
+                    tooldescription="Kitaplık, blog, journal ve izlence kayıtlarında arama yapar."
+                    toolautosubmit
+                    @submit.prevent="
+                        search();
+                        if ($event.agentInvoked && typeof $event.respondWith === 'function') {
+                            $event.respondWith(Promise.resolve({ results: searchResults }));
+                        }
+                    ">
+                    <label for="search-input" class="sr-only">Site içi arama</label>
+                    <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
+                        x-on:input.debounce.300ms="search()" placeholder="Kitaplarda ara..."
+                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
+                        autocomplete="off"
+                        class="w-full px-5 py-3 pl-12 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500">
+                    <button type="submit" class="sr-only">Ara</button>
+                </form>
 
                 <template x-if="searchResults.length > 0">
                     <ul class="mt-2 bg-brand-light dark:bg-brand-dark rounded-xl shadow-md overflow-hidden">
@@ -791,6 +809,7 @@ title: Kitaplık - Alper Söylemez
     </script>
 
     <script src="assets/js/static-features.js"></script>
+    <script src="assets/js/webmcp-tools.js" defer></script>
 </body>
 
 </html>

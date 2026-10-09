@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /.well-known/
+Allow: /ai-catalog.json
+Allow: /webmcp-tools.json
+Allow: /assets/js/webmcp-tools.js
 Disallow: /assets/
 Disallow: /admin/
 

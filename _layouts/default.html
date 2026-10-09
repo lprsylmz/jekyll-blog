@@ -15,6 +15,8 @@
     <link rel="canonical" href="https://alpersoylemez.com/journal" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed"
         href="{{ '/feed.xml' | absolute_url }}" />
+    <link rel="describedby" href="{{ '/llms.txt' | absolute_url }}" />
+    <link rel="alternate" type="text/markdown" title="llms.txt" href="{{ '/llms.txt' | absolute_url }}" />
 
     <title>{{ page.title | default: site.title }}</title>
 
@@ -421,6 +423,18 @@
         .dark .prose a.hashtag:hover {
             color: #F5F0E8;
         }
+
+        form:tool-form-active {
+            outline: light-dark(#4A6FA5, #8D99AE) dashed 1px;
+            outline-offset: 2px;
+            border-radius: 1rem;
+        }
+
+        button:tool-submit-active,
+        input:tool-submit-active {
+            outline: light-dark(#4A6FA5, #8D99AE) dashed 1px;
+            outline-offset: 2px;
+        }
     </style>
 
     <!-- Dark Mode Init (flash prevention) -->
@@ -482,6 +496,7 @@
       }
     }
   }"
+    @webmcp-open-search.window="searchOpen = true"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <!-- Reading Progress Bar -->
@@ -643,9 +658,24 @@
               }
             }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
                 @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
-                <input id="search-input" type="text" x-model="searchQuery" x-on:input.debounce.300ms="search()"
-                    placeholder="Ara..."
-                    class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
+                <form id="site-search-form" role="search" method="get" action="{{ page.url | relative_url }}"
+                    toolname="search_site"
+                    tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
+                    toolautosubmit
+                    @submit.prevent="
+                        search();
+                        if ($event.agentInvoked && typeof $event.respondWith === 'function') {
+                            $event.respondWith(Promise.resolve({ results: searchResults }));
+                        }
+                    ">
+                    <label for="search-input" class="sr-only">Site içi arama</label>
+                    <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
+                        x-on:input.debounce.300ms="search()" placeholder="Ara..."
+                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
+                        autocomplete="off"
+                        class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
+                    <button type="submit" class="sr-only">Ara</button>
+                </form>
 
                 <template x-if="searchResults.length > 0">
                     <ul
@@ -1083,6 +1113,8 @@
 
         })();
     </script>
+
+    <script src="{{ '/assets/js/webmcp-tools.js' | relative_url }}" defer></script>
 
     <noscript>
         <!-- ✅ _config.yml: site.yandex_metrica -->

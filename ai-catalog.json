@@ -1,0 +1,59 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Alper Söylemez",
+    "identifier": "did:web:alpersoylemez.com",
+    "documentationUrl": "https://alpersoylemez.com/llms.txt",
+    "logoUrl": "https://alpersoylemez.com/favicon.svg"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:alpersoylemez.com:site:webmcp-tools",
+      "displayName": "Alper Söylemez WebMCP Tools",
+      "type": "application/mcp-server-card+json",
+      "url": "https://alpersoylemez.com/webmcp-tools.json",
+      "description": "Blog, journal, kitaplık ve izlence içeriğini aramak ve site bölümlerini listelemek için WebMCP araç şemaları.",
+      "tags": ["webmcp", "mcp", "search", "personal-site"],
+      "capabilities": ["search_content", "list_site_sections", "get_site_overview"],
+      "representativeQueries": [
+        "Alper Söylemez'in blog yazılarında Andor hakkında ne var?",
+        "Kitaplıkta İbn Battuta kaydı var mı?",
+        "Sitenin journal notlarını nasıl ararım?",
+        "Bu sitede ajanların kullanabileceği araçlar neler?"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-10-10T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:alpersoylemez.com:docs:llms",
+      "displayName": "llms.txt",
+      "type": "text/markdown",
+      "url": "https://alpersoylemez.com/llms.txt",
+      "description": "Sitenin LLM'ler için Markdown özeti: bölümler, yazılar, kitaplar, izlence ve keşif uç noktaları.",
+      "tags": ["llms.txt", "documentation", "discovery"],
+      "capabilities": ["site-overview", "content-index"],
+      "representativeQueries": [
+        "Bu sitenin yapısı nedir?",
+        "Hangi blog yazıları yayınlanmış?",
+        "LLM'ler içeriği nereden okumalı?"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-10-10T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:alpersoylemez.com:content:rss",
+      "displayName": "RSS Feed",
+      "type": "application/rss+xml",
+      "url": "https://alpersoylemez.com/feed.xml",
+      "description": "Yeni blog yazıları ve içerik güncellemeleri için RSS beslemesi.",
+      "tags": ["rss", "feed", "updates"],
+      "capabilities": ["list-recent-posts"],
+      "representativeQueries": [
+        "En son yazılar neler?",
+        "Siteye yeni içerik eklendi mi?"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-10-10T00:00:00Z"
+    }
+  ]
+}

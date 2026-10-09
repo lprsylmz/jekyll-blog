@@ -25,6 +25,9 @@ kramdown:
   hard_wrap: false
   syntax_highlighter: rouge
 
+include:
+  - .well-known
+
 exclude:
   - Gemfile
   - Gemfile.lock
