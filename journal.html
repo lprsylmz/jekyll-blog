@@ -248,7 +248,7 @@ is_journal: true
                     parsedUrl.searchParams.set('text', text);
                     return parsedUrl.toString();
                 }
-            } catch (e) {}
+            } catch (e) { }
             return `https://translate.google.com/?sl=tr&tl=en&op=translate&text=${encodeURIComponent(text)}`;
         };
 
