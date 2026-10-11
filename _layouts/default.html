@@ -659,9 +659,9 @@
             }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
                 @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
                 <form id="site-search-form" role="search" method="get" action="{{ page.url | relative_url }}"
-                    data-mcp-tool="search_site"
-                    data-mcp-description="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
-                    data-mcp-auto-submit
+                    toolname="search_site"
+                    tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
+                    toolautosubmit
                     @submit.prevent="
                         search();
                         if ($event.agentInvoked && typeof $event.respondWith === 'function') {
@@ -671,8 +671,7 @@
                     <label for="search-input" class="sr-only">Site içi arama</label>
                     <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
                         x-on:input.debounce.300ms="search()" placeholder="Ara..."
-                        data-mcp-arg="query"
-                        data-mcp-arg-description="Aranacak kelime veya ifade. En az iki karakter."
+                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
                         autocomplete="off"
                         class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
                     <button type="submit" class="sr-only">Ara</button>

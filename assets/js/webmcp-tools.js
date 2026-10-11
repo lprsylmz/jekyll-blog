@@ -94,75 +94,83 @@
         }
     };
 
-    function registerTools(card) {
-        var ctx = (navigator && navigator.modelContext) || (document && document.modelContext);
-        if (!ctx) return;
-
-        var tools = (card.tools || []).map(function (tool) {
-            return {
-                name: tool.name,
-                description: tool.description,
-                inputSchema: tool.inputSchema,
-                execute: executors[tool.name]
-            };
-        }).filter(function (tool) {
-            return typeof tool.execute === "function";
-        });
-
-        if (typeof ctx.registerTool === "function") {
-            tools.forEach(function (tool) {
-                ctx.registerTool(tool);
-            });
-            return;
-        }
-
-        if (typeof ctx.provideContext === "function") {
-            ctx.provideContext({ tools: tools });
-        }
+    /**
+     * Chrome 150+ sonrası doğru API: document.modelContext
+     * Eski sürümler için navigator.modelContext fallback.
+     */
+    function getModelContext() {
+        return (document && document.modelContext) || (navigator && navigator.modelContext) || null;
     }
 
-    /**
-     * Sayfadaki data-mcp-tool attribute'una sahip formları tarayıp
-     * WebMCP'ye bildirir (Declarative API desteği olmayan tarayıcılar için fallback).
-     */
-    function registerDeclarativeForms() {
-        var ctx = (navigator && navigator.modelContext) || (document && document.modelContext);
-        if (!ctx || typeof ctx.registerTool !== "function") return;
+    function registerTools(tools) {
+        var ctx = getModelContext();
+        if (!ctx) return;
 
-        var forms = document.querySelectorAll("form[data-mcp-tool]");
-        forms.forEach(function (form) {
-            var toolName = form.getAttribute("data-mcp-tool");
-            var toolDesc = form.getAttribute("data-mcp-description") || "";
+        tools.forEach(function (tool) {
+            if (typeof ctx.registerTool === "function") {
+                ctx.registerTool(tool);
+            }
+        });
+    }
 
-            if (!toolName || !executors[toolName]) return;
-
-            // Argüman şemasını data-mcp-arg attribute'larından oluştur
-            var properties = {};
-            var required = [];
-            form.querySelectorAll("[data-mcp-arg]").forEach(function (el) {
-                var argName = el.getAttribute("data-mcp-arg");
-                var argDesc = el.getAttribute("data-mcp-arg-description") || "";
-                var argType = el.type === "number" ? "number" : "string";
-                if (!argName) return;
-                properties[argName] = { type: argType, description: argDesc };
-                if (el.required) required.push(argName);
-            });
-
-            ctx.registerTool({
-                name: toolName,
-                description: toolDesc,
+    function buildTools() {
+        return [
+            {
+                name: "search_content",
+                description: "Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
                 inputSchema: {
                     type: "object",
-                    properties: properties,
-                    required: required.length ? required : undefined
+                    additionalProperties: false,
+                    required: ["query"],
+                    properties: {
+                        query: {
+                            type: "string",
+                            minLength: 2,
+                            maxLength: 200,
+                            description: "Aranacak kelime veya ifade. En az iki karakter olmalıdır."
+                        },
+                        collection: {
+                            type: "string",
+                            enum: ["all", "articles", "notes", "books", "videos"],
+                            default: "all",
+                            description: "Aramanın sınırlandırılacağı koleksiyon. all tüm koleksiyonları tarar."
+                        },
+                        limit: {
+                            type: "integer",
+                            minimum: 1,
+                            maximum: 25,
+                            default: 8,
+                            description: "Döndürülecek maksimum sonuç sayısı (1-25)."
+                        }
+                    }
                 },
-                execute: executors[toolName]
-            });
-        });
+                execute: executors.search_content
+            },
+            {
+                name: "list_site_sections",
+                description: "Sitenin ajanların gezebileceği ana bölümlerini, keşif dosyalarını ve içerik indekslerini listeler.",
+                inputSchema: {
+                    type: "object",
+                    additionalProperties: false,
+                    properties: {}
+                },
+                execute: executors.list_site_sections
+            },
+            {
+                name: "get_site_overview",
+                description: "LLM'ler için hazırlanmış llms.txt içeriğini okur; site yapısı ve öncelikli bağlantıları döndürür.",
+                inputSchema: {
+                    type: "object",
+                    additionalProperties: false,
+                    properties: {}
+                },
+                execute: executors.get_site_overview
+            }
+        ];
     }
 
     function bindAgentEvents() {
-        var ctx = document.modelContext;
+        var ctx = getModelContext();
         if (!ctx || typeof ctx.addEventListener !== "function") return;
 
         ctx.addEventListener("toolactivated", function () {
@@ -170,23 +178,21 @@
         });
     }
 
+    /**
+     * Araçları mümkün olan en erken anda kaydeder.
+     * Lighthouse snapshot'ı için DOMContentLoaded beklenmez.
+     */
     function init() {
         bindAgentEvents();
-        fetch(SCHEMA_URL)
-            .then(function (res) {
-                if (!res.ok) throw new Error("webmcp-tools.json okunamadı");
-                return res.json();
-            })
-            .then(function (card) {
-                registerTools(card);
-                registerDeclarativeForms();
-            })
-            .catch(function (err) {
-                console.warn("[WebMCP]", err);
-            });
+
+        // Araçları doğrudan kaydet — JSON fetch'i bekleme
+        var tools = buildTools();
+        registerTools(tools);
     }
 
+    // Sayfa yüklenme durumundan bağımsız olarak hemen çalıştır
     if (document.readyState === "loading") {
+        // DOMContentLoaded'ı bekle ama mümkün olan en kısa sürede
         document.addEventListener("DOMContentLoaded", init);
     } else {
         init();
