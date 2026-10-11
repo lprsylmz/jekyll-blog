@@ -45,6 +45,7 @@
     <script src="/assets/js/alpine.min.js" defer></script>
     <!-- Tailwind CSS CDN -->
     <!-- Tailwind CSS CDN -->
+    <script src="/assets/js/tailwindcss.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -65,7 +66,6 @@
             }
         }
     </script>
-    <script src="/assets/js/tailwindcss.js" async></script>
 
 
 
@@ -295,8 +295,7 @@
             margin: 1.5rem 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 100%;
-            min-height: 120px;
-            height: auto;
+            height: 140px;
         }
 
         .link-preview-card:hover {
@@ -517,7 +516,7 @@
                 <!-- Logo -->
                 <a href="{{ '/' | relative_url }}" class="hover:opacity-80 transition-opacity" aria-label="Ana Sayfa">
                     <!-- Light mode logo -->
-                    <svg x-show="!darkMode" x-cloak class="rounded-xl" width="40" height="40" viewBox="0 0 512 512"
+                    <svg x-show="!darkMode" class="rounded-xl" width="40" height="40" viewBox="0 0 512 512"
                         xmlns="http://www.w3.org/2000/svg">
                         <g transform="matrix(0.06436962,0,0,-0.06752194,-75.430711,374.30048)" fill="#1C1F26"
                             stroke="none">
@@ -987,7 +986,7 @@
                 const thumbUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
                 placeholder.innerHTML = `
-                    <img src="${thumbUrl}" loading="lazy" width="1280" height="720" alt="YouTube video thumbnail" onerror="this.src='https://i.ytimg.com/vi/${videoId}/hqdefault.jpg'">
+                    <img src="${thumbUrl}" loading="lazy" alt="YouTube video thumbnail" onerror="this.src='https://i.ytimg.com/vi/${videoId}/hqdefault.jpg'">
                     <div class="yt-lazy-play">
                         <svg viewBox="0 0 68 48" width="100%" height="100%"><path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,0.13,34,0,34,0S12.21,0.13,6.9,1.55 c-2.93,0.78-4.64,3.26-5.42,6.19C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
                     </div>
