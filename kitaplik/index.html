@@ -512,9 +512,9 @@ title: Kitaplık - Alper Söylemez
         }
      }" x-init="initSearch()">
                 <form id="site-search-form" role="search" method="get" action="/kitaplik/"
-                    toolname="search_site"
-                    tooldescription="Kitaplık, blog, journal ve izlence kayıtlarında arama yapar."
-                    toolautosubmit
+                    data-mcp-tool="search_site"
+                    data-mcp-description="Kitaplık, blog, journal ve izlence kayıtlarında arama yapar."
+                    data-mcp-auto-submit
                     @submit.prevent="
                         search();
                         if ($event.agentInvoked && typeof $event.respondWith === 'function') {
@@ -524,7 +524,8 @@ title: Kitaplık - Alper Söylemez
                     <label for="search-input" class="sr-only">Site içi arama</label>
                     <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
                         x-on:input.debounce.300ms="search()" placeholder="Kitaplarda ara..."
-                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
+                        data-mcp-arg="query"
+                        data-mcp-arg-description="Aranacak kelime veya ifade. En az iki karakter."
                         autocomplete="off"
                         class="w-full px-5 py-3 pl-12 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500">
                     <button type="submit" class="sr-only">Ara</button>

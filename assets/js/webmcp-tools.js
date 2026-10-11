@@ -121,6 +121,46 @@
         }
     }
 
+    /**
+     * Sayfadaki data-mcp-tool attribute'una sahip formları tarayıp
+     * WebMCP'ye bildirir (Declarative API desteği olmayan tarayıcılar için fallback).
+     */
+    function registerDeclarativeForms() {
+        var ctx = (navigator && navigator.modelContext) || (document && document.modelContext);
+        if (!ctx || typeof ctx.registerTool !== "function") return;
+
+        var forms = document.querySelectorAll("form[data-mcp-tool]");
+        forms.forEach(function (form) {
+            var toolName = form.getAttribute("data-mcp-tool");
+            var toolDesc = form.getAttribute("data-mcp-description") || "";
+
+            if (!toolName || !executors[toolName]) return;
+
+            // Argüman şemasını data-mcp-arg attribute'larından oluştur
+            var properties = {};
+            var required = [];
+            form.querySelectorAll("[data-mcp-arg]").forEach(function (el) {
+                var argName = el.getAttribute("data-mcp-arg");
+                var argDesc = el.getAttribute("data-mcp-arg-description") || "";
+                var argType = el.type === "number" ? "number" : "string";
+                if (!argName) return;
+                properties[argName] = { type: argType, description: argDesc };
+                if (el.required) required.push(argName);
+            });
+
+            ctx.registerTool({
+                name: toolName,
+                description: toolDesc,
+                inputSchema: {
+                    type: "object",
+                    properties: properties,
+                    required: required.length ? required : undefined
+                },
+                execute: executors[toolName]
+            });
+        });
+    }
+
     function bindAgentEvents() {
         var ctx = document.modelContext;
         if (!ctx || typeof ctx.addEventListener !== "function") return;
@@ -137,7 +177,10 @@
                 if (!res.ok) throw new Error("webmcp-tools.json okunamadı");
                 return res.json();
             })
-            .then(registerTools)
+            .then(function (card) {
+                registerTools(card);
+                registerDeclarativeForms();
+            })
             .catch(function (err) {
                 console.warn("[WebMCP]", err);
             });

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "alpersoylemez.com",
   "title": "Alper Söylemez",
   "description": "Alper Söylemez kişisel sitesindeki yazı, journal notu, kitap ve izlence içeriklerini ajanlara açan WebMCP araç tanımları.",
@@ -10,7 +9,6 @@
       "name": "search_content",
       "description": "Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
       "inputSchema": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
         "additionalProperties": false,
         "required": ["query"],
@@ -41,7 +39,6 @@
       "name": "list_site_sections",
       "description": "Sitenin ajanların gezebileceği ana bölümlerini, keşif dosyalarını ve içerik indekslerini listeler.",
       "inputSchema": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {}
@@ -51,7 +48,6 @@
       "name": "get_site_overview",
       "description": "LLM'ler için hazırlanmış llms.txt içeriğini okur; site yapısı ve öncelikli bağlantıları döndürür.",
       "inputSchema": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {}
