@@ -12,7 +12,7 @@
     <meta name="description" content="{{ page.description | default: site.description }}" />
     <meta name="author" content="{{ site.author }}" />
     <meta name="robots" content="INDEX, FOLLOW" />
-    <link rel="canonical" href="https://alpersoylemez.com/journal" />
+    <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed"
         href="{{ '/feed.xml' | absolute_url }}" />
     <link rel="describedby" href="{{ '/llms.txt' | absolute_url }}" />
@@ -495,8 +495,7 @@
         setTimeout(() => { const el = document.getElementById('search-input'); if (el) el.focus(); }, 100);
       }
     }
-  }"
-    @webmcp-open-search.window="searchOpen = true"
+  }" @webmcp-open-search.window="searchOpen = true"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <!-- Reading Progress Bar -->
@@ -583,18 +582,19 @@
                     {% else %}
                     {% assign raw_translate_text = page.title %}
                     {% if page.is_journal or page.url == '/journal/' %}
-                        {% assign latest_note = site.notes | reverse | first %}
-                        {% assign raw_translate_text = latest_note.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                    {% assign latest_note = site.notes | reverse | first %}
+                    {% assign raw_translate_text = latest_note.content | strip_html | normalize_whitespace | truncate:
+                    1800 %}
                     {% elsif page.collection == 'notes' %}
-                        {% assign raw_translate_text = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                    {% assign raw_translate_text = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
                     {% elsif page.content and page.collection %}
-                        {% assign clean_body = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
-                        {% assign raw_translate_text = raw_translate_text | append: " - " | append: clean_body %}
+                    {% assign clean_body = page.content | strip_html | normalize_whitespace | truncate: 1800 %}
+                    {% assign raw_translate_text = raw_translate_text | append: " - " | append: clean_body %}
                     {% elsif page.description %}
-                        {% assign raw_translate_text = raw_translate_text | append: " - " | append: page.description %}
+                    {% assign raw_translate_text = raw_translate_text | append: " - " | append: page.description %}
                     {% endif %}
-                    <a href="https://translate.google.com/?sl={{ current_lang }}&tl={% if current_lang == 'en' %}tr{% else %}en{% endif %}&op=translate&text={{ raw_translate_text | url_encode }}" id="lang-toggle-btn"
-                        target="_blank" rel="noopener noreferrer"
+                    <a href="https://translate.google.com/?sl={{ current_lang }}&tl={% if current_lang == 'en' %}tr{% else %}en{% endif %}&op=translate&text={{ raw_translate_text | url_encode }}"
+                        id="lang-toggle-btn" target="_blank" rel="noopener noreferrer"
                         aria-label="{% if current_lang == 'en' %}Google Çeviri ile Türkçe{% else %}Google Çeviri ile İngilizce{% endif %}"
                         title="{% if current_lang == 'en' %}Google Çeviri (Türkçe){% else %}Google Çeviri (English){% endif %}"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center font-bold text-sm tracking-wide">
@@ -661,8 +661,7 @@
                 <form id="site-search-form" role="search" method="get" action="{{ page.url | relative_url }}"
                     toolname="search_site"
                     tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
-                    toolautosubmit
-                    @submit.prevent="
+                    toolautosubmit @submit.prevent="
                         search();
                         if ($event.agentInvoked && typeof $event.respondWith === 'function') {
                             $event.respondWith(Promise.resolve({ results: searchResults }));
@@ -671,8 +670,7 @@
                     <label for="search-input" class="sr-only">Site içi arama</label>
                     <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
                         x-on:input.debounce.300ms="search()" placeholder="Ara..."
-                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
-                        autocomplete="off"
+                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter." autocomplete="off"
                         class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
                     <button type="submit" class="sr-only">Ara</button>
                 </form>
