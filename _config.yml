@@ -62,6 +62,11 @@ collections:
     permalink: /kitap/:title/
     values:
       layout: "book"
+  places:
+    output: true
+    permalink: /gezinti/:title/
+    values:
+      layout: "place"
   videos:
     output: true
     permalink: /izlence/:title/

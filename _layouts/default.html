@@ -623,50 +623,66 @@
             <!-- Search Dropdown -->
             <div x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-4 pt-2"
                 x-data="{
-              searchQuery: '',
-              items: [],
-              searchResults: [],
-              isLoading: false,
-              async initSearch() {
-                if (this.items.length > 0) return;
-                this.isLoading = true;
-                try {
-                  const [notesRes, articlesRes, booksRes, videosRes] = await Promise.all([
-                    fetch('/search_notes.json'),
-                    fetch('/search_articles.json'),
-                    fetch('/search_books.json'),
-                    fetch('/search_videos.json')
-                  ]);
-                  const notes = await notesRes.json();
-                  const articles = await articlesRes.json();
-                  const books = await booksRes.json();
-                  const videos = await videosRes.json();
-                  this.items = [...notes, ...articles, ...books, ...videos];
-                } catch (error) {
-                  console.error('Arama dizini yüklenemedi:', error);
-                }
-                this.isLoading = false;
-              },
-              search() {
-                const q = this.searchQuery.trim().toLowerCase();
-                if (q.length < 2) { this.searchResults = []; return; }
-                this.searchResults = this.items.filter(item =>
-                  (item.title && item.title.toLowerCase().includes(q)) ||
-                  (item.author && item.author.toLowerCase().includes(q)) ||
-                  (item.content && item.content.toLowerCase().includes(q))
-                ).slice(0, 8);
-              }
-            }" x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
+                      searchQuery: '',
+                      items: [],
+                      searchResults: [],
+                      isLoading: false,
+                      trNormalize(str) {
+                        if (!str) return '';
+                        return str
+                          .replace(/İ/g, 'i')
+                          .replace(/I/g, 'ı')
+                          .toLowerCase()
+                          .replace(/ı/g, 'i')
+                          .replace(/ğ/g, 'g')
+                          .replace(/ü/g, 'u')
+                          .replace(/ş/g, 's')
+                          .replace(/ö/g, 'o')
+                          .replace(/ç/g, 'c');
+                      },
+                      async initSearch() {
+                        if (this.items.length > 0) return;
+                        this.isLoading = true;
+                        try {
+                          const [notesRes, articlesRes, booksRes, placesRes, videosRes] = await Promise.all([
+                            fetch('/search_notes.json'),
+                            fetch('/search_articles.json'),
+                            fetch('/search_books.json'),
+                            fetch('/search_places.json'),
+                            fetch('/search_videos.json')
+                          ]);
+                          const notes = await notesRes.json();
+                          const articles = await articlesRes.json();
+                          const books = await booksRes.json();
+                          const places = await placesRes.json();
+                          const videos = await videosRes.json();
+                          this.items = [...notes, ...articles, ...books, ...places, ...videos];
+                        } catch (error) {
+                          console.error('Arama dizini yüklenemedi:', error);
+                        }
+                        this.isLoading = false;
+                      },
+                      search() {
+                        const q = this.trNormalize(this.searchQuery.trim());
+                        if (q.length < 2) { this.searchResults = []; return; }
+                        this.searchResults = this.items.filter(item =>
+                          (item.title && this.trNormalize(item.title).includes(q)) ||
+                          (item.author && this.trNormalize(item.author).includes(q)) ||
+                          (item.content && this.trNormalize(item.content).includes(q))
+                        ).slice(0, 8);
+                      }
+                    }"
+                x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
                 @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
                 <form id="site-search-form" role="search" method="get" action="{{ page.url | relative_url }}"
                     toolname="search_site"
                     tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
                     toolautosubmit @submit.prevent="
-                        search();
-                        if ($event.agentInvoked && typeof $event.respondWith === 'function') {
-                            $event.respondWith(Promise.resolve({ results: searchResults }));
-                        }
-                    ">
+                                search();
+                                if ($event.agentInvoked && typeof $event.respondWith === 'function') {
+                                    $event.respondWith(Promise.resolve({ results: searchResults }));
+                                }
+                            ">
                     <label for="search-input" class="sr-only">Site içi arama</label>
                     <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
                         x-on:input.debounce.300ms="search()" placeholder="Ara..."

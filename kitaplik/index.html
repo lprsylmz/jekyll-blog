@@ -391,8 +391,7 @@ title: Kitaplık - Alper Söylemez
                 }, 100);
             }
         }
-    }"
-    @webmcp-open-search.window="searchOpen = true"
+    }" @webmcp-open-search.window="searchOpen = true"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
@@ -473,80 +472,94 @@ title: Kitaplık - Alper Söylemez
                     </button>
                 </div>
             </div>
-            <div x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-6" x-data="{
-        searchQuery: '',
-        books: [],
-        searchResults: [],
-        isLoading: false,
-        async initSearch() {
-            if (this.books.length > 0) return;
-            this.isLoading = true;
-            try {
-                const [booksRes, notesRes, articlesRes, videosRes] = await Promise.all([
-                    fetch('/search_books.json'),
-                    fetch('/search_notes.json'),
-                    fetch('/search_articles.json'),
-                    fetch('/search_videos.json')
-                ]);
-                const books = await booksRes.json();
-                const notes = await notesRes.json();
-                const articles = await articlesRes.json();
-                const videos = await videosRes.json();
-                this.books = [...books, ...notes, ...articles, ...videos];
-            } catch (error) {
-                console.error('Arama dizini yüklenemedi:', error);
-            }
-            this.isLoading = false;
-        },
-        search() {
-            const q = this.searchQuery.trim().toLowerCase();
-            if (q.length < 2) {
-                this.searchResults = [];
-                return;
-            }
-            this.searchResults = this.books.filter(book =>
-                (book.title && book.title.toLowerCase().includes(q)) ||
-                (book.author && book.author.toLowerCase().includes(q)) ||
-                (book.content && book.content.toLowerCase().includes(q))
-            ).slice(0, 8);
-        }
-     }" x-init="initSearch()">
-                <form id="site-search-form" role="search" method="get" action="/kitaplik/"
+            <div x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-4 pt-2"
+                x-data="{
+                          searchQuery: '',
+                          items: [],
+                          searchResults: [],
+                          isLoading: false,
+                          trNormalize(str) {
+                            if (!str) return '';
+                            return str
+                              .replace(/İ/g, 'i')
+                              .replace(/I/g, 'ı')
+                              .toLowerCase()
+                              .replace(/ı/g, 'i')
+                              .replace(/ğ/g, 'g')
+                              .replace(/ü/g, 'u')
+                              .replace(/ş/g, 's')
+                              .replace(/ö/g, 'o')
+                              .replace(/ç/g, 'c');
+                          },
+                          async initSearch() {
+                            if (this.items.length > 0) return;
+                            this.isLoading = true;
+                            try {
+                              const [notesRes, articlesRes, booksRes, placesRes, videosRes] = await Promise.all([
+                                fetch('/search_notes.json'),
+                                fetch('/search_articles.json'),
+                                fetch('/search_books.json'),
+                                fetch('/search_places.json'),
+                                fetch('/search_videos.json')
+                              ]);
+                              const notes = await notesRes.json();
+                              const articles = await articlesRes.json();
+                              const books = await booksRes.json();
+                              const places = await placesRes.json();
+                              const videos = await videosRes.json();
+                              this.items = [...notes, ...articles, ...books, ...places, ...videos];
+                            } catch (error) {
+                              console.error('Arama dizini yüklenemedi:', error);
+                            }
+                            this.isLoading = false;
+                          },
+                          search() {
+                            const q = this.trNormalize(this.searchQuery.trim());
+                            if (q.length < 2) { this.searchResults = []; return; }
+                            this.searchResults = this.items.filter(item =>
+                              (item.title && this.trNormalize(item.title).includes(q)) ||
+                              (item.author && this.trNormalize(item.author).includes(q)) ||
+                              (item.content && this.trNormalize(item.content).includes(q))
+                            ).slice(0, 8);
+                          }
+                        }"
+                x-init="$watch('searchOpen', val => { if (!val) { searchQuery = ''; searchResults = []; } }); initSearch()"
+                @click.outside="if (!$event.target.closest('#search-toggle-btn')) searchOpen = false">
+                <form id="site-search-form" role="search" method="get" action="{{ page.url | relative_url }}"
                     toolname="search_site"
-                    tooldescription="Kitaplık, blog, journal ve izlence kayıtlarında arama yapar."
-                    toolautosubmit
-                    @submit.prevent="
-                        search();
-                        if ($event.agentInvoked && typeof $event.respondWith === 'function') {
-                            $event.respondWith(Promise.resolve({ results: searchResults }));
-                        }
-                    ">
+                    tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
+                    toolautosubmit @submit.prevent="
+                                    search();
+                                    if ($event.agentInvoked && typeof $event.respondWith === 'function') {
+                                        $event.respondWith(Promise.resolve({ results: searchResults }));
+                                    }
+                                ">
                     <label for="search-input" class="sr-only">Site içi arama</label>
                     <input id="search-input" name="query" type="search" required minlength="2" x-model="searchQuery"
-                        x-on:input.debounce.300ms="search()" placeholder="Kitaplarda ara..."
-                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter."
-                        autocomplete="off"
-                        class="w-full px-5 py-3 pl-12 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500">
+                        x-on:input.debounce.300ms="search()" placeholder="Ara..."
+                        toolparamdescription="Aranacak kelime veya ifade. En az iki karakter." autocomplete="off"
+                        class="w-full px-5 py-3 rounded-2xl bg-white/50 dark:bg-white/5 border border-brand-dark/10 dark:border-brand-light/10 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all dark:placeholder:text-gray-500 font-sans text-sm">
                     <button type="submit" class="sr-only">Ara</button>
                 </form>
 
                 <template x-if="searchResults.length > 0">
-                    <ul class="mt-2 bg-brand-light dark:bg-brand-dark rounded-xl shadow-md overflow-hidden">
-                        <template x-for="book in searchResults" :key="book.url">
+                    <ul
+                        class="mt-2 bg-brand-light dark:bg-brand-dark rounded-xl shadow-md overflow-hidden border border-brand-dark/10 dark:border-brand-light/10">
+                        <template x-for="item in searchResults" :key="item.url">
                             <li class="border-b last:border-b-0 border-brand-muted/20 dark:border-brand-muted/50">
-                                <a :href="book.url"
-                                    class="block px-4 py-2 hover:bg-brand-accent/20 dark:hover:bg-brand-muted/30">
-                                    <div class="font-bold" x-text="book.title"></div>
+                                <a :href="item.url"
+                                    class="block px-4 py-2 hover:bg-brand-accent/10 dark:hover:bg-brand-muted/20 transition-colors">
+                                    <div class="font-bold text-sm" x-text="item.title"></div>
                                     <div class="text-xs text-brand-muted dark:text-brand-light/60"
-                                        x-text="book.author ? book.author : book.date"></div>
+                                        x-text="item.author ? item.author : item.date">
+                                    </div>
                                 </a>
                             </li>
                         </template>
                     </ul>
                 </template>
-
                 <div x-show="searchQuery.length >= 2 && !searchResults.length && !isLoading"
-                    class="mt-2 text-sm text-brand-muted dark:text-brand-light/60">
+                    class="mt-2 text-sm text-brand-muted dark:text-brand-light/60 px-1">
                     Sonuç bulunamadı.
                 </div>
             </div>

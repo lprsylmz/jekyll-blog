@@ -1,0 +1,12 @@
+---
+layout: none
+permalink: /search_places.json
+---
+{% assign entries = site.places | sort: 'title' %}[
+{% for place in entries %}{
+"title": {{ place.title | jsonify }},
+"author": {{ place.location | default: place.author | jsonify }},
+"url": {{ place.url | absolute_url | jsonify }},
+"content": {{ place.content | strip_html | strip_newlines | jsonify }}
+}{% unless forloop.last %},{% endunless %}{% endfor %}
+]
