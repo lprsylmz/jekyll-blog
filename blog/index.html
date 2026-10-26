@@ -33,25 +33,12 @@ is_blog: true
             data-tags="{{ article.tags | join: ',' }}">
             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-4">
                 <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                        <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90">
-                            <a href="{{ article.url | relative_url }}"
-                                class="hover:text-brand-primary transition-colors duration-200">
-                                {{ article.title }}
-                            </a>
-                        </h2>
-
-                        {% if article.tags and article.tags.size > 0 %}
-                        <div class="article-tags hidden inline-flex flex-wrap items-center gap-1.5 align-middle">
-                            {% for tag in article.tags %}
-                            <a href="{{ '/blog/' | relative_url }}?tag={{ tag | url_encode }}"
-                                class="inline-block text-xs px-2 py-0.5 rounded bg-brand-accent/10 dark:bg-brand-muted/10 text-brand-dark/60 dark:text-brand-light/60 hover:bg-brand-accent hover:text-white dark:hover:bg-brand-muted dark:hover:text-brand-dark transition-colors font-medium">
-                                #{{ tag }}
-                            </a>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
+                    <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90">
+                        <a href="{{ article.url | relative_url }}"
+                            class="hover:text-brand-primary transition-colors duration-200">
+                            {{ article.title }}
+                        </a>
+                    </h2>
                 </div>
 
                 {% if article.date %}
@@ -123,8 +110,6 @@ is_blog: true
                 activeTagSpan.textContent = '#' + activeTag.trim();
                 filterBar.classList.remove('hidden');
             }
-
-            document.querySelectorAll('.article-tags').forEach(el => el.classList.remove('hidden'));
 
             if (noResults) {
                 if (visibleCount === 0) {
