@@ -18,10 +18,64 @@ layout: null
       </url>
     {% endunless %}
   {% endfor %}
-  <!-- English blog index -->
+  {% comment %} Blog (TR) Tags {% endcomment %}
+  {% assign blog_tags = "" | split: "" %}
+  {% for article in site.articles %}
+    {% if article.tags %}
+      {% for tag in article.tags %}
+        {% assign clean_tag = tag | strip | downcase %}
+        {% if clean_tag != "" %}
+          {% assign blog_tags = blog_tags | push: clean_tag %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% assign blog_tags = blog_tags | uniq | sort %}
+  {% for tag in blog_tags %}
   <url>
-    <loc>{{ '/en/blog/' | absolute_url }}</loc>
+    <loc>{{ '/blog/' | absolute_url }}?tag={{ tag | url_encode }}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+  {% endfor %}
+  {% comment %} Blog (EN) Tags {% endcomment %}
+  {% assign en_blog_tags = "" | split: "" %}
+  {% for article in site.en_articles %}
+    {% if article.tags %}
+      {% for tag in article.tags %}
+        {% assign clean_tag = tag | strip | downcase %}
+        {% if clean_tag != "" %}
+          {% assign en_blog_tags = en_blog_tags | push: clean_tag %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% assign en_blog_tags = en_blog_tags | uniq | sort %}
+  {% for tag in en_blog_tags %}
+  <url>
+    <loc>{{ '/en/blog/' | absolute_url }}?tag={{ tag | url_encode }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  {% endfor %}
+  {% comment %} Journal Tags {% endcomment %}
+  {% assign journal_tags = "" | split: "" %}
+  {% for note in site.notes %}
+    {% if note.tags %}
+      {% for tag in note.tags %}
+        {% assign clean_tag = tag | strip | downcase %}
+        {% if clean_tag != "" %}
+          {% assign journal_tags = journal_tags | push: clean_tag %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% assign journal_tags = journal_tags | uniq | sort %}
+  {% for tag in journal_tags %}
+  <url>
+    <loc>{{ '/journal/' | absolute_url }}?tag={{ tag | url_encode }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  {% endfor %}
 </urlset>

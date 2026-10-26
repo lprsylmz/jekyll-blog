@@ -5,6 +5,7 @@ title: "Su"
 slug: "su"
 date: 2026-04-15 18:51:15
 is_published: true
+tags: [alıntı, tarih, kitap]
 ---
 
 >  *"Sahranın tam ortasında Cehennem vadisine benzeyen Vâdiyü'l-Uhaydır adında bir çukur vardır. Geçmiş yılların birinde suların Semûm yeliyle kuruyup bir kırbasının 1000 dinara satıldığı, fakat suyu satanın da alanın da helâk olduğu, vadide dikili bir taşta yazılıdır."*

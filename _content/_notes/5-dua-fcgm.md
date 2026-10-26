@@ -5,6 +5,7 @@ title: "dua"
 slug: "dua"
 date: 2026-04-18 15:31:15
 is_published: true
+tags: [ayet, dua]
 ---
 
 Âl-i İmrân Suresi 26 ve 27. Ayet

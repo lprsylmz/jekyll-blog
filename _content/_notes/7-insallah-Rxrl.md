@@ -5,6 +5,7 @@ title: "inşallah"
 slug: "insallah"
 date: 2026-04-23 09:12:09
 is_published: true
+tags: [ayet]
 ---
 
 Kehf Suresi 23-24. Ayet

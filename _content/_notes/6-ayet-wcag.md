@@ -5,6 +5,7 @@ title: "Ayet"
 slug: "6"
 date: 2026-04-18 15:39:03
 is_published: true
+tags: [ayet]
 ---
 
 Ra'd Suresi 11. Ayet

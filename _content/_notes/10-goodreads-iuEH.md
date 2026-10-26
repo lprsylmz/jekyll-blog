@@ -5,6 +5,7 @@ title: "goodreads"
 slug: "goodreads"
 date: 2026-05-14 13:15:23
 is_published: true
+tags: [kitap, goodreads]
 ---
 
 <!-- Goodreads Widget Container -->

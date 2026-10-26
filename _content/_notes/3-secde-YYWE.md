@@ -5,6 +5,7 @@ title: "secde"
 slug: "secde"
 date: 2026-04-12 01:44:00
 is_published: true
+tags: [hadis, dua]
 ---
 
 Ebû Hüreyre"den rivayet edildiğine göre, Allah Resûlü (sav) şöyle buyurmuştur:

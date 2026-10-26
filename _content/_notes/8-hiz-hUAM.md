@@ -5,6 +5,7 @@ title: "hız"
 slug: "hiz"
 date: 2026-04-30 17:45:32
 is_published: true
+tags: [alıntı]
 ---
 
  Hızlı gelişmek için bazen yavaş gitmek zorundasın.

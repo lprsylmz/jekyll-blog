@@ -5,6 +5,7 @@ title: "Artemis"
 slug: "artemis"
 date: 2026-04-11 00:55:00
 is_published: true
+tags: [uzay, nasa]
 ---
 
 ![Uzayda tam güneş tutulması; ayın karanlık silüeti arkasından yayılan beyaz ışık halkası ve etraftaki parlak yıldızlar.](https://alpersoylemez.com/assets/images/notes/art002e009301~large.webp)
