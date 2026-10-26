@@ -13,7 +13,7 @@
     <meta name="author" content="{{ site.author }}" />
     <meta name="robots" content="INDEX, FOLLOW" />
     <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
-    {% if page.is_journal or page.url == '/journal/' %}
+    {% if page.is_journal or page.is_blog or page.url == '/journal/' or page.url == '/blog/' or page.url == '/en/blog/' %}
     <script>
         (function () {
             try {
@@ -35,7 +35,8 @@
                     var twUrl = document.querySelector('meta[property="twitter:url"]');
                     if (twUrl) twUrl.setAttribute('content', tagUrl);
 
-                    var tagTitle = '#' + tag.trim() + ' - Journal - {{ site.title }}';
+                    var sectionName = "{% if page.is_journal or page.url == '/journal/' %}Journal{% elsif page.lang == 'en' %}Blog (English){% else %}Blog{% endif %}";
+                    var tagTitle = '#' + tag.trim() + ' - ' + sectionName + ' - {{ site.title }}';
                     document.title = tagTitle;
                     var metaTitle = document.querySelector('meta[name="title"]');
                     if (metaTitle) metaTitle.setAttribute('content', tagTitle);
@@ -703,6 +704,7 @@
                         this.searchResults = this.items.filter(item =>
                           (item.title && this.trNormalize(item.title).includes(q)) ||
                           (item.author && this.trNormalize(item.author).includes(q)) ||
+                          (item.tags && Array.isArray(item.tags) && item.tags.some(t => this.trNormalize(t).includes(q))) ||
                           (item.content && this.trNormalize(item.content).includes(q))
                         ).slice(0, 8);
                       }
