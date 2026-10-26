@@ -31,7 +31,7 @@ is_blog: true
         {% for article in sorted_en_articles %}
         <article class="blog-article p-4 rounded-xl bg-transparent duration-300"
             data-tags="{{ article.tags | join: ',' }}">
-            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-4">
+            <div class="flex items-baseline justify-between gap-3 sm:gap-4">
                 <div class="min-w-0 flex-1">
                     <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90">
                         <a href="{{ article.url | relative_url }}"
@@ -43,7 +43,7 @@ is_blog: true
 
                 {% if article.date %}
                 <time
-                    class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time shrink-0 self-start sm:self-auto"
+                    class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time shrink-0"
                     datetime="{{ article.date | date_to_xmlschema }}" data-timestamp="{{ article.date | date: '%s' }}">
                     {{ article.date | date: "%m/%d/%Y" }}
                 </time>
