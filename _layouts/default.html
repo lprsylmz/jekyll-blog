@@ -13,6 +13,41 @@
     <meta name="author" content="{{ site.author }}" />
     <meta name="robots" content="INDEX, FOLLOW" />
     <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
+    {% if page.is_journal or page.url == '/journal/' %}
+    <script>
+        (function () {
+            try {
+                var params = new URLSearchParams(window.location.search);
+                var tag = params.get('tag');
+                if (tag) {
+                    var cleanTag = tag.trim().toLowerCase();
+                    var canonicalLink = document.querySelector('link[rel="canonical"]');
+                    var baseUrl = "{{ page.url | replace: 'index.html', '' | absolute_url }}";
+                    if (!baseUrl.endsWith('/')) {
+                        baseUrl += '/';
+                    }
+                    var tagUrl = baseUrl + '?tag=' + encodeURIComponent(cleanTag);
+                    if (canonicalLink) {
+                        canonicalLink.setAttribute('href', tagUrl);
+                    }
+                    var ogUrl = document.querySelector('meta[property="og:url"]');
+                    if (ogUrl) ogUrl.setAttribute('content', tagUrl);
+                    var twUrl = document.querySelector('meta[property="twitter:url"]');
+                    if (twUrl) twUrl.setAttribute('content', tagUrl);
+
+                    var tagTitle = '#' + tag.trim() + ' - Journal - {{ site.title }}';
+                    document.title = tagTitle;
+                    var metaTitle = document.querySelector('meta[name="title"]');
+                    if (metaTitle) metaTitle.setAttribute('content', tagTitle);
+                    var ogTitle = document.querySelector('meta[property="og:title"]');
+                    if (ogTitle) ogTitle.setAttribute('content', tagTitle);
+                    var twTitle = document.querySelector('meta[property="twitter:title"]');
+                    if (twTitle) twTitle.setAttribute('content', tagTitle);
+                }
+            } catch (e) {}
+        })();
+    </script>
+    {% endif %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed"
         href="{{ '/feed.xml' | absolute_url }}" />
     <link rel="describedby" href="{{ '/llms.txt' | absolute_url }}" />
