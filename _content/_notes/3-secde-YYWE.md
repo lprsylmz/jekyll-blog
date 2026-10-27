@@ -11,4 +11,6 @@ tags: [hadis, dua]
 Ebû Hüreyre"den rivayet edildiğine göre, Allah Resûlü (sav) şöyle buyurmuştur:
 ***“Kulun Rabbine en yakın olduğu (an) secde hâlidir. Öyleyse (secdede iken) çokça dua ediniz.”***
 
-(M1083 Müslim, Salât, 215) #hadis #dua
+(M1083 Müslim, Salât, 215)
+
+ #hadis #dua

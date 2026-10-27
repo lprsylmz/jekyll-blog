@@ -11,3 +11,5 @@ tags: [alıntı]
 > Uygarlık, üzerinde düşünmeden gerçekleştirebileceğimiz önemli işlemlerin sayısını artırarak ilerler.
 
 Alfred North Whitehead
+
+#alıntı

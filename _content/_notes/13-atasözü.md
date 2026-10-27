@@ -10,3 +10,5 @@ tags: [alıntı, felsefe]
 >Atasözü ve sloganla felsefi düşün üretimi arasında ters bir bağıntı var: Bir toplum felsefi düşünceden ne kertede yoksunsa, atasözü ve sloganla düşünme o kertede gelişmiş oluyor.
 
 Hilmi Yavuz - Denemeler
+
+#alıntı #felsefe

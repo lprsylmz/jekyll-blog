@@ -30,3 +30,5 @@ Kullanımı:
 YouTube ana sayfasındayken bu yer işaretine bir kez tıklayın. Sayfa anında 5'li sütun yapısına bürünecektir.
 
 Not: YouTube sayfasını yenilediğinizde tasarım eski haline döner; düzeni tekrar sağlamak için yer işaretine yeniden tıklamanız yeterlidir.
+
+#youtube #tarayıcı

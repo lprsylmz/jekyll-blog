@@ -15,3 +15,5 @@ Semûm yeli güneyden esen sıcak ve zehirli rüzgar demektir; Türkçede "Sâm 
 
 İbn Battûta Seyahatnâmesi (Sayfa 119)
 Çeviren: A. Sait Aykut Yapı Kredi Yayınları
+
+#alıntı #tarih #kitap

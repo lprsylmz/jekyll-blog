@@ -13,4 +13,6 @@ tags: [ayet, dua]
 > “Geceyi gündüze katarsın, gündüzü de geceye katarsın. Ölüden diriyi çıkarırsın, diriden ölüyü çıkarırsın ve dilediğine sayısız rızık verirsin.”
 
 Dua:
-Ey mülkün sahibi olan Allah’ım! Dilediğine mülk verirsin, dilediğinden de mülkü çeker alırsın; dilediğini yüceltir, dilediğini alçaltırsın. Hayır, yalnız senin elindedir. Gerçekten sen, herşeye gücü yetensin. Sen, dünyanın ve ahiretin Rahman'ısın. Bunları dilediğine verir dilediğine vermezsin. Bana, senden başkasının rahmetine ihtiyaç duymayacağım şekilde rahmet et. #ayet #dua
+Ey mülkün sahibi olan Allah’ım! Dilediğine mülk verirsin, dilediğinden de mülkü çeker alırsın; dilediğini yüceltir, dilediğini alçaltırsın. Hayır, yalnız senin elindedir. Gerçekten sen, herşeye gücü yetensin. Sen, dünyanın ve ahiretin Rahman'ısın. Bunları dilediğine verir dilediğine vermezsin. Bana, senden başkasının rahmetine ihtiyaç duymayacağım şekilde rahmet et.
+
+#ayet #dua
