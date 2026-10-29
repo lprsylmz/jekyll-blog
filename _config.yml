@@ -84,3 +84,18 @@ defaults:
       type: "notes"
     values:
       layout: "note"
+  - scope:
+      path: ""
+      type: "videos"
+    values:
+      layout: "video"
+  - scope:
+      path: ""
+      type: "books"
+    values:
+      layout: "book"
+  - scope:
+      path: ""
+      type: "places"
+    values:
+      layout: "place"
