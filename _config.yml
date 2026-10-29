@@ -86,6 +86,11 @@ defaults:
       layout: "note"
   - scope:
       path: ""
+      type: "articles"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
       type: "videos"
     values:
       layout: "video"
