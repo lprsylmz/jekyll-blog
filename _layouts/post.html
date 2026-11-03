@@ -189,7 +189,7 @@ layout: default
 
             while (currentNode = walker.nextNode()) {
                 const parentTag = currentNode.parentNode.tagName;
-                if (parentTag !== 'A' && parentTag !== 'IMG' && parentTag !== 'SCRIPT' && parentTag !== 'STYLE' && parentTag !== 'CODE') {
+                if (parentTag && !['A', 'IMG', 'SCRIPT', 'STYLE', 'CODE'].includes(parentTag.toUpperCase())) {
                     textNodes.push(currentNode);
                 }
             }
