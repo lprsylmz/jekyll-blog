@@ -2,6 +2,32 @@
 layout: default
 ---
 
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ page.url | absolute_url }}" },
+    "headline": "{{ page.title | escape }}",
+    "description": "{{ page.description | default: page.excerpt | strip_html | escape }}",
+    "image": "{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/avatar.webp' | absolute_url }}{% endif %}",
+    "author": { "@type": "Person", "name": "{{ site.author }}", "url": "{{ '/' | absolute_url }}" },
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title }}",
+        "logo": { "@type": "ImageObject", "url": "{{ '/favicon.svg' | absolute_url }}" }
+    },
+    "inLanguage": "en",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}"
+    {% if page.tags and page.tags.size > 0 %}
+    ,"keywords": {{ page.tags | join: ", " | jsonify }}
+    {% endif %}
+    {% if page.lang_url %}
+    ,"url": "{{ page.url | absolute_url }}"
+    {% endif %}
+}
+</script>
+
 <div class="space-y-6">
     <div>
         <a href="{{ '/en/blog/' | relative_url }}"
