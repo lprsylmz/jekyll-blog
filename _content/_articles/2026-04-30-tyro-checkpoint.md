@@ -3,8 +3,8 @@
 title: "Tyro Checkpoint"
 slug: "tyro-checkpoint"
 date: 2026-04-30 00:00:00
-description: "Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan basit bir Laravel paketidir. Bu paket sadece SQLite veritabanları için tasarlanmıştır."
-tags: ["tyro checkpoint", "laravel", "SQLite"]
+description: "Tyro Checkpoint, SQLite, MySQL, MariaDB ve PostgreSQL veritabanlarınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan bir Laravel paketidir."
+tags: ["tyro checkpoint", "laravel", "SQLite", "MySQL", "PostgreSQL"]
 author: "Alper Söylemez"
 is_published: true
 lang: tr
@@ -12,7 +12,7 @@ lang_url: "/en/blog/tyro-checkpoint/"
 ---
 
 
-Tyro Checkpoint, SQLite veritabanınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan basit bir Laravel paketidir. Bu paket sadece SQLite veritabanları için tasarlanmıştır.
+Tyro Checkpoint, SQLite, MySQL ve PostgreSQL veritabanlarınız için Git benzeri kontrol noktası (checkpoint) işlevi sağlayan bir Laravel paketidir.
 
 Gereksinimler
 
@@ -20,7 +20,7 @@ Gereksinimler
 
     Laravel 10.x, 11.x veya 12.x
 
-    Varsayılan bağlantı olarak yapılandırılmış SQLite veritabanı
+    Desteklenen bir veritabanı (SQLite, MySQL 8+, MariaDB 10.4+ veya PostgreSQL 12+)
 
 Tyro Checkpoint Kurulumu
 
@@ -31,11 +31,13 @@ composer require hasinhayder/tyro-checkpoint --dev
 ```
 php artisan tyro-checkpoint:install
 ```
-storage/tyro-checkpoints dizinini oluştuysa kurulum gerçekleşmiştir. Varsayılan olarak tüm kontrol noktaları storage/tyro-checkpoints/ dizininde saklanır. Her kontrol noktası, SQLite veritabanı dosyanızın tam bir kopyasıdır. Geri yükleme sırasında veri kaybını önlemek için veritabanı dışında bir JSON dosyasında saklanır. Bu dizin hem anlık görüntü dosyalarını (.sqlite) hem de meta veri kaydını (checkpoints.json) içerir. AES-256-CBC kullanarak isteğe bağlı dosya düzeyinde şifreleme sunar.
+
+storage/tyro-checkpoints dizini oluştuysa kurulum gerçekleşmiştir. Varsayılan olarak tüm kontrol noktaları storage/tyro-checkpoints/ dizininde saklanır. Her kontrol noktası, veritabanı durumunuzun tam bir kopyasıdır. Geri yükleme sırasında veri kaybını önlemek için meta veriler veritabanı dışında bir JSON dosyasında (checkpoints.json) saklanır. Bu dizin hem anlık görüntü dosyalarını hem de meta veri kaydını içerir. AES düzeyinde isteğe bağlı dosya düzeyinde şifreleme sunar.
 
 Kontrol Noktası Oluşturma
 
 Otomatik oluşturulan bir isimle kontrol noktası oluşturun:
+
 ```
 php artisan tyro-checkpoint:create
 ```
