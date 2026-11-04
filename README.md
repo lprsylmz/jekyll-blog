@@ -1,7 +1,7 @@
 # Jekyll statik site
 
 Bu dizin, Laravel uygulamasının Jekyll'e taşınmış üretim kaynağıdır. Arayüz
-Laravel çıktısından üretildiği için mevcut HTML/CSS/JavaScript korunur.
+Laravel çıktısından üretildiği için mevcut HTML/CSS/JavaScript korunur..
 
 ## İçeriği dışa aktarmak
 
