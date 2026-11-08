@@ -78,4 +78,15 @@ layout: null
     <priority>0.6</priority>
   </url>
   {% endfor %}
+  {% comment %} Statik uygulama sayfaları (front-matter'sız) {% endcomment %}
+  <url>
+    <loc>{{ '/habits2027/' | absolute_url }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>{{ '/habits2027/landscape/' | absolute_url }}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
