@@ -7,10 +7,10 @@ description: "habits2027 ile 2027-2028 alışkanlık takvimi nasıl kullanılır
 tags: ["alışkanlık", "habit", "üretkenlik", "uygulama"]
 author: "Alper Söylemez"
 is_published: true
-image: "/assets/images/habits2027.svg"
+image: "/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp"
 ---
 
-![habits2027](/assets/images/habits2027.svg)
+![habits2027](/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp)
 
 **[habits2027](https://alpersoylemez.com/habits2027/)**, 2027 ve 2028 yılları için tasarlanmış, yazdırılabilir ve dijital olarak doldurulabilen alışkanlık takip takvimidir. Her ay için ayrı bir satır topluluğu görür, alışkanlıklarınızı eklersiniz, işaretlemeleri yaparsınız ve dilerseniz takvimi A4 olarak yazdırırsınız.
 
