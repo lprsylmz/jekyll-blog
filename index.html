@@ -126,8 +126,9 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <script defer src="assets/js/alpine.min.js"></script>
     <meta name="yandex-verification" content="4f34259bde5563ea" />
-    <link rel="preload" as="image" href="assets/images/Logo-Bold-Beyaz.svg" fetchpriority="high" />
-    <link rel="preload" as="image" href="assets/images/Logo-Bold.svg" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/images/Logo-Bold-Beyaz.svg" fetchpriority="high" width="512"
+        height="512" />
+    <link rel="preload" as="image" href="assets/images/Logo-Bold.svg" fetchpriority="low" width="512" height="512" />
     <!-- Tema başlatma head'in başında yapılır; bkz. meta[name="color-scheme"] -->
     <!-- Livewire Styles -->
     <style>
@@ -190,15 +191,16 @@
               window.setTheme(!this.darkMode, true);
               this.darkMode = window.initialDarkMode;
           }
-      }" @themechange.window="darkMode = $event.detail.dark" :class="{ 'bg-brand-light text-brand-dark': !darkMode, 'bg-brand-dark text-white': darkMode }">
+      }" @themechange.window="darkMode = $event.detail.dark"
+    :class="{ 'bg-brand-light text-brand-dark': !darkMode, 'bg-brand-dark text-white': darkMode }">
     <main id="container" class="flex flex-col flex-grow items-center">
         <div class="mt-12 p-8 rounded-full">
             <button @click="toggleDarkMode">
                 <img fetchpriority="high" x-show="darkMode" style="display: none;"
-                    src="assets/images/Logo-Bold-Beyaz.svg" alt="Alper Söylemez"
+                    src="assets/images/Logo-Bold-Beyaz.svg" alt="Alper Söylemez" width="512" height="512"
                     class="rounded-full w-32 h-32 mx-auto  transform transition-transform duration-200 hover:scale-150    hover:shadow-sm hover:shadow-white" />
-                <img fetchpriority="high" x-show="!darkMode" style="display: none;" src="assets/images/Logo-Bold.svg"
-                    alt="Alper Söylemez"
+                <img fetchpriority="low" x-show="!darkMode" style="display: none;" src="assets/images/Logo-Bold.svg"
+                    alt="Alper Söylemez" width="512" height="512"
                     class="rounded-full w-32 h-32 mx-auto transform transition-transform duration-200 hover:scale-150 shadow-black hover:shadow-sm hover:shadow-black" />
             </button>
         </div>
@@ -350,16 +352,14 @@
                     class="w-18 h-18 md:w-20 md:h-20 flex items-center justify-center      rounded-full p-4    ">
                     <img src="assets/images/habits2027-s.svg" alt="Habits 2027" class="w-full h-full object-contain" />
                 </a>
-                <span class="text-[12px] md:text-xs font-semibold   tracking-tighter text-center">Habits2027 -
-                    Alışkanlık Takvimi</span>
+                <span class="text-[12px] md:text-xs font-semibold   tracking-tighter text-center">Habits2027</span>
             </div>
             <div class="flex flex-col items-center transform transition-transform duration-200 hover:scale-150    ">
                 <a href="habits2026/"
                     class="w-18 h-18 md:w-20 md:h-20 flex items-center justify-center      rounded-full p-4    ">
                     <img src="assets/images/h-siyah.svg" alt="Habits 2026" class="w-full h-full object-contain" />
                 </a>
-                <span class="text-[12px] md:text-xs font-semibold   tracking-tighter text-center">Habits2026 -
-                    Alışkanlık Takvimi</span>
+                <span class="text-[12px] md:text-xs font-semibold   tracking-tighter text-center">Habits2026</span>
             </div>
 
 

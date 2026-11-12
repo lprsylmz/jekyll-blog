@@ -10,7 +10,7 @@ is_published: true
 image: "/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp"
 ---
 
-![habits2027](/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp)
+<img src="/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp" srcset="/assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek-1200.webp 1200w, /assets/images/blog/habits2027_2027_aliskanlik_takvimi_örnek.webp 2400w" sizes="720px" width="1200" height="1697" fetchpriority="high" alt="habits2027" />
 
 **[habits2027](https://alpersoylemez.com/habits2027/)**, 2027 ve 2028 yılları için tasarlanmış, yazdırılabilir ve dijital olarak doldurulabilen alışkanlık takip takvimidir. Her ay için ayrı bir satır topluluğu görür, alışkanlıklarınızı eklersiniz, işaretlemeleri yaparsınız ve dilerseniz takvimi A4 olarak yazdırırsınız.
 
