@@ -11,6 +11,7 @@ title: Kitaplık - Alper Söylemez
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#27374D">
+    <meta name="color-scheme" content="light dark">
 
     <meta name="title" content="Kitaplık" />
     <meta name="description" content="Notlarım; hatırlamak ve hatırlatmak için." />
@@ -233,24 +234,59 @@ title: Kitaplık - Alper Söylemez
         }
     </style>
 
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+            color-scheme: dark;
+        }
+
+        :root:has(> head > meta[name="color-scheme"][content="light"]) {
+            color-scheme: light;
+        }
+    </style>
     <script>
         (function () {
-            try {
-                const isLight = localStorage.getItem('darkMode') === 'false';
-                if (isLight) document.documentElement.classList.remove('dark');
-                else document.documentElement.classList.add('dark');
-                window.initialDarkMode = !isLight;
-            } catch {
-                document.documentElement.classList.add('dark');
-                window.initialDarkMode = true;
-            }
-        })();
+            var mq = window.matchMedia('(prefers-color-scheme: dark)');
+            var meta = document.querySelector('meta[name="color-scheme"]');
 
-        document.addEventListener('livewire:navigated', () => {
-            const isLight = localStorage.getItem('darkMode') === 'false';
-            if (isLight) document.documentElement.classList.remove('dark');
-            else document.documentElement.classList.add('dark');
-        });
+            function readStored() {
+                try { return localStorage.getItem('darkMode'); } catch (e) { return null; }
+            }
+
+            function apply(dark, persist) {
+                var stored = readStored();
+                if (persist) {
+                    try {
+                        if (dark === mq.matches) localStorage.removeItem('darkMode');
+                        else localStorage.setItem('darkMode', String(dark));
+                        stored = readStored();
+                    } catch (e) { }
+                }
+                if (meta) meta.setAttribute('content', stored === null ? 'light dark' : (dark ? 'dark' : 'light'));
+                document.documentElement.classList.toggle('dark', dark);
+                window.initialDarkMode = dark;
+                window.dispatchEvent(new CustomEvent('themechange', { detail: { dark: dark } }));
+            }
+
+            window.setTheme = apply;
+
+            var stored = readStored();
+            apply(stored === null ? mq.matches : stored === 'true', false);
+
+            function onSystemChange(event) {
+                if (readStored() === null) apply(event.matches, false);
+            }
+
+            if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
+            else if (mq.addListener) mq.addListener(onSystemChange);
+
+            document.addEventListener('livewire:navigated', function () {
+                document.documentElement.classList.toggle('dark', window.initialDarkMode);
+            });
+        })();
     </script>
 
     <script>
@@ -377,10 +413,8 @@ title: Kitaplık - Alper Söylemez
         darkMode: window.initialDarkMode,
         searchOpen: false,
         toggle() {
-            this.darkMode = !this.darkMode;
-            localStorage.setItem('darkMode', this.darkMode);
-            document.documentElement.classList.toggle('dark', this.darkMode);
-            window.initialDarkMode = this.darkMode;
+            window.setTheme(!this.darkMode, true);
+            this.darkMode = window.initialDarkMode;
         },
         toggleSearch() {
             this.searchOpen = !this.searchOpen;
@@ -391,7 +425,7 @@ title: Kitaplık - Alper Söylemez
                 }, 100);
             }
         }
-    }" @webmcp-open-search.window="searchOpen = true"
+    }" @themechange.window="darkMode = $event.detail.dark" @webmcp-open-search.window="searchOpen = true"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">

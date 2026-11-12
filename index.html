@@ -6,6 +6,57 @@
     <meta charset="UTF-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark">
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+            color-scheme: dark;
+        }
+
+        :root:has(> head > meta[name="color-scheme"][content="light"]) {
+            color-scheme: light;
+        }
+    </style>
+    <script>
+        (function () {
+            var mq = window.matchMedia('(prefers-color-scheme: dark)');
+            var meta = document.querySelector('meta[name="color-scheme"]');
+
+            function readStored() {
+                try { return localStorage.getItem('darkMode'); } catch (e) { return null; }
+            }
+
+            function apply(dark, persist) {
+                var stored = readStored();
+                if (persist) {
+                    try {
+                        if (dark === mq.matches) localStorage.removeItem('darkMode');
+                        else localStorage.setItem('darkMode', String(dark));
+                        stored = readStored();
+                    } catch (e) { }
+                }
+                if (meta) meta.setAttribute('content', stored === null ? 'light dark' : (dark ? 'dark' : 'light'));
+                document.documentElement.classList.toggle('dark', dark);
+                window.initialDarkMode = dark;
+                window.dispatchEvent(new CustomEvent('themechange', { detail: { dark: dark } }));
+            }
+
+            window.setTheme = apply;
+
+            var stored = readStored();
+            apply(stored === null ? mq.matches : stored === 'true', false);
+
+            function onSystemChange(event) {
+                if (readStored() === null) apply(event.matches, false);
+            }
+
+            if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
+            else if (mq.addListener) mq.addListener(onSystemChange);
+        })();
+    </script>
     <title>Alper Söylemez - alpersoylemez.com</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="title" content="Alper Söylemez" />
@@ -77,15 +128,7 @@
     <meta name="yandex-verification" content="4f34259bde5563ea" />
     <link rel="preload" as="image" href="assets/images/Logo-Bold-Beyaz.svg" fetchpriority="high" />
     <link rel="preload" as="image" href="assets/images/Logo-Bold.svg" fetchpriority="high" />
-    <script>
-        (function () {
-            try {
-                const isLight = localStorage.getItem('darkMode') === 'false';
-                if (isLight) document.documentElement.classList.remove('dark');
-                else document.documentElement.classList.add('dark');
-            } catch { }
-        })();
-    </script>
+    <!-- Tema başlatma head'in başında yapılır; bkz. meta[name="color-scheme"] -->
     <!-- Livewire Styles -->
     <style>
         [wire\:loading][wire\:loading],
@@ -139,23 +182,15 @@
 </head>
 
 <body class="bg-brand-dark text-white flex flex-col min-h-screen" x-data="{
-          darkMode: localStorage.getItem('darkMode') !== 'false',
+          darkMode: window.initialDarkMode,
           init() {
-              const isLight = localStorage.getItem('darkMode') === 'false';
-              if (isLight) {
-                  this.darkMode = false;
-                  document.documentElement.classList.remove('dark');
-              } else {
-                  this.darkMode = true;
-                  document.documentElement.classList.add('dark');
-              }
+              this.darkMode = window.initialDarkMode;
           },
           toggleDarkMode() {
-              this.darkMode = !this.darkMode;
-              localStorage.setItem('darkMode', this.darkMode);
-              document.documentElement.classList.toggle('dark', this.darkMode);
+              window.setTheme(!this.darkMode, true);
+              this.darkMode = window.initialDarkMode;
           }
-      }" :class="{ 'bg-brand-light text-brand-dark': !darkMode, 'bg-brand-dark text-white': darkMode }">
+      }" @themechange.window="darkMode = $event.detail.dark" :class="{ 'bg-brand-light text-brand-dark': !darkMode, 'bg-brand-dark text-white': darkMode }">
     <main id="container" class="flex flex-col flex-grow items-center">
         <div class="mt-12 p-8 rounded-full">
             <button @click="toggleDarkMode">
