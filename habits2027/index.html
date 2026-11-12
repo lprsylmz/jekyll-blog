@@ -96,6 +96,7 @@
     <link rel="preload" href="assets/css/main.css" as="style">
     <link rel="stylesheet" href="assets/css/main.css">
     <script defer src="assets/js/alpine.min.js"></script>
+    <script defer src="assets/js/habit-form-a11y.js"></script>
     <script src="assets/js/html2canvas-pro.min.js"></script>
 
     <style>
@@ -107,6 +108,60 @@
         #calendar-content-container {
             min-width: 800px;
             /* Force minimum width to trigger scroll on mobile */
+        }
+
+        /* Habit form validation */
+        .habit-error {
+            display: none;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: #b91c1c;
+        }
+
+        .habit-form-error {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            color: #b91c1c;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 0.375rem;
+        }
+
+        .habit-input:user-invalid {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        .habit-input:user-invalid + .habit-error {
+            display: flex;
+        }
+
+        /* A freshly added habit leaves the required title empty; keep it from looking errored. */
+        .is-fresh .habit-input:user-invalid {
+            border-color: #c7d2fe;
+            background-color: transparent;
+        }
+
+        .is-fresh .habit-input + .habit-error {
+            display: none;
+        }
+
+        .visually-hidden:where(:not(:focus-within, :active)) {
+            position: absolute !important;
+            clip-path: inset(50%) !important;
+            overflow: hidden !important;
+            width: 1px !important;
+            height: 1px !important;
+            margin: -1px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            white-space: nowrap !important;
         }
 
         @media print {
@@ -240,6 +295,7 @@
                 showDayLetters: 'Gün Harflerini Göster',
                 attribution: '<a href=\'https://x.com/izayats\' target=\'_blank\' class=\'underline hover:text-gray-800\'>@izayats</a>\'ın <a href=\'https://habitcalendar.co\' target=\'_blank\' class=\'underline hover:text-gray-800\'>habitcalendar.co</a> sitesi baz alınarak yapılmıştır.',
                 pageOrientation: 'Sayfa Yönü',
+                habitName: 'Alışkanlık Adı',
                 startDate: 'Başlangıç Tarihi',
                 minMonthNote: '*En az bir ay seçili olmalıdır.'
             },
@@ -268,6 +324,9 @@
             },
             warnings: {
                 minMonth: 'En az bir ay seçili olmalıdır.',
+                enterName: 'Lütfen bir alışkanlık adı girin.',
+                enterDate: 'Lütfen bir başlangıç tarihi seçin.',
+                repeatRange: 'Tekrar sayısı 1 ile 365 arasında olmalıdır.',
                 validNameDate: 'Lütfen geçerli bir alışkanlık adı ve başlangıç tarihi girin.',
                 yearLimit: 'Başlangıç tarihi sadece 2027 veya 2028 yılları içinde olabilir.',
                 alreadyExists: 'Bu alışkanlık zaten listede.',
@@ -302,6 +361,7 @@
                 showDayLetters: 'Show Day Letters',
                 attribution: 'Based on <a href=\'https://x.com/izayats\' target=\'_blank\' class=\'underline hover:text-gray-800\'>@izayats</a>\'s <a href=\'https://habitcalendar.co\' target=\'_blank\' class=\'underline hover:text-gray-800\'>habitcalendar.co</a> site.',
                 pageOrientation: 'Page Orientation',
+                habitName: 'Habit Name',
                 startDate: 'Start Date',
                 minMonthNote: '*At least one month must be selected.'
             },
@@ -330,6 +390,9 @@
             },
             warnings: {
                 minMonth: 'At least one month must be selected.',
+                enterName: 'Please enter a habit name.',
+                enterDate: 'Please choose a start date.',
+                repeatRange: 'The repeat count must be between 1 and 365.',
                 validNameDate: 'Please enter a valid habit name and start date.',
                 yearLimit: 'The start date can only be within the years 2027 or 2028.',
                 alreadyExists: 'This habit already exists.',
@@ -359,6 +422,8 @@
 
 
     newHabitTitle: '',
+    formError: '',
+    formFresh: false,
     newHabitMode: 'haftalık',
     newHabitDays: [1, 2, 3, 4, 5, 6, 7],
     newHabitFrequency: 1,
@@ -452,19 +517,25 @@
     },
 
     addNewHabit(){
+        this.formError = '';
         if(this.habits.length >= 5){
-            alert(this.ui.warnings.maxHabitLimit); return;
+            this.formError = 'maxHabitLimit'; return;
         }
         const hName = this.newHabitTitle;
         const mode = this.newHabitMode;
         const start = this.newHabitStartDate;
 
         if(!hName || hName.trim() === '' || !start){
-            alert(this.ui.warnings.validNameDate); return;
+            this.formError = 'validNameDate';
+            const field = (!hName || hName.trim() === '') ? this.$refs.habitTitle : this.$refs.habitStartDate;
+            field?.focus();
+            return;
         }
 
         if(!this.availableYears.includes(new Date(start).getFullYear())){
-             alert(this.ui.warnings.yearLimit); return;
+             this.formError = 'yearLimit';
+             this.$refs.habitStartDate?.focus();
+             return;
         }
 
         const cleanName = hName.trim();
@@ -473,7 +544,9 @@
         const exists = this.habits.some(habit => habit.ad.toUpperCase() === cleanNameUpper);
 
         if(exists) {
-            alert(this.ui.warnings.alreadyExists); return;
+            this.formError = 'alreadyExists';
+            this.$refs.habitTitle?.focus();
+            return;
         }
 
         const newHabit = {
@@ -484,13 +557,17 @@
 
         if(mode === 'haftalık'){
             if(this.newHabitDays.length === 0){
-                alert(this.ui.warnings.minDay); return;
+                this.formError = 'minDay';
+                this.$refs.weeklyDays?.focus();
+                return;
             }
             newHabit.gunler = [...this.newHabitDays].sort((a, b) => a - b);
         } else if(mode === 'periyodik'){
-            const t = parseInt(this.newHabitFrequency);
-            if(t < 1){
-                alert(this.ui.warnings.minRepeat); return;
+            const t = parseInt(this.newHabitFrequency, 10);
+            if(!Number.isFinite(t) || t < 1 || t > 365){
+                this.formError = 'repeatRange';
+                this.$refs.habitFrequency?.focus();
+                return;
             }
             newHabit.tekrarSayisi = t;
         }
@@ -504,6 +581,7 @@
         this.newHabitDays = [1, 2, 3, 4, 5, 6, 7];
         this.newHabitFrequency = 1;
         this.newHabitStartDate = '2027-01-01';
+        this.formFresh = true;
     },
 
     deleteHabit(i){
@@ -846,33 +924,58 @@
                 </div>
             </template>
 
-            <div class="mt-4 p-4 border border-indigo-100 rounded-lg bg-indigo-50/50">
+            <form id="habit-form" class="mt-4 p-4 border border-indigo-100 rounded-lg bg-indigo-50/50"
+                :class="{ 'is-fresh': formFresh }" @submit.prevent="addNewHabit()"
+                @input="formError = ''; formFresh = false" @invalid.capture="formFresh = false">
                 <p class="text-sm font-semibold mb-2 text-indigo-900" x-text="ui.headers.addNew"></p>
-                <input type="text" x-model="newHabitTitle" :placeholder="ui.placeholders.habitTitle"
-                    class="w-full p-2 text-sm border border-indigo-200 rounded mb-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
 
-                <p class="text-xs font-semibold mb-1 text-indigo-800" x-text="ui.headers.startDate"></p>
-                <input type="date" x-model="newHabitStartDate" min="2027-01-01" max="2028-12-31"
-                    class="w-full p-2 text-sm border border-indigo-200 rounded mb-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-
-                <p class="text-xs font-semibold mb-1 text-indigo-800" x-text="ui.headers.trackingMode"></p>
-                <div class="flex space-x-2 mb-3 bg-white p-1 rounded border border-indigo-100">
-                    <button @click="newHabitMode = 'haftalık'"
-                        :class="{'bg-indigo-600 text-white shadow-sm': newHabitMode === 'haftalık', 'text-indigo-600 hover:bg-indigo-50': newHabitMode !== 'haftalık'}"
-                        class="flex-1 py-1 text-xs font-semibold rounded transition duration-150"
-                        x-text="ui.buttons.weekly"></button>
-                    <button @click="newHabitMode = 'periyodik'"
-                        :class="{'bg-indigo-600 text-white shadow-sm': newHabitMode === 'periyodik', 'text-indigo-600 hover:bg-indigo-50': newHabitMode !== 'periyodik'}"
-                        class="flex-1 py-1 text-xs font-semibold rounded transition duration-150"
-                        x-text="ui.buttons.periodic"></button>
+                <div class="mb-3">
+                    <label for="new-habit-title" class="block text-xs font-semibold mb-1 text-indigo-800"
+                        x-text="ui.headers.habitName"></label>
+                    <input id="new-habit-title" name="habitTitle" type="text" x-model="newHabitTitle"
+                        x-ref="habitTitle" :placeholder="ui.placeholders.habitTitle" required pattern=".*\S.*"
+                        autocomplete="off" data-error="new-habit-title-error"
+                        class="habit-input w-full p-2 text-sm border border-indigo-200 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                    <p id="new-habit-title-error" class="habit-error">
+                        <span aria-hidden="true">⚠</span><span x-text="ui.warnings.enterName"></span>
+                    </p>
                 </div>
 
+                <div class="mb-3">
+                    <label for="new-habit-start-date" class="block text-xs font-semibold mb-1 text-indigo-800"
+                        x-text="ui.headers.startDate"></label>
+                    <input id="new-habit-start-date" name="habitStartDate" type="date" x-model="newHabitStartDate"
+                        x-ref="habitStartDate" min="2027-01-01" max="2028-12-31" required
+                        data-error="new-habit-start-date-error"
+                        class="habit-input w-full p-2 text-sm border border-indigo-200 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                    <p id="new-habit-start-date-error" class="habit-error">
+                        <span aria-hidden="true">⚠</span><span x-text="ui.warnings.enterDate"></span>
+                    </p>
+                </div>
+
+                <fieldset class="border-0 p-0 m-0 min-w-0 mb-3" @click="formError = ''">
+                    <legend class="text-xs font-semibold mb-1 text-indigo-800 p-0"
+                        x-text="ui.headers.trackingMode"></legend>
+                    <div class="flex space-x-2 bg-white p-1 rounded border border-indigo-100">
+                        <button type="button" @click="newHabitMode = 'haftalık'"
+                            :class="{'bg-indigo-600 text-white shadow-sm': newHabitMode === 'haftalık', 'text-indigo-600 hover:bg-indigo-50': newHabitMode !== 'haftalık'}"
+                            class="flex-1 py-1 text-xs font-semibold rounded transition duration-150"
+                            x-text="ui.buttons.weekly"></button>
+                        <button type="button" @click="newHabitMode = 'periyodik'"
+                            :class="{'bg-indigo-600 text-white shadow-sm': newHabitMode === 'periyodik', 'text-indigo-600 hover:bg-indigo-50': newHabitMode !== 'periyodik'}"
+                            class="flex-1 py-1 text-xs font-semibold rounded transition duration-150"
+                            x-text="ui.buttons.periodic"></button>
+                    </div>
+                </fieldset>
+
                 <template x-if="newHabitMode === 'haftalık'">
-                    <div class="mb-3">
-                        <p class="text-xs font-semibold mb-1 text-indigo-800" x-text="ui.headers.weeklyDays"></p>
+                    <fieldset x-ref="weeklyDays" tabindex="-1" class="border-0 p-0 m-0 min-w-0 mb-3"
+                        @click="formError = ''">
+                        <legend class="text-xs font-semibold mb-1 text-indigo-800 p-0"
+                            x-text="ui.headers.weeklyDays"></legend>
                         <div class="flex justify-between space-x-0.5">
                             <template x-for="d in [1, 2, 3, 4, 5, 6, 7]">
-                                <button @click="
+                                <button type="button" @click="
                                     const index = newHabitDays.indexOf(d);
                                     if (index > -1) {
                                         newHabitDays.splice(index, 1);
@@ -886,22 +989,32 @@
                                 </button>
                             </template>
                         </div>
-                    </div>
+                    </fieldset>
                 </template>
 
                 <template x-if="newHabitMode === 'periyodik'">
                     <div class="mb-3">
-                        <p class="text-xs font-semibold mb-1 text-indigo-800" x-text="ui.headers.repeatCount"></p>
-                        <input type="number" x-model.number="newHabitFrequency" min="1" max="365"
-                            class="w-full p-2 text-sm border border-indigo-200 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <label for="new-habit-frequency" class="block text-xs font-semibold mb-1 text-indigo-800"
+                            x-text="ui.headers.repeatCount"></label>
+                        <input id="new-habit-frequency" name="habitFrequency" type="number"
+                            x-model.number="newHabitFrequency" x-ref="habitFrequency" min="1" max="365" step="1"
+                            required data-error="new-habit-frequency-error"
+                            class="habit-input w-full p-2 text-sm border border-indigo-200 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <p id="new-habit-frequency-error" class="habit-error">
+                            <span aria-hidden="true">⚠</span><span x-text="ui.warnings.repeatRange"></span>
+                        </p>
                     </div>
                 </template>
 
-                <button @click="addNewHabit()" :disabled="!newHabitTitle.trim() || !newHabitStartDate"
-                    class="w-full py-2 text-sm bg-indigo-600 text-white rounded font-semibold shadow-md hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                <p class="habit-form-error" x-show="formError" style="display: none" role="alert">
+                    <span aria-hidden="true">⚠</span><span x-text="formError ? ui.warnings[formError] : ''"></span>
+                </p>
+
+                <button type="submit"
+                    class="w-full py-2 text-sm bg-indigo-600 text-white rounded font-semibold shadow-md hover:bg-indigo-700 transition"
                     x-text="ui.buttons.addHabit">
                 </button>
-            </div>
+            </form>
         </div>
 
         <div x-ref="calendarArea" id="calendar-area"
