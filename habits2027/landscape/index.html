@@ -104,7 +104,6 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <script defer src="assets/js/alpine.min.js"></script>
     <script defer src="assets/js/habit-form-a11y.js"></script>
-    <script src="assets/js/html2canvas-pro.min.js"></script>
 
     <style>
         .grid-custom {
@@ -20096,7 +20095,39 @@
         }
 
 
+        // html2canvas yalnızca PNG indirme veya yazdırma tıklandığında yüklenir.
+        let html2canvasReady = null;
+        function loadHtml2Canvas() {
+            if (window.html2canvas) return Promise.resolve(window.html2canvas);
+            if (!html2canvasReady) {
+                html2canvasReady = new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = '/assets/js/html2canvas-pro.min.js';
+                    script.async = true;
+                    script.onload = () => window.html2canvas
+                        ? resolve(window.html2canvas)
+                        : reject(new Error('html2canvas yüklenemedi.'));
+                    script.onerror = () => {
+                        html2canvasReady = null;
+                        reject(new Error('html2canvas yüklenemedi.'));
+                    };
+                    document.head.appendChild(script);
+                });
+            }
+            return html2canvasReady;
+        }
+
         function generateCalendarImage(callback) {
+            if (!window.html2canvas) {
+                loadHtml2Canvas()
+                    .then(() => generateCalendarImage(callback))
+                    .catch(err => {
+                        console.error('Canvas generation failed:', err);
+                        alert('Görsel oluşturulamadı. Hata: ' + (err.message || String(err)));
+                    });
+                return;
+            }
+
             const originalTarget = document.getElementById('calendar-area');
 
 
