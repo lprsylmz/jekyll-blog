@@ -130,29 +130,8 @@
     <meta property="twitter:image"
         content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/favicon.svg' | absolute_url }}{% endif %}" />
     <script src="/assets/js/alpine.min.js" defer></script>
-    <!-- Tailwind CSS CDN -->
-    <!-- Tailwind CSS CDN -->
-    <script src="/assets/js/tailwindcss.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-light': '#F5F0E8',
-                        'brand-dark': '#1C1F26',
-                        'brand-accent': 'rgb(51 65 85)',
-                        'brand-muted': 'rgb(148 163 184)',
-                        'brand-primary': 'rgb(51 65 85)',
-                    },
-                    fontFamily: {
-                        sans: ['"Lora"', 'Georgia', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                }
-            }
-        }
-    </script>
+    <link rel="preload" href="/assets/css/tailwind.css" as="style">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
 
 
 
