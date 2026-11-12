@@ -14,9 +14,23 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <script defer src="assets/js/alpine.min.js"></script>
     <style>
-        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f8fafc; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        :root,
+        .custom-scrollbar {
+            --scrollbar-thumb: #64748b;
+            --scrollbar-track: #f8fafc;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+
+        /* WebKit/Blink fallback: yalnızca standart özellikleri desteklemeyen tarayıcılarda */
+        @supports not (scrollbar-color: auto) {
+            :root::-webkit-scrollbar,
+            .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+            :root::-webkit-scrollbar-track,
+            .custom-scrollbar::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+            :root::-webkit-scrollbar-thumb,
+            .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen" x-data="cookiePolicyApp()">
