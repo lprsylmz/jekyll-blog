@@ -968,10 +968,15 @@
             function setupReadingProgress() {
                 const bar = document.getElementById('reading-progress');
                 if (!bar) return;
+                let readingProgressFrame = null;
                 window.addEventListener('scroll', function () {
-                    const s = window.scrollY;
-                    const d = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                    bar.value = d > 0 ? Math.min(100, (s / d) * 100) : 0;
+                    if (readingProgressFrame) return;
+                    readingProgressFrame = requestAnimationFrame(function () {
+                        readingProgressFrame = null;
+                        const s = window.scrollY;
+                        const d = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        bar.value = d > 0 ? Math.min(100, (s / d) * 100) : 0;
+                    });
                 }, { passive: true });
             }
 
@@ -985,8 +990,11 @@
                     wrapper.className = 'code-wrapper';
                     const btn = document.createElement('button');
                     btn.className = 'cc-btn';
-                    btn.innerHTML = copySvg;
                     btn.type = 'button';
+                    btn.setAttribute('aria-label', 'Kod kopyala');
+                    btn.setAttribute('aria-live', 'polite');
+                    btn.setAttribute('aria-atomic', 'true');
+                    btn.innerHTML = copySvg;
                     pre.parentNode.insertBefore(wrapper, pre);
                     wrapper.appendChild(pre);
                     wrapper.appendChild(btn);
@@ -1005,7 +1013,11 @@
                         ).then(() => {
                             btn.innerHTML = checkSvg; btn.classList.add('cc-ok');
                             setTimeout(() => { btn.innerHTML = copySvg; btn.classList.remove('cc-ok'); }, 2000);
-                        }).catch(err => console.error('Kopyalama hatası:', err));
+                        }).catch(err => {
+                            console.error('Kopyalama hatası:', err);
+                            btn.setAttribute('aria-live', 'polite');
+                            btn.innerHTML = 'Kopyalama başarısız oldu';
+                        });
                     };
                 });
             }
