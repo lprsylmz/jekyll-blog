@@ -13,10 +13,10 @@ is_blog: true
         class="hidden flex items-center justify-between p-4 bg-brand-accent/10 dark:bg-brand-muted/10 rounded-xl border border-brand-accent/20 dark:border-brand-muted/20">
         <div class="flex items-center space-x-2">
             <span class="text-brand-dark/60 dark:text-brand-light/60 text-sm">Filter:</span>
-            <span id="active-tag-name" class="bg-brand-accent text-white px-2 py-0.5 rounded text-sm font-bold"></span>
+            <span id="active-tag-name" class="bg-brand-primary text-white px-2 py-0.5 rounded text-sm font-bold"></span>
         </div>
         <a href="{{ page.url | relative_url }}"
-            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-primary transition-colors flex items-center space-x-1">
+            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-accent transition-colors flex items-center space-x-1">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -35,7 +35,7 @@ is_blog: true
                 <div class="min-w-0 flex-1">
                     <h2 class="text-xl font-semibold text-brand-dark/90 dark:text-brand-light/90">
                         <a href="{{ article.url | relative_url }}"
-                            class="hover:text-brand-primary transition-colors duration-200">
+                            class="hover:text-brand-accent transition-colors duration-200">
                             {{ article.title }}
                         </a>
                     </h2>

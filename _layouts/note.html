@@ -45,7 +45,7 @@ layout: default
                   [&_ul]:mb-6 [&_ol]:mb-6 [&_li]:mb-2 [&_blockquote]:font-bold
                   [&_blockquote]:italic last:**:mb-0
                   [&_img]:mx-auto [&_img]:block [&_img]:rounded-lg [&_img]:max-w-full
-                  [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2
+                  [&_a]:text-brand-accent [&_a]:underline [&_a]:underline-offset-2
                   [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_pre]:rounded-lg
                   [&_hr]:my-8 [&_hr]:border-brand-dark/20 dark:[&_hr]:border-brand-light/20">
                     {{ content }}
@@ -67,7 +67,7 @@ layout: default
                         <!-- X / Twitter -->
                         <a href="https://x.com/intent/post?text={{ share_text }}&url={{ encoded_url }}"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300 group"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300 group"
                             title="X'te paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -78,7 +78,7 @@ layout: default
                         <!-- Bluesky -->
                         <a href="https://bsky.app/intent/compose?text={{ share_text }}%20{{ encoded_url }}"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="Bluesky'da paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 600 530">
                                 <path
@@ -89,7 +89,7 @@ layout: default
                         <!-- WhatsApp -->
                         <a href="https://api.whatsapp.com/send?text={{ share_text }}%20{{ encoded_url }}"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="WhatsApp'ta paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -99,7 +99,7 @@ layout: default
 
                         <!-- Bağlantıyı Kopyala -->
                         <button type="button" data-copy-url="{{ share_url }}"
-                            class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="Bağlantıyı kopyala">
                             <svg class="copy-icon w-5 h-5" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -116,8 +116,8 @@ layout: default
 
                     <!-- Ana Tetikleyici Buton -->
                     <button type="button" @click="shareOpen = !shareOpen"
-                        class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
-                        :class="shareOpen ? 'bg-brand-accent text-white border-transparent' : ''"
+                        class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
+                        :class="shareOpen ? 'bg-brand-primary text-white border-transparent' : ''"
                         title="Paylaş">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path

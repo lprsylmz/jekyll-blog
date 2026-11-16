@@ -41,6 +41,7 @@
                 if (meta) meta.setAttribute('content', stored === null ? 'light dark' : (dark ? 'dark' : 'light'));
                 document.documentElement.classList.toggle('dark', dark);
                 window.initialDarkMode = dark;
+                if (window.syncThemeColor) window.syncThemeColor();
                 window.dispatchEvent(new CustomEvent('themechange', { detail: { dark: dark } }));
             }
 
@@ -55,6 +56,56 @@
 
             if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
             else if (mq.addListener) mq.addListener(onSystemChange);
+        })();
+    </script>
+
+    <script>
+        (function () {
+            var PALETTES = ['kagit', 'orman', 'okyanus', 'murdum'];
+            var LABELS = { kagit: 'Kâğıt', orman: 'Orman', okyanus: 'Okyanus', murdum: 'Mürdüm' };
+            var META = {
+                kagit: { light: '#F5F0E8', dark: '#1C1F26' },
+                orman: { light: '#F1F3EC', dark: '#1A231D' },
+                okyanus: { light: '#EDF2F5', dark: '#14232D' },
+                murdum: { light: '#F5EEF1', dark: '#271A20' }
+            };
+
+            function normalize(name) {
+                return PALETTES.indexOf(name) !== -1 ? name : PALETTES[0];
+            }
+
+            function readStored() {
+                try { return localStorage.getItem('palette'); } catch (e) { return null; }
+            }
+
+            window.paletteLabel = function (name) {
+                return LABELS[normalize(name)];
+            };
+
+            window.nextPalette = function (name) {
+                return PALETTES[(PALETTES.indexOf(normalize(name)) + 1) % PALETTES.length];
+            };
+
+            window.syncThemeColor = function () {
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (!meta) return;
+                var p = normalize(document.documentElement.getAttribute('data-palette'));
+                var dark = document.documentElement.classList.contains('dark');
+                meta.setAttribute('content', dark ? META[p].dark : META[p].light);
+            };
+
+            window.setPalette = function (name, persist) {
+                var p = normalize(name);
+                document.documentElement.setAttribute('data-palette', p);
+                if (persist) {
+                    try { localStorage.setItem('palette', p); } catch (e) { }
+                }
+                window.initialPalette = p;
+                window.syncThemeColor();
+                window.dispatchEvent(new CustomEvent('palettechange', { detail: { palette: p } }));
+            };
+
+            window.setPalette(readStored(), false);
         })();
     </script>
 
@@ -607,10 +658,18 @@
 
 <body x-data="{
     darkMode: window.initialDarkMode,
+    palette: window.initialPalette,
+    paletteName: window.paletteLabel(window.initialPalette),
     searchOpen: false,
     toggle() {
       window.setTheme(!this.darkMode, true);
       this.darkMode = window.initialDarkMode;
+    },
+    cyclePalette() {
+      var next = window.nextPalette(this.palette);
+      window.setPalette(next, true);
+      this.palette = next;
+      this.paletteName = window.paletteLabel(next);
     },
     toggleSearch() {
       this.searchOpen = !this.searchOpen;
@@ -619,6 +678,7 @@
       }
     }
   }" @themechange.window="darkMode = $event.detail.dark" @webmcp-open-search.window="searchOpen = true"
+    @palettechange.window="palette = $event.detail.palette; paletteName = window.paletteLabel($event.detail.palette)"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
     <!-- Reading Progress Bar -->
@@ -721,6 +781,16 @@
                         {% if current_lang == 'en' %}TR{% else %}EN{% endif %}
                     </a>
                     {% endif %}
+                    <button type="button" id="palette-toggle-btn" x-on:click="cyclePalette()"
+                        :aria-label="'Renk paleti: ' + paletteName + '. Sonraki palete geç'"
+                        :title="'Renk paleti: ' + paletteName"
+                        class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent flex items-center justify-center">
+                        <span class="flex flex-col items-start gap-[3px] w-6" aria-hidden="true">
+                            <span class="block h-1 w-full rounded-full bg-current opacity-80"></span>
+                            <span class="block h-1 rounded-full bg-current opacity-40" style="width:60%"></span>
+                            <span class="block h-1 rounded-full bg-brand-accent" style="width:25%"></span>
+                        </span>
+                    </button>
                     <button x-on:click="toggle()" aria-label="Karanlık Mod"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none flex items-center justify-center">
                         <svg x-show="!darkMode" title="Karanlık Mod" class="w-6 h-6" fill="currentColor"
@@ -880,7 +950,7 @@
                 Kabul Et
             </button>
             <button onclick="rejectCookies()" x-on:click="show = false"
-                class="px-6 py-2 bg-brand-accent text-brand-light hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
+                class="px-6 py-2 bg-brand-primary text-white hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
                 Reddet
             </button>
         </div>

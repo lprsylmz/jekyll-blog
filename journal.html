@@ -11,10 +11,10 @@ is_journal: true
         class="hidden flex items-center justify-between p-4 bg-brand-accent/10 dark:bg-brand-muted/10 rounded-xl border border-brand-accent/20 dark:border-brand-muted/20">
         <div class="flex items-center space-x-2">
             <span class="text-brand-dark/60 dark:text-brand-light/60 text-sm">Filtre:</span>
-            <span id="active-tag-name" class="bg-brand-accent text-white px-2 py-0.5 rounded text-sm font-bold"></span>
+            <span id="active-tag-name" class="bg-brand-primary text-white px-2 py-0.5 rounded text-sm font-bold"></span>
         </div>
         <a href="{{ page.url | relative_url }}"
-            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-primary transition-colors flex items-center space-x-1">
+            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-accent transition-colors flex items-center space-x-1">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -35,7 +35,7 @@ is_journal: true
             <div class="flex-1 min-w-0">
 
                 <div class="flex items-center space-x-1 mb-1">
-                    <a href="{{ post_anchor }}" class="text-brand-primary text-sm font-bold hover:underline">
+                    <a href="{{ post_anchor }}" class="text-brand-accent text-sm font-bold hover:underline">
                         #{{ entry_id }}
                     </a>
                     <span class="text-brand-dark/50 dark:text-brand-light/50 text-sm">·</span>
@@ -51,7 +51,7 @@ is_journal: true
                        [&_ul]:mb-6 [&_ol]:mb-6 [&_li]:mb-2 [&_blockquote]:font-bold
                        [&_blockquote]:italic last:**:mb-0
                        [&_img]:mx-auto [&_img]:block [&_img]:rounded-lg [&_img]:max-w-full
-                       [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2
+                       [&_a]:text-brand-accent [&_a]:underline [&_a]:underline-offset-2
                        [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_pre]:rounded-lg
                        [&_hr]:my-8 [&_hr]:border-brand-dark/20 dark:[&_hr]:border-brand-light/20">
                     {{ post.content }}
@@ -74,7 +74,7 @@ is_journal: true
 
                 <a href="https://x.com/intent/post?text={{ share_text }}&url={{ encoded_url }}" target="_blank"
                     rel="noopener noreferrer"
-                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300 group"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300 group"
                     title="X'te paylaş">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -84,7 +84,7 @@ is_journal: true
 
                 <a href="https://bsky.app/intent/compose?text={{ share_text }}%20{{ encoded_url }}" target="_blank"
                     rel="noopener noreferrer"
-                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                     title="Bluesky'da paylaş">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 600 530">
                         <path
@@ -93,7 +93,7 @@ is_journal: true
                 </a>
                 <a href="https://api.whatsapp.com/send?text={{ share_text }}%20{{ encoded_url }}" target="_blank"
                     rel="noopener noreferrer"
-                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                     title="WhatsApp'ta paylaş">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -102,7 +102,7 @@ is_journal: true
                 </a>
 
                 <button type="button" data-copy-url="{{ share_url }}"
-                    class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                    class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                     title="Bağlantıyı kopyala">
                     <svg class="copy-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,8 +116,8 @@ is_journal: true
             </div>
 
             <button type="button" @click="shareOpen = !shareOpen"
-                class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
-                :class="shareOpen ? 'bg-brand-accent text-white border-transparent' : ''" title="Paylaş">
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
+                :class="shareOpen ? 'bg-brand-primary text-white border-transparent' : ''" title="Paylaş">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />

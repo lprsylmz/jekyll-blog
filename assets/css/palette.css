@@ -1,0 +1,93 @@
+/*
+ * 60/30/10 palet sistemi — tek kaynak
+ * ------------------------------------
+ * %60 zemin      : --brand-light (açık tema zemini / koyu tema metni)
+ * %30 metin/yüzey: --brand-dark  (açık tema metni / koyu tema zemini)
+ *                  --brand-muted (ikincil metin, kenarlık, ayraç)
+ * %10 vurgu      : --brand-accent (link, rozet, odak halkası, tint)
+ *                  --brand-primary (dolu buton/pill zemini, beyaz metinle)
+ *
+ * --brand-* değerleri RGB kanallarıdır; Tailwind v3 opacity modifier'ları
+ * (bg-brand-accent/10) bunları kullanır. --color-brand-* ise `main.css`
+ * (Tailwind v4) tarafındaki değişken adlarıdır ve buradan türetilir.
+ * Palet: <html data-palette="kagit|orman|okyanus|murdum">, koyu tema: .dark
+ */
+:root {
+    --brand-light: 245 240 232;
+    --brand-dark: 28 31 38;
+    --brand-muted: 138 129 113;
+    --brand-accent: 51 65 85;
+    --brand-primary: 51 65 85;
+
+    --color-brand-light: rgb(var(--brand-light));
+    --color-brand-dark: rgb(var(--brand-dark));
+    --color-brand-muted: rgb(var(--brand-muted));
+    --color-brand-accent: rgb(var(--brand-accent));
+    --color-brand-primary: rgb(var(--brand-primary));
+}
+
+.dark {
+    --brand-muted: 148 163 184;
+    --brand-accent: 168 182 201;
+    --brand-primary: 90 110 138;
+}
+
+/* Kâğıt — sıcak fildişi zemin, mürekkep, slate vurgu */
+:root[data-palette="kagit"] {
+    --brand-light: 245 240 232;
+    --brand-dark: 28 31 38;
+    --brand-muted: 138 129 113;
+    --brand-accent: 51 65 85;
+    --brand-primary: 51 65 85;
+}
+
+:root[data-palette="kagit"].dark {
+    --brand-muted: 148 163 184;
+    --brand-accent: 168 182 201;
+    --brand-primary: 90 110 138;
+}
+
+/* Orman — kırık beyaz zemin, koyu yeşil mürekkep, yaprak vurgu */
+:root[data-palette="orman"] {
+    --brand-light: 241 243 236;
+    --brand-dark: 26 35 29;
+    --brand-muted: 124 138 128;
+    --brand-accent: 47 107 77;
+    --brand-primary: 47 107 77;
+}
+
+:root[data-palette="orman"].dark {
+    --brand-muted: 147 167 154;
+    --brand-accent: 143 211 174;
+    --brand-primary: 58 110 84;
+}
+
+/* Okyanus — soğuk gri-mavi zemin, derin deniz mürekkebi, turkuaz vurgu */
+:root[data-palette="okyanus"] {
+    --brand-light: 237 242 245;
+    --brand-dark: 20 35 45;
+    --brand-muted: 125 144 155;
+    --brand-accent: 28 96 121;
+    --brand-primary: 28 96 121;
+}
+
+:root[data-palette="okyanus"].dark {
+    --brand-muted: 147 169 180;
+    --brand-accent: 124 198 223;
+    --brand-primary: 41 94 112;
+}
+
+/* Mürdüm — gül kurusu zemin, erik mürekkebi, mürdüm vurgu */
+:root[data-palette="murdum"] {
+    --brand-light: 245 238 241;
+    --brand-dark: 39 26 32;
+    --brand-muted: 146 126 135;
+    --brand-accent: 138 62 91;
+    --brand-primary: 138 62 91;
+}
+
+:root[data-palette="murdum"].dark {
+    --brand-muted: 173 148 158;
+    --brand-accent: 226 163 187;
+    --brand-primary: 126 58 84;
+}

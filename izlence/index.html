@@ -8,17 +8,17 @@ description: Film ve dizi izlencem; hatırlamak ve hatırlatmak için.
      x-data="{ filter: 'all' }">
     <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
         <button type="button" @click="filter = 'all'"
-            :class="filter === 'all' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            :class="filter === 'all' ? 'bg-brand-primary text-white' : 'bg-brand-accent/10 text-brand-accent'"
             class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
             Tümü
         </button>
         <button type="button" @click="filter = 'film'"
-            :class="filter === 'film' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            :class="filter === 'film' ? 'bg-brand-primary text-white' : 'bg-brand-accent/10 text-brand-accent'"
             class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
             Film
         </button>
         <button type="button" @click="filter = 'dizi'"
-            :class="filter === 'dizi' ? 'bg-brand-dark text-brand-light dark:bg-brand-light dark:text-brand-dark' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'"
+            :class="filter === 'dizi' ? 'bg-brand-primary text-white' : 'bg-brand-accent/10 text-brand-accent'"
             class="text-xs font-medium px-3 py-1.5 rounded-full transition-colors">
             Dizi
         </button>
@@ -42,17 +42,17 @@ description: Film ve dizi izlencem; hatırlamak ve hatırlatmak için.
                 </div>
                 <div class="mt-4 text-center w-full px-1">
                     <h3
-                        class="text-base font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-primary transition-colors">
+                        class="text-base font-semibold text-brand-dark dark:text-brand-light group-hover:text-brand-accent transition-colors">
                         {{ video.title }}</h3>
                     <p class="text-sm text-brand-dark/70 dark:text-brand-light/70">{{ video.creator }}</p>
                 </div>
                 <div class="mt-2 w-full text-center justify-center items-center flex flex-wrap gap-1 px-1 pb-2">
                     <span
-                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-brand-accent/10 text-brand-accent">
                         {% if video.kind == 'dizi' %}Dizi{% else %}Film{% endif %}
                     </span>
                     <span
-                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                        class="text-xs font-medium px-2.5 py-1 rounded-full bg-brand-accent/10 text-brand-accent">
                         {{ video.status | default: 'İzlenmedi' }}
                     </span>
                 </div>

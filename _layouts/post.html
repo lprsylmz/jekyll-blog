@@ -27,7 +27,7 @@ layout: default
 <div class="space-y-6">
     <div>
         <a href="{{ '/blog/' | relative_url }}"
-            class="text-brand-primary hover:text-brand-dark dark:hover:text-brand-light transition-colors inline-flex items-center text-sm font-medium">
+            class="text-brand-accent hover:text-brand-dark dark:hover:text-brand-light transition-colors inline-flex items-center text-sm font-medium">
             <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
                 </path>
@@ -53,7 +53,7 @@ layout: default
                   [&_ul]:mb-6 [&_ol]:mb-6 [&_li]:mb-2 [&_blockquote]:font-bold
                   [&_blockquote]:italic last:**:mb-0
                   [&_img]:mx-auto [&_img]:block [&_img]:rounded-lg [&_img]:max-w-full
-                  [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2
+                  [&_a]:text-brand-accent [&_a]:underline [&_a]:underline-offset-2
                   [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_pre]:rounded-lg
                   [&_hr]:my-8 [&_hr]:border-brand-dark/20 dark:[&_hr]:border-brand-light/20">
                     {{ content }}
@@ -66,7 +66,7 @@ layout: default
                     <span class="text-xs text-brand-dark/50 dark:text-brand-light/50 font-medium mr-1">Etiketler:</span>
                     {% for tag in page.tags %}
                     <a href="{{ '/blog/' | relative_url }}?tag={{ tag | url_encode }}"
-                        class="inline-block text-xs px-2.5 py-1 rounded-md bg-brand-accent/10 dark:bg-brand-muted/10 text-brand-dark/80 dark:text-brand-light/80 hover:bg-brand-accent hover:text-white dark:hover:bg-brand-muted dark:hover:text-brand-dark transition-colors font-medium">
+                        class="inline-block text-xs px-2.5 py-1 rounded-md bg-brand-accent/10 dark:bg-brand-muted/10 text-brand-dark/80 dark:text-brand-light/80 hover:bg-brand-primary hover:text-white dark:hover:bg-brand-muted dark:hover:text-brand-dark transition-colors font-medium">
                         #{{ tag }}
                     </a>
                     {% endfor %}
@@ -89,7 +89,7 @@ layout: default
                         <!-- X / Twitter -->
                         <a href="https://x.com/intent/post?text={{ share_text }}&url={{ encoded_url }}" target="_blank"
                             rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300 group"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300 group"
                             title="X'te paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -100,7 +100,7 @@ layout: default
                         <!-- Bluesky -->
                         <a href="https://bsky.app/intent/compose?text={{ share_text }}%20{{ encoded_url }}"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="Bluesky'da paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 600 530">
                                 <path
@@ -111,7 +111,7 @@ layout: default
                         <!-- WhatsApp -->
                         <a href="https://api.whatsapp.com/send?text={{ share_text }}%20{{ encoded_url }}"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="WhatsApp'ta paylaş">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -121,7 +121,7 @@ layout: default
 
                         <!-- Bağlantıyı Kopyala -->
                         <button type="button" data-copy-url="{{ share_url }}"
-                            class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
+                            class="copy-trigger w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
                             title="Bağlantıyı kopyala">
                             <svg class="copy-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -137,8 +137,8 @@ layout: default
 
                     <!-- Ana Tetikleyici Buton -->
                     <button type="button" @click="shareOpen = !shareOpen"
-                        class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-accent hover:text-white transition-all duration-300"
-                        :class="shareOpen ? 'bg-brand-accent text-white border-transparent' : ''" title="Paylaş">
+                        class="w-10 h-10 flex items-center justify-center rounded-full border border-brand-accent/20 dark:border-brand-muted/20 hover:bg-brand-primary hover:text-white transition-all duration-300"
+                        :class="shareOpen ? 'bg-brand-primary text-white border-transparent' : ''" title="Paylaş">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
