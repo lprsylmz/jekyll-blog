@@ -29,6 +29,14 @@
 
             return siteSearch.query(query, collection, limit).then(function (results) {
                 return { query: query, collection: collection, count: results.length, results: results };
+            }).catch(function (error) {
+                return {
+                    query: query,
+                    collection: collection,
+                    count: 0,
+                    results: [],
+                    error: error && error.message ? error.message : "arama başarısız"
+                };
             });
         },
         list_site_sections: function () {
@@ -53,10 +61,18 @@
         },
         get_site_overview: function () {
             return fetch(baseUrl() + "/llms.txt").then(function (res) {
-                if (!res.ok) throw new Error("llms.txt okunamadı");
+                if (!res.ok) throw new Error("llms.txt okunamadı (" + res.status + ")");
                 return res.text();
             }).then(function (markdown) {
                 return { format: "text/markdown", content: markdown };
+            }).catch(function (error) {
+                // Hata fırlatmak yerine her zaman aynı şekli döndür: ajan
+                // `content` alanının varlığına güvenebilsin.
+                return {
+                    format: "text/markdown",
+                    content: "",
+                    error: error && error.message ? error.message : "llms.txt okunamadı"
+                };
             });
         }
     };
