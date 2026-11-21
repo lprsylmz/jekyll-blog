@@ -45,6 +45,34 @@ kontrolünde tutulur. `scripts/` Jekyll tarafından yayımlanmaz. Layout
 kullanmayan tek başına sayfalar kendi önceden derlenmiş `assets/css/main.css`
 dosyalarını kullanmaya devam eder.
 
+## Görseller
+
+Yeni görsel eklerken kaynak dosyayı değiştirmeden responsive türevleri üretin
+(Pillow gerekir: `python3 -m pip install Pillow`):
+
+```bash
+python3 scripts/prepare-image.py assets/images/places/ornek.webp
+python3 scripts/prepare-image.py kapak.jpg --hero --alt "Ayaş panaroması"
+```
+
+Script kaynağa dokunmaz; aynı dizine 400/600/800/1200/1600 kademelerinde
+`ad-<genişlik>.webp`/`.avif` ve tam genişlikte `ad.webp`/`.avif` yazar, ardından
+yapıştırılabilir `<picture>` HTML'ini gösterir. `--max-width` en büyük genişliği
+sınırlar (varsayılan 1600), `--hero` LCP görseli için `loading="lazy"` yerine
+`fetchpriority="high"` kullanır, `--out-dir` / `--name` / `--sizes` çıktıyı
+yönlendirir.
+
+Uyulması gereken kurallar:
+
+- `srcset`, `sizes`, `width` ve `height` her zaman ekleyin; ekran dışı görsellerde
+  `loading="lazy"`, LCP/kapak görselinde (sayfada en fazla 1) `fetchpriority="high"`
+  kullanın. `fetchpriority="high"` ve `loading="lazy"` birlikte kullanılmaz.
+- AVIF için `<source type="image/avif">`, WebP için fallback `<img>` kullanın.
+- Wikimedia / byynalcin / CC BY 3.0 gibi lisans ve atıf satırlarını koruyun;
+  script yalnızca türev üretir, kaynağı veya üst veriyi değiştirmez.
+- Türevleri ekledikten sonra `bundle exec jekyll build` ile doğrulayın; varlık
+  sürüm anahtarı (`?v=...`) otomatik güncellenir.
+
 `/admin` sadece eski Laravel/Filament yönetimini
 değil, Git tabanlı bir CMS kurulmasını gerektirir; statik dağıtımda PHP ve
 Filament çalışmaz.
