@@ -7,7 +7,7 @@
   "tools": [
     {
       "name": "search_content",
-      "description": "Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
+      "description": "Blog yazıları, journal notları, kitaplık, gezinti (yerler) ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -21,7 +21,7 @@
           },
           "collection": {
             "type": "string",
-            "enum": ["all", "articles", "notes", "books", "videos"],
+            "enum": ["all", "articles", "notes", "books", "places", "videos"],
             "default": "all",
             "description": "Aramanın sınırlandırılacağı koleksiyon. all tüm koleksiyonları tarar."
           },
