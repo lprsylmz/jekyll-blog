@@ -3,13 +3,17 @@
 
     // Arama dizinlerinin tamamı; görünür arama alanı ve WebMCP aracı aynı
     // servisi kullandığı için sonuçlar iki tarafta da birebir aynı olur.
-    var INDEX_URLS = [
+    var INDEX_PATHS = [
         "/search_notes.json",
         "/search_articles.json",
         "/search_books.json",
         "/search_places.json",
         "/search_videos.json"
     ];
+
+    function baseUrl() {
+        return (window.WebMCPConfig && window.WebMCPConfig.baseUrl) || "";
+    }
 
     function normalize(value) {
         if (!value) return "";
@@ -39,8 +43,8 @@
 
     function load() {
         if (!loadPromise) {
-            loadPromise = Promise.all(INDEX_URLS.map(function (url) {
-                return fetch(url).then(function (res) {
+            loadPromise = Promise.all(INDEX_PATHS.map(function (path) {
+                return fetch(baseUrl() + path).then(function (res) {
                     if (!res.ok) return [];
                     return res.json();
                 }).catch(function () {

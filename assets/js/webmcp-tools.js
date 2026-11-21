@@ -1,6 +1,18 @@
 (function () {
     var siteSearch = window.SiteSearch;
 
+    function config() {
+        return window.WebMCPConfig || {};
+    }
+
+    function baseUrl() {
+        return config().baseUrl || "";
+    }
+
+    function absoluteUrl(path) {
+        return (config().siteUrl || "") + baseUrl() + path;
+    }
+
     var executors = {
         search_content: function (args) {
             var query = args && args.query ? String(args.query).trim() : "";
@@ -22,25 +34,25 @@
         list_site_sections: function () {
             return Promise.resolve({
                 sections: [
-                    { name: "Ana sayfa", url: "https://alpersoylemez.com/" },
-                    { name: "Blog", url: "https://alpersoylemez.com/blog/" },
-                    { name: "Blog (English)", url: "https://alpersoylemez.com/en/blog/" },
-                    { name: "Journal", url: "https://alpersoylemez.com/journal/" },
-                    { name: "Gezinti", url: "https://alpersoylemez.com/gezinti/" },
-                    { name: "Kitaplık", url: "https://alpersoylemez.com/kitaplik/" },
-                    { name: "İzlence", url: "https://alpersoylemez.com/izlence/" },
-                    { name: "Habits 2026", url: "https://alpersoylemez.com/habits2026/" }
+                    { name: "Ana sayfa", url: absoluteUrl("/") },
+                    { name: "Blog", url: absoluteUrl("/blog/") },
+                    { name: "Blog (English)", url: absoluteUrl("/en/blog/") },
+                    { name: "Journal", url: absoluteUrl("/journal/") },
+                    { name: "Gezinti", url: absoluteUrl("/gezinti/") },
+                    { name: "Kitaplık", url: absoluteUrl("/kitaplik/") },
+                    { name: "İzlence", url: absoluteUrl("/izlence/") },
+                    { name: "Habits 2026", url: absoluteUrl("/habits2026/") }
                 ],
                 discovery: [
-                    { name: "llms.txt", url: "https://alpersoylemez.com/llms.txt" },
-                    { name: "ai-catalog.json", url: "https://alpersoylemez.com/.well-known/ai-catalog.json" },
-                    { name: "WebMCP tools", url: "https://alpersoylemez.com/webmcp-tools.json" },
-                    { name: "RSS", url: "https://alpersoylemez.com/feed.xml" }
+                    { name: "llms.txt", url: absoluteUrl("/llms.txt") },
+                    { name: "ai-catalog.json", url: absoluteUrl("/.well-known/ai-catalog.json") },
+                    { name: "WebMCP tools", url: absoluteUrl("/webmcp-tools.json") },
+                    { name: "RSS", url: absoluteUrl("/feed.xml") }
                 ]
             });
         },
         get_site_overview: function () {
-            return fetch("/llms.txt").then(function (res) {
+            return fetch(baseUrl() + "/llms.txt").then(function (res) {
                 if (!res.ok) throw new Error("llms.txt okunamadı");
                 return res.text();
             }).then(function (markdown) {
