@@ -860,9 +860,13 @@
                     toolname="search_site"
                     tooldescription="Blog yazıları, journal notları, kitaplık ve izlence kayıtlarında arama yapar."
                     toolautosubmit @submit.prevent="
-                                search();
                                 if ($event.agentInvoked && typeof $event.respondWith === 'function') {
-                                    $event.respondWith(Promise.resolve({ results: searchResults }));
+                                    $event.respondWith(initSearch().then(() => {
+                                        search();
+                                        return { results: searchResults };
+                                    }));
+                                } else {
+                                    search();
                                 }
                             ">
                     <label for="search-input" class="sr-only">Site içi arama</label>
