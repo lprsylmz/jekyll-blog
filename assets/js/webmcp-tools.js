@@ -109,6 +109,11 @@
                         }
                     }
                 },
+                annotations: {
+                    readOnlyHint: true,
+                    untrustedContentHint: true,
+                    consequentialHint: false
+                },
                 execute: executors.search_content
             },
             {
@@ -119,6 +124,11 @@
                     additionalProperties: false,
                     properties: {}
                 },
+                annotations: {
+                    readOnlyHint: true,
+                    untrustedContentHint: false,
+                    consequentialHint: false
+                },
                 execute: executors.list_site_sections
             },
             {
@@ -128,6 +138,11 @@
                     type: "object",
                     additionalProperties: false,
                     properties: {}
+                },
+                annotations: {
+                    readOnlyHint: true,
+                    untrustedContentHint: false,
+                    consequentialHint: false
                 },
                 execute: executors.get_site_overview
             }

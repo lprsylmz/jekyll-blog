@@ -33,6 +33,11 @@
             "description": "Döndürülecek sonuç sayısı."
           }
         }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "untrustedContentHint": true,
+        "consequentialHint": false
       }
     },
     {
@@ -42,6 +47,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "untrustedContentHint": false,
+        "consequentialHint": false
       }
     },
     {
@@ -51,6 +61,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "untrustedContentHint": false,
+        "consequentialHint": false
       }
     }
   ]
