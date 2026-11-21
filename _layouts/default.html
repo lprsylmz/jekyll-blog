@@ -965,11 +965,11 @@
                 için Çerez Politikası</a>
         </p>
         <div class="flex gap-3">
-            <button type="button" data-cookie-action="accept" x-on:click="show = false"
+            <button type="button" @click="acceptCookies(); show = false"
                 class="px-6 py-2 bg-brand-dark dark:bg-brand-light text-brand-light dark:text-brand-dark hover:bg-brand-accent dark:hover:bg-brand-muted font-bold rounded-lg transition-colors whitespace-nowrap">
                 Kabul Et
             </button>
-            <button type="button" data-cookie-action="reject" x-on:click="show = false"
+            <button type="button" @click="rejectCookies(); show = false"
                 class="px-6 py-2 bg-brand-primary text-white hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
                 Reddet
             </button>
@@ -1048,12 +1048,6 @@
             setConsent('rejected');
         };
 
-        document.querySelectorAll('[data-cookie-action]').forEach(function (button) {
-            button.addEventListener('click', function () {
-                if (button.dataset.cookieAction === 'accept') window.acceptCookies();
-                else window.rejectCookies();
-            });
-        });
     </script>
 
     <!-- Reading Progress + Code Copy -->
