@@ -3,8 +3,8 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
 
-# /assets/ URL'leri _plugins/version_assets.rb tarafından içerik özetiyle
-# sürümlenir (?v=...); dosya değiştiğinde URL değişir. Bu yüzden 1 yıllık
-# immutable güvenli, tekrar ziyaretler önbellekten karşılanır.
+# Cloudflare Pages Jekyll'i --safe ile çalıştırır; _plugins/ yüklenmez.
+# Dosya adları sürümlenmediği için 1 yıllık immutable bayat CSS/JS bırakır.
+# 1 günlük TTL + arka planda yenileme güvenli ve tekrar ziyaretleri hızlandırır.
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

@@ -70,8 +70,10 @@ Uyulması gereken kurallar:
 - AVIF için `<source type="image/avif">`, WebP için fallback `<img>` kullanın.
 - Wikimedia / byynalcin / CC BY 3.0 gibi lisans ve atıf satırlarını koruyun;
   script yalnızca türev üretir, kaynağı veya üst veriyi değiştirmez.
-- Türevleri ekledikten sonra `bundle exec jekyll build` ile doğrulayın; varlık
-  sürüm anahtarı (`?v=...`) otomatik güncellenir.
+- Türevleri ekledikten sonra `bundle exec jekyll build` ile doğrulayın.
+  Cloudflare Pages `--safe` ile derlediği için otomatik `?v=` sürüklemesi
+  kullanılmıyor; `/assets/*` için 1 günlük TTL + `stale-while-revalidate`
+  uygulanır.
 
 `/admin` sadece eski Laravel/Filament yönetimini
 değil, Git tabanlı bir CMS kurulmasını gerektirir; statik dağıtımda PHP ve
