@@ -9,4 +9,3 @@ tags: [alıntı]
 ---
 
  Hızlı gelişmek için bazen yavaş gitmek zorundasın.
-![](https://alpersoylemez.com//storage/notes/images/hiz-z5VW1.webp)
