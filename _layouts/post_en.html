@@ -46,7 +46,7 @@ layout: default
                 <!-- Date -->
                 <div class="flex items-center space-x-1 mb-1">
                     <time
-                        class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time"
+                        class="text-sm text-brand-dark/70 dark:text-brand-light/60 whitespace-nowrap relative-time"
                         datetime="{{ page.date | date_to_xmlschema }}"
                         data-timestamp="{{ page.date | date: '%s' }}">
                         {{ page.date | date: "%m/%d/%Y" }}
@@ -69,7 +69,7 @@ layout: default
                 <!-- Tags -->
                 {% if page.tags and page.tags.size > 0 %}
                 <div class="flex flex-wrap items-center gap-1.5 mt-8 pt-4 border-t border-brand-dark/10 dark:border-brand-light/10">
-                    <span class="text-xs text-brand-dark/50 dark:text-brand-light/50 font-medium mr-1">Tags:</span>
+                    <span class="text-xs text-brand-dark/70 dark:text-brand-light/60 font-medium mr-1">Tags:</span>
                     {% for tag in page.tags %}
                     <a href="{{ '/en/blog/' | relative_url }}?tag={{ tag | url_encode }}"
                         class="inline-block text-xs px-2.5 py-1 rounded-md bg-brand-accent/10 dark:bg-brand-muted/10 text-brand-dark/80 dark:text-brand-light/80 hover:bg-brand-primary hover:text-white dark:hover:bg-brand-muted dark:hover:text-brand-dark transition-colors font-medium">

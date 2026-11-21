@@ -17,7 +17,7 @@ is_blog: true
             <span id="active-tag-name" class="bg-brand-primary text-white px-2 py-0.5 rounded text-sm font-bold"></span>
         </div>
         <a href="{{ page.url | relative_url }}"
-            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-accent transition-colors flex items-center space-x-1">
+            class="text-xs text-brand-dark/70 dark:text-brand-light/60 hover:text-brand-accent transition-colors flex items-center space-x-1">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -44,7 +44,7 @@ is_blog: true
 
                 {% if article.date %}
                 <time
-                    class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time shrink-0"
+                    class="text-sm text-brand-dark/70 dark:text-brand-light/60 whitespace-nowrap relative-time shrink-0"
                     datetime="{{ article.date | date_to_xmlschema }}" data-timestamp="{{ article.date | date: '%s' }}">
                     {{ article.date | date: "%m/%d/%Y" }}
                 </time>

@@ -15,7 +15,7 @@ is_journal: true
             <span id="active-tag-name" class="bg-brand-primary text-white px-2 py-0.5 rounded text-sm font-bold"></span>
         </div>
         <a href="{{ page.url | relative_url }}"
-            class="text-xs text-brand-dark/50 dark:text-brand-light/50 hover:text-brand-accent transition-colors flex items-center space-x-1">
+            class="text-xs text-brand-dark/70 dark:text-brand-light/60 hover:text-brand-accent transition-colors flex items-center space-x-1">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -39,8 +39,8 @@ is_journal: true
                     <a href="{{ post_anchor }}" class="text-brand-accent text-sm font-bold hover:underline">
                         #{{ entry_id }}
                     </a>
-                    <span class="text-brand-dark/50 dark:text-brand-light/50 text-sm">·</span>
-                    <time class="text-sm text-brand-dark/50 dark:text-brand-light/50 whitespace-nowrap relative-time"
+                    <span class="text-brand-dark/70 dark:text-brand-light/60 text-sm">·</span>
+                    <time class="text-sm text-brand-dark/70 dark:text-brand-light/60 whitespace-nowrap relative-time"
                         datetime="{{ post.date | date_to_xmlschema }}" data-timestamp="{{ post.date | date: '%s' }}">
                         {{ post.date | date: "%d.%m.%Y" }}
                     </time>
@@ -127,7 +127,7 @@ is_journal: true
         </div>
     </article>
     {% else %}
-    <p class="text-center py-10 text-brand-dark/50 dark:text-brand-light/50">Henüz not yok.</p>
+    <p class="text-center py-10 text-brand-dark/70 dark:text-brand-light/60">Henüz not yok.</p>
     {% endfor %}
 
     <div id="scroll-sentinel" class="h-10"></div>
@@ -223,7 +223,7 @@ is_journal: true
             if (visibleArticles.length === 0) {
                 const container = document.querySelector('.space-y-6');
                 const emptyMsg = document.createElement('p');
-                emptyMsg.className = "text-center py-10 text-brand-dark/50 dark:text-brand-light/50";
+                emptyMsg.className = "text-center py-10 text-brand-dark/70 dark:text-brand-light/60";
                 emptyMsg.textContent = "Bu etikete uygun not bulunamadı.";
                 container.appendChild(emptyMsg);
             }
