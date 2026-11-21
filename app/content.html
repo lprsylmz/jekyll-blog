@@ -32,10 +32,17 @@ permalink: /app/content.json
   },
   "sections": [
     {% for section in site.data.app_home.sections %}
+    {% assign section_description = "" %}
+    {% for site_page in site.html_pages %}
+    {% if site_page.url == section.path %}
+    {% assign section_description = site_page.description | default: "" %}
+    {% endif %}
+    {% endfor %}
     {
       "id": {{ section.id | jsonify }},
       "label": {{ section.label | jsonify }},
-      "path": {{ section.path | jsonify }}
+      "path": {{ section.path | jsonify }},
+      "description": {{ section_description | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ],
@@ -68,6 +75,7 @@ permalink: /app/content.json
         "tags": {% if post.tags %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
         "path": {{ post.url | relative_url | jsonify }},
         "url": {{ post.url | absolute_url | jsonify }},
+        "langUrl": {% if post.lang_url %}{{ post.lang_url | relative_url | jsonify }}{% else %}null{% endif %},
         "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
         "contentHtml": {{ post.content | jsonify }},
         "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
@@ -87,6 +95,7 @@ permalink: /app/content.json
         "tags": {% if post.tags %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
         "path": {{ post.url | relative_url | jsonify }},
         "url": {{ post.url | absolute_url | jsonify }},
+        "langUrl": {% if post.lang_url %}{{ post.lang_url | relative_url | jsonify }}{% else %}null{% endif %},
         "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
         "contentHtml": {{ post.content | jsonify }},
         "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
