@@ -1,0 +1,186 @@
+---
+layout: none
+permalink: /app/content.json
+---
+{
+  "version": {{ site.data.app_content.version | jsonify }},
+  "generatedAt": {{ site.time | date_to_xmlschema | jsonify }},
+  "site": {
+    "title": {{ site.title | jsonify }},
+    "description": {{ site.description | jsonify }},
+    "baseUrl": {{ site.url | jsonify }},
+    "lang": {{ site.lang | jsonify }}
+  },
+  "home": {
+    "logoLight": {{ site.data.app_home.home.logoLight | absolute_url | jsonify }},
+    "logoDark": {{ site.data.app_home.home.logoDark | absolute_url | jsonify }},
+    "shortcuts": [
+      {% for item in site.data.app_home.home.shortcuts %}
+      {
+        "id": {{ item.id | jsonify }},
+        "label": {{ item.label | jsonify }},
+        "iconLight": {{ item.iconLight | absolute_url | jsonify }},
+        "iconDark": {{ item.iconDark | absolute_url | jsonify }},
+        "target": {
+          "type": {{ item.target.type | jsonify }},
+          "path": {% if item.target.path %}{{ item.target.path | jsonify }}{% else %}null{% endif %},
+          "url": {% if item.target.url %}{{ item.target.url | jsonify }}{% else %}null{% endif %}
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  },
+  "sections": [
+    {% for section in site.data.app_home.sections %}
+    {
+      "id": {{ section.id | jsonify }},
+      "label": {{ section.label | jsonify }},
+      "path": {{ section.path | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "apps": [
+    {% for item in site.data.app_home.apps %}
+    {
+      "id": {{ item.id | jsonify }},
+      "label": {{ item.label | jsonify }},
+      "iconLight": {{ item.iconLight | absolute_url | jsonify }},
+      "iconDark": {{ item.iconDark | absolute_url | jsonify }},
+      "url": {{ item.url | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "settings": {
+    "privacyPath": {{ site.data.app_home.settings.privacyPath | jsonify }},
+    "defaultTheme": {{ site.data.app_home.settings.defaultTheme | jsonify }}
+  },
+  "collections": {
+    "articles": [
+      {% assign entries = site.articles | sort: "date" | reverse %}
+      {% for post in entries %}
+      {
+        "id": {{ post.slug | jsonify }},
+        "slug": {{ post.slug | jsonify }},
+        "lang": "tr",
+        "title": {{ post.title | jsonify }},
+        "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+        "description": {{ post.description | default: "" | jsonify }},
+        "tags": {% if post.tags %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "enArticles": [
+      {% assign entries = site.en_articles | sort: "date" | reverse %}
+      {% for post in entries %}
+      {
+        "id": {{ post.slug | jsonify }},
+        "slug": {{ post.slug | jsonify }},
+        "lang": "en",
+        "title": {{ post.title | jsonify }},
+        "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+        "description": {{ post.description | default: "" | jsonify }},
+        "tags": {% if post.tags %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "notes": [
+      {% assign entries = site.notes | reverse %}
+      {% for post in entries %}
+      {% assign note_id = entries.size | minus: forloop.index0 %}
+      {% capture note_title %}Not #{{ note_id }}{% endcapture %}
+      {% capture journal_anchor %}/journal/#{{ note_id }}{% endcapture %}
+      {
+        "id": {{ note_id }},
+        "slug": {{ post.slug | jsonify }},
+        "title": {{ post.title | jsonify }},
+        "displayTitle": {{ note_title | jsonify }},
+        "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+        "description": {{ post.description | default: "" | jsonify }},
+        "tags": {% if post.tags %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "journalAnchor": {{ journal_anchor | jsonify }},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "books": [
+      {% assign entries = site.books | sort: "title" %}
+      {% for post in entries %}
+      {
+        "id": {{ post.slug | jsonify }},
+        "slug": {{ post.slug | jsonify }},
+        "title": {{ post.title | jsonify }},
+        "author": {{ post.author | default: "" | jsonify }},
+        "status": {{ post.status | default: "" | jsonify }},
+        "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "places": [
+      {% assign entries = site.places | sort: "title" %}
+      {% for post in entries %}
+      {
+        "id": {{ post.slug | jsonify }},
+        "slug": {{ post.slug | jsonify }},
+        "title": {{ post.title | jsonify }},
+        "location": {{ post.location | default: "" | jsonify }},
+        "status": {{ post.status | default: "" | jsonify }},
+        "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+        "imageWidth": {% if post.image_width %}{{ post.image_width | jsonify }}{% else %}null{% endif %},
+        "imageHeight": {% if post.image_height %}{{ post.image_height | jsonify }}{% else %}null{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "videos": [
+      {% assign entries = site.videos | sort: "date" | reverse %}
+      {% for post in entries %}
+      {
+        "id": {{ post.slug | jsonify }},
+        "slug": {{ post.slug | jsonify }},
+        "title": {{ post.title | jsonify }},
+        "creator": {{ post.creator | default: "" | jsonify }},
+        "kind": {{ post.kind | default: "" | jsonify }},
+        "year": {% if post.year %}{{ post.year | jsonify }}{% else %}null{% endif %},
+        "seasons": {% if post.seasons %}{{ post.seasons | jsonify }}{% else %}null{% endif %},
+        "status": {{ post.status | default: "" | jsonify }},
+        "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+        "path": {{ post.url | relative_url | jsonify }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "contentHtml": {{ post.content | jsonify }},
+        "contentText": {{ post.content | strip_html | normalize_whitespace | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "pages": [
+      {% for item in site.data.app_home.pages %}
+      {
+        "id": {{ item.id | jsonify }},
+        "title": {{ item.title | jsonify }},
+        "path": {{ item.path | jsonify }},
+        "url": {{ item.path | absolute_url | jsonify }},
+        "kind": {{ item.kind | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+}

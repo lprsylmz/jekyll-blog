@@ -8,3 +8,12 @@
 # 1 günlük TTL + arka planda yenileme güvenli ve tekrar ziyaretleri hızlandırır.
 /assets/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Expo uygulamasının sürüm kontrolü için statik JSON uç noktaları.
+# Manifest sık kontrol edilir; içerik paketinin version alanı manifest ile
+# eşleşmediğinde uygulama paketi yeniden indirir.
+/app/manifest.json
+  Cache-Control: public, max-age=300
+
+/app/content.json
+  Cache-Control: public, max-age=300

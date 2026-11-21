@@ -1,0 +1,184 @@
+{
+  "home": {
+    "logoLight": "/assets/images/Logo-Bold.svg",
+    "logoDark": "/assets/images/Logo-Bold-Beyaz.svg",
+    "shortcuts": [
+      {
+        "id": "blog",
+        "label": "Blog",
+        "iconLight": "/assets/images/B-siyah.svg",
+        "iconDark": "/assets/images/B-beyaz.svg",
+        "target": { "type": "route", "path": "/blog/" }
+      },
+      {
+        "id": "journal",
+        "label": "Journal",
+        "iconLight": "/assets/images/j-siyah.svg",
+        "iconDark": "/assets/images/j-beyaz.svg",
+        "target": { "type": "route", "path": "/journal/" }
+      },
+      {
+        "id": "books",
+        "label": "Kitaplık",
+        "iconLight": "/assets/images/k-siyah.svg",
+        "iconDark": "/assets/images/k-beyaz.svg",
+        "target": { "type": "route", "path": "/kitaplik/" }
+      },
+      {
+        "id": "videos",
+        "label": "İzlence",
+        "iconLight": "/assets/images/i-siyah.svg",
+        "iconDark": "/assets/images/i-beyaz.svg",
+        "target": { "type": "route", "path": "/izlence/" }
+      },
+      {
+        "id": "places",
+        "label": "Gezinti",
+        "iconLight": "/assets/images/g-siyah.svg",
+        "iconDark": "/assets/images/g-beyaz.svg",
+        "target": { "type": "route", "path": "/gezinti/" }
+      },
+      {
+        "id": "habits2027",
+        "label": "Habits2027",
+        "iconLight": "/assets/images/habits2027-s.svg",
+        "iconDark": "/assets/images/habits2027.svg",
+        "target": { "type": "externalUrl", "url": "https://alpersoylemez.com/habits2027/" }
+      },
+      {
+        "id": "habits2026",
+        "label": "Habits2026",
+        "iconLight": "/assets/images/h-siyah.svg",
+        "iconDark": "/assets/images/h-beyaz.svg",
+        "target": { "type": "externalUrl", "url": "https://alpersoylemez.com/habits2026/" }
+      },
+      {
+        "id": "goodreads",
+        "label": "Goodreads",
+        "iconLight": "/assets/images/4s.webp",
+        "iconDark": "/assets/images/4.webp",
+        "target": { "type": "externalUrl", "url": "https://goodreads.com/lprsylmz" }
+      },
+      {
+        "id": "bluesky",
+        "label": "Bluesky",
+        "iconLight": "/assets/images/5s.webp",
+        "iconDark": "/assets/images/5.webp",
+        "target": { "type": "externalUrl", "url": "https://bsky.app/profile/lprsylmz.bsky.social" }
+      },
+      {
+        "id": "x",
+        "label": "X",
+        "iconLight": "/assets/images/1s.webp",
+        "iconDark": "/assets/images/1.webp",
+        "target": { "type": "externalUrl", "url": "https://twitter.com/lprsylmz" }
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "iconLight": "/assets/images/2s.webp",
+        "iconDark": "/assets/images/2.webp",
+        "target": { "type": "externalUrl", "url": "https://www.instagram.com/lprsylmz" }
+      },
+      {
+        "id": "facebook",
+        "label": "Facebook",
+        "iconLight": "/assets/images/3s.webp",
+        "iconDark": "/assets/images/3.webp",
+        "target": { "type": "externalUrl", "url": "https://www.facebook.com/lprsylmz" }
+      },
+      {
+        "id": "youtube",
+        "label": "Youtube",
+        "iconLight": "/assets/images/ys.webp",
+        "iconDark": "/assets/images/y.webp",
+        "target": { "type": "externalUrl", "url": "https://www.youtube.com/@lprsylmz" }
+      }
+    ]
+  },
+  "apps": [
+    {
+      "id": "habits2027",
+      "label": "Habits2027",
+      "iconLight": "/assets/images/habits2027-s.svg",
+      "iconDark": "/assets/images/habits2027.svg",
+      "url": "https://alpersoylemez.com/habits2027/"
+    },
+    {
+      "id": "habits2026",
+      "label": "Habits2026",
+      "iconLight": "/assets/images/h-siyah.svg",
+      "iconDark": "/assets/images/h-beyaz.svg",
+      "url": "https://alpersoylemez.com/habits2026/"
+    },
+    {
+      "id": "dailyhabits2026",
+      "label": "Daily Habits 2026",
+      "iconLight": "/assets/images/h-siyah.svg",
+      "iconDark": "/assets/images/h-beyaz.svg",
+      "url": "https://alpersoylemez.com/dailyhabits2026/"
+    },
+    {
+      "id": "kitaponerileri2026",
+      "label": "Kitap Önerileri 2026",
+      "iconLight": "/assets/images/kitaponerileri-s.svg",
+      "iconDark": "/assets/images/kitaponerileri.svg",
+      "url": "https://alpersoylemez.com/kitaponerileri2026/"
+    },
+    {
+      "id": "osb",
+      "label": "Oyun",
+      "iconLight": "/assets/images/B-siyah.svg",
+      "iconDark": "/assets/images/B-beyaz.svg",
+      "url": "https://alpersoylemez.com/osb/"
+    },
+    {
+      "id": "sayfa",
+      "label": "17x25 Kareli Defter",
+      "iconLight": "/assets/images/B-siyah.svg",
+      "iconDark": "/assets/images/B-beyaz.svg",
+      "url": "https://alpersoylemez.com/sayfa/"
+    }
+  ],
+  "sections": [
+    { "id": "home", "label": "Ana Sayfa", "path": "/" },
+    { "id": "blog", "label": "Blog", "path": "/blog/" },
+    { "id": "journal", "label": "Journal", "path": "/journal/" },
+    { "id": "books", "label": "Kitaplık", "path": "/kitaplik/" },
+    { "id": "videos", "label": "İzlence", "path": "/izlence/" },
+    { "id": "places", "label": "Gezinti", "path": "/gezinti/" },
+    { "id": "apps", "label": "Diğer Uygulamalar", "path": "/apps/" },
+    { "id": "search", "label": "Ara", "path": "/ara/" },
+    { "id": "settings", "label": "Ayarlar", "path": "/ayarlar/" }
+  ],
+  "pages": [
+    {
+      "id": "cerez-politikasi",
+      "title": "Çerez Politikası",
+      "path": "/cerez-politikasi/",
+      "kind": "webview"
+    },
+    {
+      "id": "kitaponerileri2026",
+      "title": "Kitap Önerileri 2026",
+      "path": "/kitaponerileri2026/",
+      "kind": "webview"
+    },
+    {
+      "id": "osb",
+      "title": "Oyun",
+      "path": "/osb/",
+      "kind": "webview"
+    },
+    {
+      "id": "sayfa",
+      "title": "17x25 Kareli Defter",
+      "path": "/sayfa/",
+      "kind": "webview"
+    }
+  ],
+  "settings": {
+    "privacyPath": "/cerez-politikasi/",
+    "defaultTheme": "system"
+  }
+}

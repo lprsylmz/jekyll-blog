@@ -1,0 +1,19 @@
+---
+layout: none
+permalink: /app/manifest.json
+---
+{
+  "version": {{ site.data.app_content.version | jsonify }},
+  "generatedAt": {{ site.time | date_to_xmlschema | jsonify }},
+  "bundlePath": {{ "/app/content.json" | jsonify }},
+  "bundleUrl": {{ "/app/content.json" | absolute_url | jsonify }},
+  "items": {
+    "articles": {{ site.articles | size }},
+    "enArticles": {{ site.en_articles | size }},
+    "notes": {{ site.notes | size }},
+    "books": {{ site.books | size }},
+    "places": {{ site.places | size }},
+    "videos": {{ site.videos | size }},
+    "pages": {{ site.data.app_home.pages | size }}
+  }
+}
