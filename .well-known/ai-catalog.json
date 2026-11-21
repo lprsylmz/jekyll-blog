@@ -10,7 +10,7 @@
     {
       "identifier": "urn:air:alpersoylemez.com:site:webmcp-tools",
       "displayName": "Alper Söylemez WebMCP Tools",
-      "type": "application/mcp-server-card+json",
+      "type": "application/json",
       "url": "https://alpersoylemez.com/webmcp-tools.json",
       "description": "Blog, journal, kitaplık, gezinti (yerler) ve izlence içeriklerini aramak ve site bölümlerini listelemek için WebMCP araç şemaları.",
       "tags": ["webmcp", "mcp", "search", "personal-site"],

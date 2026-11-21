@@ -79,74 +79,20 @@
     }
 
     function buildTools() {
-        return [
-            {
-                name: "search_content",
-                description: "Blog yazıları, journal notları, kitaplık, gezinti (yerler) ve izlence kayıtlarında tam metin araması yapar; eşleşen başlık, adres ve özetleri döndürür.",
-                inputSchema: {
-                    type: "object",
-                    additionalProperties: false,
-                    required: ["query"],
-                    properties: {
-                        query: {
-                            type: "string",
-                            minLength: 2,
-                            maxLength: 200,
-                            description: "Aranacak kelime veya ifade. En az iki karakter olmalıdır."
-                        },
-                        collection: {
-                            type: "string",
-                            enum: ["all", "articles", "notes", "books", "places", "videos"],
-                            default: "all",
-                            description: "Aramanın sınırlandırılacağı koleksiyon. all tüm koleksiyonları tarar."
-                        },
-                        limit: {
-                            type: "integer",
-                            minimum: 1,
-                            maximum: 25,
-                            default: 8,
-                            description: "Döndürülecek maksimum sonuç sayısı (1-25)."
-                        }
-                    }
-                },
-                annotations: {
-                    readOnlyHint: true,
-                    untrustedContentHint: true,
-                    consequentialHint: false
-                },
-                execute: executors.search_content
-            },
-            {
-                name: "list_site_sections",
-                description: "Sitenin ajanların gezebileceği ana bölümlerini, keşif dosyalarını ve içerik indekslerini listeler.",
-                inputSchema: {
-                    type: "object",
-                    additionalProperties: false,
-                    properties: {}
-                },
-                annotations: {
-                    readOnlyHint: true,
-                    untrustedContentHint: false,
-                    consequentialHint: false
-                },
-                execute: executors.list_site_sections
-            },
-            {
-                name: "get_site_overview",
-                description: "LLM'ler için hazırlanmış llms.txt içeriğini okur; site yapısı ve öncelikli bağlantıları döndürür.",
-                inputSchema: {
-                    type: "object",
-                    additionalProperties: false,
-                    properties: {}
-                },
-                annotations: {
-                    readOnlyHint: true,
-                    untrustedContentHint: false,
-                    consequentialHint: false
-                },
-                execute: executors.get_site_overview
-            }
-        ];
+        // Şemaların tek kaynağı _data/webmcp_tools.json; yayımlanan JSON dosyası
+        // ve bu JS aynıtan üretilir.
+        var definitions = window.WebMCPToolDefinitions || [];
+        return definitions.filter(function (definition) {
+            return definition && typeof executors[definition.name] === "function";
+        }).map(function (definition) {
+            return {
+                name: definition.name,
+                description: definition.description,
+                inputSchema: definition.inputSchema,
+                annotations: definition.annotations,
+                execute: executors[definition.name]
+            };
+        });
     }
 
     function bindAgentEvents() {
