@@ -153,8 +153,14 @@
         var ctx = getModelContext();
         if (!ctx || typeof ctx.addEventListener !== "function") return;
 
-        ctx.addEventListener("toolactivated", function () {
+        ctx.addEventListener("toolactivated", function (event) {
+            if (!event || event.toolName !== "search_site") return;
             window.dispatchEvent(new CustomEvent("webmcp-open-search"));
+        });
+
+        ctx.addEventListener("toolcancel", function (event) {
+            if (!event || event.toolName !== "search_site") return;
+            window.dispatchEvent(new CustomEvent("webmcp-close-search"));
         });
     }
 

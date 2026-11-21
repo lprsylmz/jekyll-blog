@@ -696,7 +696,7 @@
         setTimeout(() => { const el = document.getElementById('search-input'); if (el) el.focus(); }, 100);
       }
     }
-  }" @themechange.window="darkMode = $event.detail.dark" @webmcp-open-search.window="searchOpen = true"
+  }" @themechange.window="darkMode = $event.detail.dark" @webmcp-open-search.window="searchOpen = true" @webmcp-close-search.window="searchOpen = false"
     @palettechange.window="palette = $event.detail.palette; paletteName = window.paletteLabel($event.detail.palette)"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
