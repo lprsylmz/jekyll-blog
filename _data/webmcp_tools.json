@@ -34,6 +34,35 @@
           }
         }
       },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["query", "collection", "count", "results"],
+        "properties": {
+          "query": { "type": "string" },
+          "collection": { "type": "string" },
+          "count": { "type": "integer", "minimum": 0 },
+          "error": { "type": "string" },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "url", "collection"],
+              "properties": {
+                "title": { "type": "string" },
+                "url": { "type": "string" },
+                "date": { "type": "string" },
+                "author": { "type": "string" },
+                "collection": {
+                  "type": "string",
+                  "enum": ["articles", "notes", "books", "places", "videos", "other"]
+                }
+              }
+            }
+          }
+        }
+      },
       "annotations": {
         "readOnlyHint": true,
         "untrustedContentHint": true,

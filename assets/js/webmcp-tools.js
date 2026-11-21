@@ -19,10 +19,10 @@
             var collection = args && args.collection ? args.collection : "all";
             var limit = args && args.limit ? Number(args.limit) : 8;
             if (!siteSearch) {
-                return Promise.resolve({ results: [], error: "arama servisi yüklenemedi" });
+                return Promise.resolve({ query: query, collection: collection, count: 0, results: [], error: "arama servisi yüklenemedi" });
             }
             if (siteSearch.normalize(query).length < 2) {
-                return Promise.resolve({ results: [], error: "query en az 2 karakter olmalıdır" });
+                return Promise.resolve({ query: query, collection: collection, count: 0, results: [], error: "query en az 2 karakter olmalıdır" });
             }
             if (!limit || limit < 1) limit = 8;
             if (limit > 25) limit = 25;
@@ -97,6 +97,7 @@
                 name: definition.name,
                 description: definition.description,
                 inputSchema: definition.inputSchema,
+                outputSchema: definition.outputSchema,
                 annotations: definition.annotations,
                 execute: executors[definition.name]
             };
