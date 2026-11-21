@@ -20,4 +20,4 @@ is_published: true
 
 Türbesi Ankara'nın Ayaş İlçesi'nde kendi ismi verilen camidedir.
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.1494561873465!2d32.33325082861427!3d40.0175024462188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d2d860a5555343%3A0x3175a09863152d2a!2sB%C3%BCnyamin%20Aya%C5%9Fi%20Hazretleri%20Cami%20Ve%20T%C3%BCrbesi!5e0!3m2!1str!2str!4v1775767461219!5m2!1str!2str" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.1494561873465!2d32.33325082861427!3d40.0175024462188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d2d860a5555343%3A0x3175a09863152d2a!2sB%C3%BCnyamin%20Aya%C5%9Fi%20Hazretleri%20Cami%20Ve%20T%C3%BCrbesi!5e0!3m2!1str!2str!4v1775767461219!5m2!1str!2str" width="400" height="300" style="border:0;" title="Bünyamin Ayaşi Hazretleri Cami ve Türbesi konumu" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

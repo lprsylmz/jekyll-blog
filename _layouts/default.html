@@ -1306,6 +1306,8 @@
                     if (isShort) embedUrl += '&loop=1';
 
                     iframe.src = embedUrl;
+                    iframe.title = `YouTube videosi (${videoId})`;
+                    iframe.loading = 'lazy';
                     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
                     iframe.allowFullscreen = true;
                     iframe.frameBorder = "0";
