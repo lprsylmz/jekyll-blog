@@ -198,7 +198,7 @@ layout: null
     :class="{ 'bg-brand-light text-brand-dark': !darkMode, 'bg-brand-dark text-white': darkMode }">
     <main id="container" class="flex flex-col flex-grow items-center">
         <div class="mt-12 p-8 rounded-full">
-            <button @click="toggleDarkMode">
+            <button type="button" @click="toggleDarkMode">
                 <img fetchpriority="high" x-show="darkMode" style="display: none;"
                     src="assets/images/Logo-Bold-Beyaz.svg" alt="Alper Söylemez" width="512" height="512"
                     class="rounded-full w-32 h-32 mx-auto  transform transition-transform duration-200 hover:scale-150    hover:shadow-sm hover:shadow-white" />
@@ -430,11 +430,11 @@ layout: null
                 için Çerez Politikası</a>
         </p>
         <div class="flex gap-3">
-            <button @click="acceptCookies()"
+            <button type="button" @click="acceptCookies()"
                 class="px-6 py-2 bg-brand-dark dark:bg-brand-light text-brand-light dark:text-brand-dark hover:bg-brand-accent dark:hover:bg-brand-muted font-bold rounded-lg transition-colors whitespace-nowrap">
                 Kabul Et
             </button>
-            <button @click="rejectCookies()"
+            <button type="button" @click="rejectCookies()"
                 class="px-6 py-2 bg-brand-accent text-brand-light hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
                 Reddet
             </button>

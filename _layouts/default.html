@@ -764,7 +764,7 @@
 
                 <!-- Controls -->
                 <div class="flex items-center gap-2">
-                    <button id="search-toggle-btn" x-on:click="toggleSearch()" aria-label="Arama"
+                    <button type="button" id="search-toggle-btn" x-on:click="toggleSearch()" aria-label="Arama"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -811,7 +811,7 @@
                             <span class="block h-1 rounded-full bg-brand-accent" style="width:25%"></span>
                         </span>
                     </button>
-                    <button x-on:click="toggle()" aria-label="Karanlık Mod"
+                    <button type="button" x-on:click="toggle()" aria-label="Karanlık Mod"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent flex items-center justify-center">
                         <svg x-show="!darkMode" title="Karanlık Mod" class="w-6 h-6" fill="currentColor"
                             viewBox="0 0 24 24">
@@ -965,11 +965,11 @@
                 için Çerez Politikası</a>
         </p>
         <div class="flex gap-3">
-            <button data-cookie-action="accept" x-on:click="show = false"
+            <button type="button" data-cookie-action="accept" x-on:click="show = false"
                 class="px-6 py-2 bg-brand-dark dark:bg-brand-light text-brand-light dark:text-brand-dark hover:bg-brand-accent dark:hover:bg-brand-muted font-bold rounded-lg transition-colors whitespace-nowrap">
                 Kabul Et
             </button>
-            <button data-cookie-action="reject" x-on:click="show = false"
+            <button type="button" data-cookie-action="reject" x-on:click="show = false"
                 class="px-6 py-2 bg-brand-primary text-white hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
                 Reddet
             </button>
