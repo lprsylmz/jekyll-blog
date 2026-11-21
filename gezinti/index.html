@@ -19,6 +19,8 @@ description: Gezilen yerler
                 <div class="relative rounded-lg p-1 shadow-lg transition-colors duration-300 w-full">
                     <img src="{{ place.image | default: '/assets/images/placeholder-poster.svg' }}"
                         alt="{{ place.title }}"
+                        width="{{ place.image_width | default: 800 }}"
+                        height="{{ place.image_height | default: 1200 }}"
                         class="w-full h-auto rounded shadow-lg object-cover transition-transform duration-300 group-hover:scale-105"
                         style="aspect-ratio: 2/3;">
                     <div
