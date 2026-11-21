@@ -30,11 +30,11 @@ tags: [kitap, goodreads]
         <a href="https://www.goodreads.com/review/show/6349903395" class="no-underline text-[#00635d] font-bold text-sm leading-tight">Dune</a>
         <!-- Stars -->
         <div class="flex space-x-0.5 mt-1">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
         </div>
       </div>
       <span class="text-xs text-gray-800 block">by <a href="https://www.goodreads.com/author/show/58.Frank_Herbert" class="text-[#00635d] no-underline">Frank Herbert</a></span>
@@ -54,11 +54,11 @@ tags: [kitap, goodreads]
         <a href="https://www.goodreads.com/review/show/7112731741" class="no-underline text-[#00635d] font-bold text-sm leading-tight">İbn Battuta Seyahatnamesi</a>
         <!-- Stars -->
         <div class="flex space-x-0.5 mt-1">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
-          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
+          <img src="https://s.gr-assets.com/images/layout/gr_red_star_inactive.png" alt="" width="10" height="10" class="w-2.5 h-2.5">
         </div>
       </div>
       <span class="text-xs text-gray-800 block">by <a href="https://www.goodreads.com/author/show/49575.Ibn_Battuta" class="text-[#00635d] no-underline">Ibn Battuta</a></span>
