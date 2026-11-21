@@ -4,10 +4,12 @@
 #
 # Kullanım: sh scripts/build-css.sh
 # Çıktı:   assets/css/tailwind.css
+#          _includes/tailwind-inline.css (safe modda satır içi kullanım için)
 set -eu
 cd "$(dirname "$0")/.."
-exec npx --yes tailwindcss@3.4.17 \
+npx --yes tailwindcss@3.4.17 \
     --config scripts/tailwind.config.js \
     --input scripts/tailwind.src.css \
     --output assets/css/tailwind.css \
     --minify
+cp assets/css/tailwind.css _includes/tailwind-inline.css

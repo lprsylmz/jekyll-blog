@@ -203,7 +203,7 @@
 
     <style>
         /* Kritik CSS: ilk boyamayı engelleyen harici istek kalmasın. */
-        {{ site.data.tailwind_css }}
+        {% include tailwind-inline.css %}
 
         /* WebMCP: bir ajan formu odaklayıp doldurduğunda görünür odak geri bildirimi. */
         form:tool-form-active {
