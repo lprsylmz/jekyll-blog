@@ -776,7 +776,7 @@
                 class="w-full py-2 text-sm bg-teal-600 text-white rounded font-semibold shadow-sm hover:bg-teal-700 transition mb-2"
                 x-text="ui.buttons.export">Dışa Aktar - JSON</button>
             <input type="file" id="import-input" @change="importData" accept="application/json" class="hidden">
-            <button onclick="document.getElementById('import-input').click()"
+            <button data-action="trigger-import" data-target="import-input"
                 class="w-full py-2 text-sm bg-emerald-600 text-white rounded font-semibold shadow-sm hover:bg-emerald-700 transition mb-2"
                 x-text="ui.buttons.import">İçe Aktar - JSON</button>
             <button @click="clearAllData()"
@@ -812,7 +812,7 @@
                         </svg>
                     </a>
                     <button type="button"
-                        onclick="navigator.clipboard.writeText('https://alpersoylemez.com/habits2027/landscape').then(() => { const c = this.querySelector('.copy-icon'); const k = this.querySelector('.check-icon'); if (c && k) { c.classList.add('hidden'); k.classList.remove('hidden'); setTimeout(() => { c.classList.remove('hidden'); k.classList.add('hidden'); }, 2000); } })"
+                        data-action="copy-url" data-copy-url="https://alpersoylemez.com/habits2027/landscape"
                         class="flex items-center justify-center py-2 rounded bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition"
                         title="Bağlantıyı kopyala">
                         <svg class="copy-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -834,7 +834,7 @@
                 <p class="text-sm font-semibold mb-2 text-indigo-900" x-text="ui.headers.pageOrientation"></p>
                 <div class="flex gap-2">
                     <button
-                        onclick="localStorage.setItem('preferredOrientation_v8', 'portrait'); window.location.href='/habits2027'"
+                        data-action="set-orientation" data-orientation="portrait" data-orientation-url="/habits2027"
                         class="flex-1 py-2 text-sm font-semibold rounded bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition">
                         <span x-text="ui.buttons.portrait"></span>
                     </button>
@@ -20267,9 +20267,18 @@
                 printWindow.document.write('img { width: 100%; height: auto; max-width: 297mm; }');
                 printWindow.document.write('<\/style>');
                 printWindow.document.write('<\/head><body>');
-                printWindow.document.write('<img src="' + imgData + '" onload="setTimeout(function(){window.print(); window.close();}, 500);" />'); // Timeout to ensure load
                 printWindow.document.write('<\/body><\/html>');
                 printWindow.document.close();
+
+                const printImage = printWindow.document.createElement('img');
+                printImage.addEventListener('load', function () {
+                    setTimeout(function () {
+                        printWindow.print();
+                        printWindow.close();
+                    }, 500);
+                }, { once: true });
+                printImage.src = imgData;
+                printWindow.document.body.appendChild(printImage);
             });
         });
     </script>
@@ -20375,6 +20384,43 @@
                 }
             }
         }
+    </script>
+
+    <script>
+        (function () {
+            document.addEventListener('click', function (event) {
+                const button = event.target.closest('[data-action]');
+                if (!button) return;
+                const action = button.dataset.action;
+
+                if (action === 'trigger-import') {
+                    const input = document.getElementById(button.dataset.target);
+                    if (input) input.click();
+                    return;
+                }
+
+                if (action === 'copy-url') {
+                    const url = button.dataset.copyUrl;
+                    if (!url) return;
+                    navigator.clipboard.writeText(url).then(function () {
+                        const copyIcon = button.querySelector('.copy-icon');
+                        const checkIcon = button.querySelector('.check-icon');
+                        if (copyIcon) copyIcon.classList.add('hidden');
+                        if (checkIcon) checkIcon.classList.remove('hidden');
+                        setTimeout(function () {
+                            if (copyIcon) copyIcon.classList.remove('hidden');
+                            if (checkIcon) checkIcon.classList.add('hidden');
+                        }, 2000);
+                    });
+                    return;
+                }
+
+                if (action === 'set-orientation') {
+                    localStorage.setItem('preferredOrientation_v8', button.dataset.orientation);
+                    window.location.href = button.dataset.orientationUrl;
+                }
+            });
+        })();
     </script>
 </body>
 

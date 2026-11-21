@@ -945,11 +945,11 @@
                 için Çerez Politikası</a>
         </p>
         <div class="flex gap-3">
-            <button onclick="acceptCookies()" x-on:click="show = false"
+            <button data-cookie-action="accept" x-on:click="show = false"
                 class="px-6 py-2 bg-brand-dark dark:bg-brand-light text-brand-light dark:text-brand-dark hover:bg-brand-accent dark:hover:bg-brand-muted font-bold rounded-lg transition-colors whitespace-nowrap">
                 Kabul Et
             </button>
-            <button onclick="rejectCookies()" x-on:click="show = false"
+            <button data-cookie-action="reject" x-on:click="show = false"
                 class="px-6 py-2 bg-brand-primary text-white hover:opacity-90 font-bold rounded-lg transition-colors whitespace-nowrap">
                 Reddet
             </button>
@@ -1027,6 +1027,13 @@
         window.rejectCookies = function () {
             setConsent('rejected');
         };
+
+        document.querySelectorAll('[data-cookie-action]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                if (button.dataset.cookieAction === 'accept') window.acceptCookies();
+                else window.rejectCookies();
+            });
+        });
     </script>
 
     <!-- Reading Progress + Code Copy -->
@@ -1127,7 +1134,7 @@
                     pre.parentNode.insertBefore(wrapper, pre);
                     wrapper.appendChild(pre);
                     wrapper.appendChild(btn);
-                    btn.onclick = function (e) {
+                    btn.addEventListener('click', function (e) {
                         e.preventDefault(); e.stopPropagation();
                         const text = pre.innerText || pre.textContent;
                         (navigator.clipboard && window.isSecureContext
@@ -1147,7 +1154,7 @@
                             btn.setAttribute('aria-live', 'polite');
                             btn.textContent = 'Kopyalama başarısız oldu';
                         });
-                    };
+                    });
                 });
             }
 
@@ -1273,7 +1280,7 @@
                 placeholder.append(thumb, play);
                 containerElement.replaceChildren(placeholder);
 
-                placeholder.onclick = () => {
+                placeholder.addEventListener('click', () => {
                     const iframe = document.createElement('iframe');
                     let embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0`;
                     if (isShort) embedUrl += '&loop=1';
@@ -1291,8 +1298,7 @@
 
                     placeholder.replaceChildren(iframe);
                     placeholder.style.cursor = 'default';
-                    placeholder.onclick = null;
-                };
+                }, { once: true });
             }
 
             async function renderLinkPreview(containerElement, url) {

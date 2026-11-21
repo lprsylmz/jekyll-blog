@@ -646,7 +646,7 @@
             <button id="print-btn" class="w-full py-2 text-sm bg-violet-600 text-white rounded font-semibold shadow-sm hover:bg-violet-700 transition mb-2" x-text="ui.buttons.print">Yazdır (A4 Dikey)</button>
             <button @click="exportData()" class="w-full py-2 text-sm bg-teal-600 text-white rounded font-semibold shadow-sm hover:bg-teal-700 transition mb-2" x-text="ui.buttons.export">Dışa Aktar - JSON</button>
             <input type="file" id="import-input" @change="importData" accept="application/json" class="hidden">
-            <button onclick="document.getElementById('import-input').click()" class="w-full py-2 text-sm bg-emerald-600 text-white rounded font-semibold shadow-sm hover:bg-emerald-700 transition mb-2" x-text="ui.buttons.import">İçe Aktar - JSON</button>
+            <button data-action="trigger-import" data-target="import-input" class="w-full py-2 text-sm bg-emerald-600 text-white rounded font-semibold shadow-sm hover:bg-emerald-700 transition mb-2" x-text="ui.buttons.import">İçe Aktar - JSON</button>
             <button @click="clearAllData()" class="w-full py-2 text-sm bg-red-600 text-white rounded font-semibold shadow-sm hover:bg-red-700 transition" x-text="ui.buttons.clearData">Tüm Verileri Temizle</button>
 
             <hr class="my-6 border-slate-200">
@@ -657,7 +657,7 @@
                     <button class="flex-1 py-2 text-sm font-semibold rounded bg-indigo-600 text-white cursor-default shadow-sm">
                         <span x-text="ui.buttons.portrait"></span>
                     </button>
-                    <button onclick="localStorage.setItem('preferredOrientation_v8', 'landscape'); window.location.href='/habits2026/landscape'" class="flex-1 py-2 text-sm font-semibold rounded bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition">
+                    <button data-action="set-orientation" data-orientation="landscape" data-orientation-url="/habits2026/landscape" class="flex-1 py-2 text-sm font-semibold rounded bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition">
                         <span x-text="ui.buttons.landscape"></span>
                     </button>
                 </div>
@@ -9701,9 +9701,18 @@
                 printWindow.document.write('img { width: 100%; height: auto; max-width: 210mm; }');
                 printWindow.document.write('<\/style>');
                 printWindow.document.write('<\/head><body>');
-                printWindow.document.write('<img src="' + imgData + '" onload="setTimeout(function(){window.print(); window.close();}, 500);" />'); // Timeout to ensure load
                 printWindow.document.write('<\/body><\/html>');
                 printWindow.document.close();
+
+                const printImage = printWindow.document.createElement('img');
+                printImage.addEventListener('load', function () {
+                    setTimeout(function () {
+                        printWindow.print();
+                        printWindow.close();
+                    }, 500);
+                }, { once: true });
+                printImage.src = imgData;
+                printWindow.document.body.appendChild(printImage);
             });
         });
     </script>
@@ -9806,6 +9815,27 @@
         }
     </script>
     <script src="assets/js/static-features.js"></script>
+
+    <script>
+        (function () {
+            document.addEventListener('click', function (event) {
+                const button = event.target.closest('[data-action]');
+                if (!button) return;
+                const action = button.dataset.action;
+
+                if (action === 'trigger-import') {
+                    const input = document.getElementById(button.dataset.target);
+                    if (input) input.click();
+                    return;
+                }
+
+                if (action === 'set-orientation') {
+                    localStorage.setItem('preferredOrientation_v8', button.dataset.orientation);
+                    window.location.href = button.dataset.orientationUrl;
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>
