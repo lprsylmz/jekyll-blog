@@ -18,16 +18,25 @@ description: Gezilen yerler
                 class="flex flex-col items-center group cursor-pointer border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl p-1 h-full">
                 <div class="relative rounded-lg p-1 shadow-lg transition-colors duration-300 w-full">
                     {% assign place_src = place.image | default: '/assets/images/placeholder-poster.svg' %}
-                    <img src="{{ place_src }}"
-                        {% if place_src contains '.webp' %}
-                        srcset="{{ place_src | replace: '.webp', '-400.webp' }} 400w, {{ place_src | replace: '.webp', '-600.webp' }} 600w, {{ place_src }} 800w"
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                        {% endif %}
-                        alt="{{ place.title }}"
-                        width="{{ place.image_width | default: 800 }}"
-                        height="{{ place.image_height | default: 1200 }}"
-                        class="w-full h-auto rounded shadow-lg object-cover transition-transform duration-300 group-hover:scale-105"
-                        style="aspect-ratio: 2/3;">
+                    {% if place_src contains '.webp' %}
+                    <picture>
+                        <source type="image/avif"
+                            srcset="{{ place_src | replace: '.webp', '-400.avif' }} 400w, {{ place_src | replace: '.webp', '-600.avif' }} 600w, {{ place_src | replace: '.webp', '.avif' }} 800w"
+                            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw">
+                    {% endif %}
+                        <img src="{{ place_src }}"
+                            {% if place_src contains '.webp' %}
+                            srcset="{{ place_src | replace: '.webp', '-400.webp' }} 400w, {{ place_src | replace: '.webp', '-600.webp' }} 600w, {{ place_src }} 800w"
+                            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                            {% endif %}
+                            alt="{{ place.title }}"
+                            width="{{ place.image_width | default: 800 }}"
+                            height="{{ place.image_height | default: 1200 }}"
+                            class="w-full h-auto rounded shadow-lg object-cover transition-transform duration-300 group-hover:scale-105"
+                            style="aspect-ratio: 2/3;">
+                    {% if place_src contains '.webp' %}
+                    </picture>
+                    {% endif %}
                     <div
                         class="absolute inset-0 bg-brand-primary bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded">
                     </div>

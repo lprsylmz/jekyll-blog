@@ -45,14 +45,19 @@ layout: default
         <div class="md:w-1/3 lg:w-1/4 flex-shrink-0">
             {% assign cover_src = page.image | default: '/assets/images/placeholder-poster.svg' %}
             {% if cover_src contains '.webp' %}
-            <img src="{{ cover_src }}"
-                srcset="{{ cover_src | replace: '.webp', '-400.webp' }} 400w, {{ cover_src | replace: '.webp', '-600.webp' }} 600w, {{ cover_src }} 800w"
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, calc(100vw - 5.125rem)"
-                alt="{{ page.title }}"
-                width="{{ page.image_width | default: 800 }}" height="{{ page.image_height | default: 1200 }}"
-                fetchpriority="high"
-                class="w-full h-auto rounded-lg shadow-xl object-cover border border-brand-dark/10 dark:border-brand-light/10"
-                style="aspect-ratio: 2/3;">
+            <picture>
+                <source type="image/avif"
+                    srcset="{{ cover_src | replace: '.webp', '-400.avif' }} 400w, {{ cover_src | replace: '.webp', '-600.avif' }} 600w, {{ cover_src | replace: '.webp', '.avif' }} 800w"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, calc(100vw - 5.125rem)">
+                <img src="{{ cover_src }}"
+                    srcset="{{ cover_src | replace: '.webp', '-400.webp' }} 400w, {{ cover_src | replace: '.webp', '-600.webp' }} 600w, {{ cover_src }} 800w"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, calc(100vw - 5.125rem)"
+                    alt="{{ page.title }}"
+                    width="{{ page.image_width | default: 800 }}" height="{{ page.image_height | default: 1200 }}"
+                    fetchpriority="high"
+                    class="w-full h-auto rounded-lg shadow-xl object-cover border border-brand-dark/10 dark:border-brand-light/10"
+                    style="aspect-ratio: 2/3;">
+            </picture>
             {% else %}
             <img src="{{ cover_src }}"
                 alt="{{ page.title }}"
