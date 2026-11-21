@@ -27,6 +27,7 @@ kramdown:
 
 include:
   - .well-known
+  - _headers
 
 exclude:
   - Gemfile
