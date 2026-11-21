@@ -19,8 +19,11 @@
   const applyJournalFilter = () => {
     const notes = [...document.querySelectorAll('article[id^="note-"]')];
     if (!notes.length || !tag) return;
+    const normalizedTag = tag.replace(/^#/, '').toLocaleLowerCase('tr-TR');
     notes.forEach((note) => {
-      note.hidden = !new RegExp(`#${tag}(?![\\w-])`, 'iu').test(note.innerText);
+      const hashtags = [...note.innerText.matchAll(/#([\p{L}\p{N}_-]+)/gu)]
+        .map((match) => match[1].toLocaleLowerCase('tr-TR'));
+      note.hidden = !hashtags.includes(normalizedTag);
     });
   };
 
