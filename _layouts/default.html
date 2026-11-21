@@ -243,7 +243,7 @@
         }
 
         .prose a {
-            color: #4A6FA5;
+            color: light-dark(#4A6FA5, #8D99AE);
             text-decoration: underline;
             text-underline-offset: 2px;
         }
@@ -531,7 +531,7 @@
 
         .link-preview-url {
             font-size: 0.75rem;
-            color: #4A6FA5;
+            color: light-dark(#4A6FA5, #8D99AE);
             text-transform: lowercase;
             margin-top: 4px;
             display: flex;
@@ -909,7 +909,7 @@
         <!-- FOOTER — ✅ _config.yml: site.author -->
         <footer
             class="mt-24 pt-12 border-t border-brand-muted/30 dark:border-brand-accent/30 text-sm text-brand-accent dark:text-brand-muted flex flex-col items-center justify-center text-center gap-2">
-            <nav aria-label="Alt menü" class="opacity-60 hover:opacity-100 transition-opacity">
+            <nav aria-label="Alt menü">
                 <a href="{{ '/feed.xml' | relative_url }}"
                     class="hover:text-brand-dark dark:hover:text-brand-light transition-colors uppercase tracking-[0.2em] text-[10px] font-bold">RSS
                     Feed</a>
