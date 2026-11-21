@@ -46,8 +46,8 @@ layout: default
             {% assign cover_src = page.image | default: '/assets/images/placeholder-poster.svg' %}
             {% if cover_src contains '.webp' %}
             <img src="{{ cover_src }}"
-                srcset="{{ cover_src | replace: '.webp', '-400.webp' }} 400w, {{ cover_src }} 800w"
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
+                srcset="{{ cover_src | replace: '.webp', '-400.webp' }} 400w, {{ cover_src | replace: '.webp', '-600.webp' }} 600w, {{ cover_src }} 800w"
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, calc(100vw - 5.125rem)"
                 alt="{{ page.title }}"
                 width="{{ page.image_width | default: 800 }}" height="{{ page.image_height | default: 1200 }}"
                 fetchpriority="high"

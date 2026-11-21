@@ -20,7 +20,7 @@ description: Gezilen yerler
                     {% assign place_src = place.image | default: '/assets/images/placeholder-poster.svg' %}
                     <img src="{{ place_src }}"
                         {% if place_src contains '.webp' %}
-                        srcset="{{ place_src | replace: '.webp', '-400.webp' }} 400w, {{ place_src }} 800w"
+                        srcset="{{ place_src | replace: '.webp', '-400.webp' }} 400w, {{ place_src | replace: '.webp', '-600.webp' }} 600w, {{ place_src }} 800w"
                         sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                         {% endif %}
                         alt="{{ place.title }}"
