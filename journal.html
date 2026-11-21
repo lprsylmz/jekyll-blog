@@ -178,17 +178,25 @@ is_journal: true
             }
 
             textNodes.forEach(node => {
-                if (tagRegex.test(node.nodeValue)) {
-                    const tempContainer = document.createElement('span');
-                    tempContainer.innerHTML = node.nodeValue.replace(tagRegex, function (match, space, tag) {
-                        return space + `<a href="${journalPath}?tag=${encodeURIComponent(tag)}" class="font-bold hover:underline">#${tag}</a>`;
-                    });
+                const text = node.nodeValue;
+                if (!text.includes('#')) return;
 
-                    while (tempContainer.firstChild) {
-                        node.parentNode.insertBefore(tempContainer.firstChild, node);
-                    }
-                    node.parentNode.removeChild(node);
+                tagRegex.lastIndex = 0;
+                const fragment = document.createDocumentFragment();
+                let lastIndex = 0;
+                let match;
+
+                while ((match = tagRegex.exec(text)) !== null) {
+                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index) + (match[1] || '')));
+                    const link = document.createElement('a');
+                    link.href = `${journalPath}?tag=${encodeURIComponent(match[2])}`;
+                    link.className = 'font-bold hover:underline';
+                    link.textContent = `#${match[2]}`;
+                    fragment.appendChild(link);
+                    lastIndex = tagRegex.lastIndex;
                 }
+                fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                node.parentNode.replaceChild(fragment, node);
             });
         });
 
