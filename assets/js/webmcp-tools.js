@@ -104,12 +104,21 @@
 
     function registerTools(tools) {
         var ctx = getModelContext();
-        if (!ctx) return;
+        if (!ctx || typeof ctx.registerTool !== "function" || typeof AbortController !== "function") {
+            return Promise.resolve(false);
+        }
 
-        tools.forEach(function (tool) {
-            if (typeof ctx.registerTool === "function") {
-                ctx.registerTool(tool);
-            }
+        // Araçların tamamı ya da hiçbiri görünür olmalı: bir kayıt başarısız olursa
+        // aynı signal ile kaydedilen tüm araçları geri al.
+        var controller = new AbortController();
+        return Promise.all(tools.map(function (tool) {
+            return ctx.registerTool(tool, { signal: controller.signal });
+        })).then(function () {
+            return true;
+        }).catch(function (error) {
+            controller.abort();
+            console.warn('[WebMCP] Araç kaydı başarısız, tüm partiler geri alındı:', error);
+            return false;
         });
     }
 
@@ -182,12 +191,12 @@
      * Araçları mümkün olan en erken anda kaydeder.
      * Lighthouse snapshot'ı için DOMContentLoaded beklenmez.
      */
-    function init() {
+    async function init() {
         bindAgentEvents();
 
         // Araçları doğrudan kaydet — JSON fetch'i bekleme
         var tools = buildTools();
-        registerTools(tools);
+        await registerTools(tools);
     }
 
     // Sayfa yüklenme durumundan bağımsız olarak hemen çalıştır
