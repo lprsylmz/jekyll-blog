@@ -32,9 +32,28 @@ module.exports = {
                 'brand-muted': 'rgb(var(--brand-muted) / <alpha-value>)',
                 'brand-primary': 'rgb(var(--brand-primary) / <alpha-value>)',
             },
+            // Yalnızca sistemlerde bulunan fontlar: indirilen webfont yok.
+            // Georgia (Apple/Windows) → Noto Serif (Android) → Liberation Serif (Linux).
             fontFamily: {
-                sans: ['"Lora"', 'Georgia', 'serif'],
-                mono: ['"JetBrains Mono"', 'monospace'],
+                sans: [
+                    'Georgia',
+                    '"Times New Roman"',
+                    '"Noto Serif"',
+                    '"Liberation Serif"',
+                    '"DejaVu Serif"',
+                    'serif',
+                ],
+                mono: [
+                    'ui-monospace',
+                    'SFMono-Regular',
+                    'Menlo',
+                    'Consolas',
+                    '"Noto Sans Mono"',
+                    '"Droid Sans Mono"',
+                    '"Liberation Mono"',
+                    '"Courier New"',
+                    'monospace',
+                ],
             },
         },
     },
