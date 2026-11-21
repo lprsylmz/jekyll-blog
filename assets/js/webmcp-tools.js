@@ -1,5 +1,4 @@
 (function () {
-    var SCHEMA_URL = "/webmcp-tools.json";
     var siteSearch = window.SiteSearch;
 
     var executors = {
@@ -50,12 +49,9 @@
         }
     };
 
-    /**
-     * Chrome 150+ sonrası doğru API: document.modelContext
-     * Eski sürümler için navigator.modelContext fallback.
-     */
+    // WebMCP'nin tek resmi giriş noktası: document.modelContext.
     function getModelContext() {
-        return (document && document.modelContext) || (navigator && navigator.modelContext) || null;
+        return document && document.modelContext ? document.modelContext : null;
     }
 
     function registerTools(tools) {
@@ -117,7 +113,7 @@
     async function init() {
         bindAgentEvents();
 
-        // Araçları doğrudan kaydet — JSON fetch'i bekleme
+        // Şemalar yüklenmiş tanımlardan gelir; ek JSON isteği yapılmaz.
         var tools = buildTools();
         await registerTools(tools);
     }
