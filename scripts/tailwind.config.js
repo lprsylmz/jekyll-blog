@@ -20,6 +20,7 @@ module.exports = {
         glob('blog/**/*.html'),
         glob('en/blog/**/*.html'),
         glob('izlence/**/*.html'),
+        glob('gezinti/**/*.html'),
         glob('journal.html'),
     ],
     theme: {

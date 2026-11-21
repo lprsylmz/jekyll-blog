@@ -84,6 +84,12 @@ def main() -> int:
     if not widths or widths[-1] != out_width:
         widths.append(out_width)
 
+    # En büyük türev de kaynaktan küçükse yeniden boyutlandırılmalı; aksi hâlde
+    # 800w olarak etiketlenen dosya aslında 2296px gibi çok daha büyük olur.
+    base = image if image.size == (out_width, out_height) else image.resize(
+        (out_width, out_height), Image.Resampling.LANCZOS
+    )
+
     out_dir = (args.out_dir or source.parent).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     name = args.name or source.stem
@@ -92,7 +98,7 @@ def main() -> int:
     avif_urls = []
     for width in widths:
         height = out_height if width == out_width else max(1, round(out_height * width / out_width))
-        variant = image if width == out_width else image.resize(
+        variant = base if width == out_width else base.resize(
             (width, height), Image.Resampling.LANCZOS
         )
         suffix = "" if width == out_width else f"-{width}"
