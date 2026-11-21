@@ -765,6 +765,7 @@
                 <!-- Controls -->
                 <div class="flex items-center gap-2">
                     <button type="button" id="search-toggle-btn" x-on:click="toggleSearch()" aria-label="Arama"
+                        aria-controls="site-search-panel" :aria-expanded="searchOpen.toString()"
                         class="p-3 rounded-2xl bg-brand-light text-brand-dark dark:bg-brand-dark dark:text-brand-light hover:bg-brand-accent/20 dark:hover:bg-brand-muted/20 transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -831,7 +832,7 @@
 
             <!-- Search Dropdown -->
             <!-- Search Dropdown -->
-            <div x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-4 pt-2"
+            <div id="site-search-panel" x-show="searchOpen" x-cloak x-transition class="absolute left-0 right-0 top-full z-50 px-4 pt-2"
                 x-data="{
                       searchQuery: '',
                       items: [],
