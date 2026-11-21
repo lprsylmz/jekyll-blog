@@ -19,6 +19,24 @@
         :root:has(> head > meta[name="color-scheme"][content="light"]) {
             color-scheme: light;
         }
+
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -4rem;
+            z-index: 100;
+            border-radius: 0.5rem;
+            background: #27374D;
+            color: #F5F0E8;
+            padding: 0.5rem 1rem;
+            transition: top 0.15s ease;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+            outline: 2px solid #B0C4DE;
+            outline-offset: 2px;
+        }
     </style>
     <script>
         (function () {
@@ -681,6 +699,8 @@
     @palettechange.window="palette = $event.detail.palette; paletteName = window.paletteLabel($event.detail.palette)"
     class="bg-brand-light text-brand-dark transition-colors duration-300 dark:bg-brand-dark dark:text-brand-light min-h-screen font-sans antialiased">
 
+    <a href="#main-content" class="skip-link">İçeriğe geç</a>
+
     <!-- Reading Progress Bar -->
     <progress id="reading-progress" class="fixed top-0 left-0 h-1 w-full z-50"
         max="100" value="0" aria-label="Okuma ilerlemesi"></progress>
@@ -906,21 +926,21 @@
         </header>
 
         <!-- MAIN CONTENT -->
-        <main class="min-h-[50vh]">
+        <main id="main-content" tabindex="-1" class="min-h-[50vh] focus:outline-none">
             {{ content }}
         </main>
 
         <!-- FOOTER — ✅ _config.yml: site.author -->
         <footer
             class="mt-24 pt-12 border-t border-brand-muted/30 dark:border-brand-accent/30 text-sm text-brand-accent dark:text-brand-muted flex flex-col items-center justify-center text-center gap-2">
-            <div class="opacity-60 hover:opacity-100 transition-opacity">
+            <nav aria-label="Alt menü" class="opacity-60 hover:opacity-100 transition-opacity">
                 <a href="{{ '/feed.xml' | relative_url }}"
                     class="hover:text-brand-dark dark:hover:text-brand-light transition-colors uppercase tracking-[0.2em] text-[10px] font-bold">RSS
                     Feed</a>
                 <span class="mx-2">|</span>
                 <a href="https://alpersoylemez.com"
                     class="hover:text-brand-dark dark:hover:text-brand-light transition-colors uppercase tracking-[0.2em] text-[10px] font-bold">About</a>
-            </div>
+            </nav>
             <p>{{ site.author }} &copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }}</p>
         </footer>
     </div>

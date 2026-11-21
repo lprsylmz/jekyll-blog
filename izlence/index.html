@@ -6,6 +6,7 @@ description: Film ve dizi izlencem; hatırlamak ve hatırlatmak için.
 
 <div class="container mx-auto px-4 sm:px-8 py-12 border border-brand-dark/10 dark:border-brand-light/10 rounded-xl shadow-2xl"
      x-data="{ filter: 'all' }">
+    <h1 class="sr-only">{{ page.title | escape }}</h1>
     <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
         <button type="button" @click="filter = 'all'"
             :class="filter === 'all' ? 'bg-brand-primary text-white' : 'bg-brand-accent/10 text-brand-accent'"
